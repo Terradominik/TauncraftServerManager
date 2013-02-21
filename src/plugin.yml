@@ -1,0 +1,12 @@
+author: Terradominik & Tauncraft-Coderteam
+database: false
+description: Tauncrafts Capture the Flag
+main: com.tauncraft.tauncapturetheflag.TaunCaptureTheFlag
+name: TaunCaptureTheFlag
+url: http://www.tauncraft.com
+version: 0.1
+permissions:
+commands:
+   tcf:
+      description: Das Main Command
+      usage: /<command> [arg0] [arg1]
