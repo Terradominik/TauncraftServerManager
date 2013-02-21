@@ -1,4 +1,4 @@
-package com.tauncraft.tauncapturetheflag;
+package com.tauncraft.tauncraftservermanager;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +15,13 @@ public class Filer {
     private static YamlConfiguration stats;
     private static File statsFile;
     private static boolean loaded = false;
-    private TaunCaptureTheFlag plugin;
+    private TauncraftServerManager plugin;
 
     /**
      * Konstruktor
      * @param plugin 
      */
-    private Filer(TaunCaptureTheFlag plugin) {
+    private Filer(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 

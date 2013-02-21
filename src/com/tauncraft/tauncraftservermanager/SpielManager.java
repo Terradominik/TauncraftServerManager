@@ -1,12 +1,12 @@
-package com.tauncraft.tauncapturetheflag;
+package com.tauncraft.tauncraftservermanager;
 
 public class SpielManager {
 
-    private TaunCaptureTheFlag plugin;
+    private TauncraftServerManager plugin;
     private boolean laufendesSpiel;
     private Spiel spiel;
 
-    public SpielManager(TaunCaptureTheFlag plugin) {
+    public SpielManager(TauncraftServerManager plugin) {
         this.plugin = plugin;
         laufendesSpiel = false;
     }

@@ -1,6 +1,6 @@
-package com.tauncraft.tauncapturetheflag.listener;
+package com.tauncraft.tauncraftservermanager.listener;
 
-import com.tauncraft.tauncapturetheflag.TaunCaptureTheFlag;
+import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,9 +13,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
  */
 public class BlockListener implements Listener {
 
-    public TaunCaptureTheFlag plugin;
+    public TauncraftServerManager plugin;
 
-    public BlockListener(TaunCaptureTheFlag plugin) {
+    public BlockListener(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 

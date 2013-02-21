@@ -1,7 +1,7 @@
-package com.tauncraft.tauncapturetheflag;
+package com.tauncraft.tauncraftservermanager;
 
-import com.tauncraft.tauncapturetheflag.listener.BlockListener;
-import com.tauncraft.tauncapturetheflag.listener.QuitListener;
+import com.tauncraft.tauncraftservermanager.listener.BlockListener;
+import com.tauncraft.tauncraftservermanager.listener.QuitListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Terradominik / Tauncraft
  * @version 0.1
  */
-public class TaunCaptureTheFlag extends JavaPlugin {
+public class TauncraftServerManager extends JavaPlugin {
 
     public final BlockListener blockListener = new BlockListener(this);
     public final QuitListener quitListener = new QuitListener(this);

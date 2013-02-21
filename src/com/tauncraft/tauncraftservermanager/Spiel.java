@@ -1,4 +1,4 @@
-package com.tauncraft.tauncapturetheflag;
+package com.tauncraft.tauncraftservermanager;
 
 public class Spiel {
     
