@@ -3,3 +3,5 @@
 /build.xml
 /manifest.mf
 /TauncraftServerManager/nbproject/private/
+/build/
+/dist/

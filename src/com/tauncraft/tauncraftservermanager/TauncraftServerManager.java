@@ -37,19 +37,19 @@ public class TauncraftServerManager extends JavaPlugin {
         
             //Teleport
         this.getCommand("tp").setExecutor(tpc);
-        this.getCommand("tps").setExecutor(tpc);
+        //this.getCommand("tps").setExecutor(tpc);
         this.getCommand("s").setExecutor(tpc);
-        this.getCommand("port").setExecutor(tpc);
+        //this.getCommand("port").setExecutor(tpc);
         
             //Chat
-        this.getCommand("mod").setExecutor(cc);
-        this.getCommand("leitung").setExecutor(cc);
-        this.getCommand("say").setExecutor(cc);
+        //this.getCommand("mod").setExecutor(cc);
+        //this.getCommand("leitung").setExecutor(cc);
+        //this.getCommand("say").setExecutor(cc);
 
         
             //Fun
         this.getCommand("blockhead").setExecutor(fc);
-        this.getCommand("head").setExecutor(fc);
+        //this.getCommand("head").setExecutor(fc);
         
             //Punish
 
