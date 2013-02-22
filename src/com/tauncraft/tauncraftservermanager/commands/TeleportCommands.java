@@ -5,8 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Skull;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -45,14 +43,11 @@ public class TeleportCommands implements CommandExecutor {
                         break;
                     default:
                         //Ausgabe: "Das Command wurde noch nicht implementiert"
-                        return false;
                 }
-                return true;
             }
-            return false;
         }
         //Ausgabe: "Du hast nicht die nötigen Permissions"
-        return false;
+        return true;
     }
 
     /**
