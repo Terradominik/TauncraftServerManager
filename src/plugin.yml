@@ -1,12 +1,12 @@
-author: Terradominik & Tauncraft-Coderteam
+author: Tauncraft-Coderteam
 database: false
-description: Tauncrafts Capture the Flag
-main: com.tauncraft.tauncapturetheflag.TaunCaptureTheFlag
-name: TaunCaptureTheFlag
+description: Tauncrafts Server Manager
+main: com.tauncraft.tauncraftservermanager.TauncraftServerManager
+name: TauncraftServerManager
 url: http://www.tauncraft.com
 version: 0.1
 permissions:
 commands:
-   tcf:
-      description: Das Main Command
+   tp:
+      description: Teleportation
       usage: /<command> [arg0] [arg1]

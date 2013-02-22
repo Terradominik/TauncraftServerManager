@@ -25,6 +25,8 @@ public class TauncraftServerManager extends JavaPlugin {
         this.loadConfig();
 
         //Command Registration
+        
+            //Sinnvoll
         this.getCommand("tp").setExecutor(new Commands(this));
         this.getCommand("tps").setExecutor(new Commands(this));
         this.getCommand("s").setExecutor(new Commands(this));
@@ -32,8 +34,12 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("leitung").setExecutor(new Commands(this));
         this.getCommand("say").setExecutor(new Commands(this));
         this.getCommand("port").setExecutor(new Commands(this));
+        
+            //Spaß
         this.getCommand("blockhead").setExecutor(new Commands(this));
         this.getCommand("head").setExecutor(new Commands(this));
+        
+            //Punish
 
         //Listener Registration
         pm.registerEvents(this.blockListener, this);

@@ -4,6 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Skull;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -53,12 +55,15 @@ public class Commands implements CommandExecutor {
     }
 
     /**
-     * Teleportation
+     * Teleportiert dich zu einem anderen Spieler
      *
-     * @param pl
-     * @param strings
+     * @param sender
+     * @param args
      */
     private void tp(Player sender, String[] args) {
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /tp <Spieler1> [Spieler2]"
+        }
         if (args.length == 1) {
             try {
                 Player target = plugin.getServer().getPlayer(args[0]);
@@ -74,10 +79,10 @@ public class Commands implements CommandExecutor {
     }
 
     /**
-     * Consolen Teleportation
+     * Teleportiert target1 zu target2
      *
      * @param sender
-     * @param strings
+     * @param args
      */
     private void tpConsole(CommandSender sender, String[] args) {
         if (args.length >= 2) {
@@ -95,13 +100,16 @@ public class Commands implements CommandExecutor {
     }
 
     /**
-     * Teleportation zu einem
+     * Teleportiert einen Spieler zu dir
      * 
      * @param sender
      * @param args 
      */
     private void s(Player sender, String[] args) {
-        if (args.length == 1) {
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /s <Spieler>"
+        }
+        if (args.length >= 1) {
             try {
                 Player target = plugin.getServer().getPlayer(args[0]);
                 target.teleport(sender);
@@ -110,6 +118,20 @@ public class Commands implements CommandExecutor {
             } catch (NullPointerException npe) {
                 //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
             }
+        }
+    }
+    
+    /**
+     * Gibt dir den Kopf von Spieler ins Inventar
+     * 
+     * @param sender
+     * @param args
+     */
+    private void head(Player sender, String[] args){
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /head <Spieler>"
+        }
+        if(args.length >= 1) {
         }
     }
 }
