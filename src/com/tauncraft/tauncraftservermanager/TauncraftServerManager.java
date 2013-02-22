@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * TauncraftServerManager - Hauptklasse
+ *
  * @author Terradominik | raffi287
  * @version 2012-02-22
  */
@@ -14,7 +15,7 @@ public class TauncraftServerManager extends JavaPlugin {
 
     public final BlockListener blockListener = new BlockListener(this);
     public final QuitListener quitListener = new QuitListener(this);
-    
+
     /**
      * Beim Enablen
      */
@@ -22,7 +23,7 @@ public class TauncraftServerManager extends JavaPlugin {
     public void onEnable() {
         final PluginManager pm = getServer().getPluginManager();
         this.loadConfig();
-        
+
         //Command Registration
         this.getCommand("tp").setExecutor(new Commands(this));
         this.getCommand("tps").setExecutor(new Commands(this));
@@ -47,7 +48,7 @@ public class TauncraftServerManager extends JavaPlugin {
         //Speichern der Config
         this.saveConfig();
     }
-    
+
     /**
      * Ladet Config
      */
