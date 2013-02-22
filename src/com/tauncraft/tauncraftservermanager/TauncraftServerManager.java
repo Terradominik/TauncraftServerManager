@@ -6,35 +6,46 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * TaunCaptureTheFlag
- * @author Terradominik / Tauncraft
- * @version 0.1
+ * TauncraftServerManager - Hauptklasse
+ * @author Terradominik | raffi287
+ * @version 2012-02-22
  */
 public class TauncraftServerManager extends JavaPlugin {
 
     public final BlockListener blockListener = new BlockListener(this);
     public final QuitListener quitListener = new QuitListener(this);
-    public final SpielManager spielManager = new SpielManager(this);
     
+    /**
+     * Beim Enablen
+     */
     @Override
     public void onEnable() {
         final PluginManager pm = getServer().getPluginManager();
         this.loadConfig();
-        Filer.loadStats();
         
         //Command Registration
-        this.getCommand("tcf").setExecutor(new Commands(this));
+        this.getCommand("tp").setExecutor(new Commands(this));
+        this.getCommand("tps").setExecutor(new Commands(this));
+        this.getCommand("s").setExecutor(new Commands(this));
+        this.getCommand("mod").setExecutor(new Commands(this));
+        this.getCommand("leitung").setExecutor(new Commands(this));
+        this.getCommand("say").setExecutor(new Commands(this));
+        this.getCommand("port").setExecutor(new Commands(this));
+        this.getCommand("blockhead").setExecutor(new Commands(this));
+        this.getCommand("head").setExecutor(new Commands(this));
 
         //Listener Registration
         pm.registerEvents(this.blockListener, this);
         pm.registerEvents(this.quitListener, this);
     }
 
+    /**
+     * Beim Disablen
+     */
     @Override
     public void onDisable() {
         //Speichern der Config
         this.saveConfig();
-        Filer.saveStats();
     }
     
     /**
