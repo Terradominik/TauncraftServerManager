@@ -44,13 +44,10 @@ public class PunishCommands implements CommandExecutor {
                         break;
                     default:
                         //Ausgabe: "Das Command wurde noch nicht implementiert"
-                        return false;
                 }
-                return true;
             }
-            return false;
         }
         //Ausgabe: "Du hast nicht die nötigen Permissions"
-        return false;
+        return true;
     }
 }

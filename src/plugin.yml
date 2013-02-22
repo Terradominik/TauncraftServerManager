@@ -16,3 +16,6 @@ commands:
    blockhead:
      description: Block als kopf
      usage: /<command> [arg0]
+   invsee:
+     description: Inventar öffnen
+     usage: /<command> [arg0]

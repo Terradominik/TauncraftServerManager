@@ -57,7 +57,7 @@ public class TeleportCommands implements CommandExecutor {
      * @param args
      */
     private void tp(Player sender, String[] args) {
-        if(args.length == 0) {
+        if (args.length == 0) {
             //Ausgabe: "Verwendung: /tp <Spieler1> [Spieler2]"
         }
         if (args.length == 1) {
@@ -103,7 +103,7 @@ public class TeleportCommands implements CommandExecutor {
      */
     private void s(Player sender, String[] args) {
         if(args.length == 0) {
-            //Ausgabe: "Verwendung: /s <Spieler>"
+            //Ausgabe "Verwendung: /s <Spieler>"
         }
         if (args.length >= 1) {
             try {

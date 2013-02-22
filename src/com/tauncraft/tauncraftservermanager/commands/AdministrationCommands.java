@@ -16,12 +16,11 @@ import org.bukkit.plugin.Plugin;
  * @author
  * Raffael
  */
-public class ChatCommands implements CommandExecutor {
-    
+public class AdministrationCommands implements CommandExecutor{
     
     private Plugin plugin;
-
-    public ChatCommands(TauncraftServerManager plugin) {
+    
+    public AdministrationCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
     
@@ -36,11 +35,11 @@ public class ChatCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.chat." + label) || sender.hasPermission("taunsm.chat.*") ||sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.admin." + label) || sender.hasPermission("taunsm.admin.*") ||sender.hasPermission("taunsm.*") || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
-                    case "command":
-                        //method((Player) sender, args);
+                    case "invsee":
+                        invsee((Player) sender, args);
                         break;
                     default:
                         //Ausgabe: "Das Command wurde noch nicht implementiert"
@@ -49,5 +48,18 @@ public class ChatCommands implements CommandExecutor {
         }
         //Ausgabe: "Du hast nicht die nötigen Permissions"
         return true;
+    }
+    
+    private void invsee(Player sender, String[] args){
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /invsee <Spieler>"
+        }
+        if(args.length >= 1) {
+            if(plugin.getServer().getPlayer(args[0]) != null){
+                Player target = plugin.getServer().getPlayer(args[0]);
+                sender.openInventory(target.getInventory());
+                //Ausgabe: "Du hast das Inventar von " + target + " geöffnet"
+            }
+        }
     }
 }

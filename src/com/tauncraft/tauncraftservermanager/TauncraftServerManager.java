@@ -1,5 +1,6 @@
 package com.tauncraft.tauncraftservermanager;
 
+import com.tauncraft.tauncraftservermanager.commands.AdministrationCommands;
 import com.tauncraft.tauncraftservermanager.commands.ChatCommands;
 import com.tauncraft.tauncraftservermanager.commands.FunCommands;
 import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
@@ -20,10 +21,11 @@ public class TauncraftServerManager extends JavaPlugin {
 
     public final BlockListener blockListener = new BlockListener(this);
     public final QuitListener quitListener = new QuitListener(this);
-    private TeleportCommands tpc;
-    private ChatCommands cc;
-    private FunCommands fc;
-    private PunishCommands pc;
+    private TeleportCommands tpc = new TeleportCommands(this);
+    private ChatCommands cc = new ChatCommands(this);
+    private FunCommands fc = new FunCommands(this);
+    private PunishCommands pc = new PunishCommands(this);
+    private AdministrationCommands ac = new AdministrationCommands(this);
 
     /**
      * Beim Enablen
@@ -53,6 +55,10 @@ public class TauncraftServerManager extends JavaPlugin {
         
             //Punish
 
+            //Administration
+        this.getCommand("invsee").setExecutor(ac);
+        
+        
         //Listener Registration
         pm.registerEvents(this.blockListener, this);
         pm.registerEvents(this.quitListener, this);
