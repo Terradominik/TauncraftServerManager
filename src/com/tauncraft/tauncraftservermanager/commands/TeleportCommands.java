@@ -1,5 +1,6 @@
-package com.tauncraft.tauncraftservermanager;
+package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,11 +15,11 @@ import org.bukkit.plugin.Plugin;
  * @author Terradomninik | raffi287
  * @version 2012-02-22
  */
-public class Commands implements CommandExecutor {
+public class TeleportCommands implements CommandExecutor {
 
     private Plugin plugin;
 
-    public Commands(TauncraftServerManager plugin) {
+    public TeleportCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 
@@ -33,7 +34,7 @@ public class Commands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm." + label) || sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.teleport." + label) || sender.hasPermission("taunsm.teleport.*") ||sender.hasPermission("taunsm.*") || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
                     case "tp":
@@ -118,20 +119,6 @@ public class Commands implements CommandExecutor {
             } catch (NullPointerException npe) {
                 //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
             }
-        }
-    }
-    
-    /**
-     * Gibt dir den Kopf von Spieler ins Inventar
-     * 
-     * @param sender
-     * @param args
-     */
-    private void head(Player sender, String[] args){
-        if(args.length == 0) {
-            //Ausgabe: "Verwendung: /head <Spieler>"
-        }
-        if(args.length >= 1) {
         }
     }
 }

@@ -1,7 +1,12 @@
 package com.tauncraft.tauncraftservermanager;
 
+import com.tauncraft.tauncraftservermanager.commands.ChatCommands;
+import com.tauncraft.tauncraftservermanager.commands.FunCommands;
+import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
+import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,6 +20,10 @@ public class TauncraftServerManager extends JavaPlugin {
 
     public final BlockListener blockListener = new BlockListener(this);
     public final QuitListener quitListener = new QuitListener(this);
+    private TeleportCommands tpc;
+    private ChatCommands cc;
+    private FunCommands fc;
+    private PunishCommands pc;
 
     /**
      * Beim Enablen
@@ -26,18 +35,21 @@ public class TauncraftServerManager extends JavaPlugin {
 
         //Command Registration
         
-            //Sinnvoll
-        this.getCommand("tp").setExecutor(new Commands(this));
-        this.getCommand("tps").setExecutor(new Commands(this));
-        this.getCommand("s").setExecutor(new Commands(this));
-        this.getCommand("mod").setExecutor(new Commands(this));
-        this.getCommand("leitung").setExecutor(new Commands(this));
-        this.getCommand("say").setExecutor(new Commands(this));
-        this.getCommand("port").setExecutor(new Commands(this));
+            //Teleport
+        this.getCommand("tp").setExecutor(tpc);
+        this.getCommand("tps").setExecutor(tpc);
+        this.getCommand("s").setExecutor(tpc);
+        this.getCommand("port").setExecutor(tpc);
         
-            //Spaß
-        this.getCommand("blockhead").setExecutor(new Commands(this));
-        this.getCommand("head").setExecutor(new Commands(this));
+            //Chat
+        this.getCommand("mod").setExecutor(cc);
+        this.getCommand("leitung").setExecutor(cc);
+        this.getCommand("say").setExecutor(cc);
+
+        
+            //Fun
+        this.getCommand("blockhead").setExecutor(fc);
+        this.getCommand("head").setExecutor(fc);
         
             //Punish
 
