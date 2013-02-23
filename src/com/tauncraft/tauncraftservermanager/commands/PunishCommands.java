@@ -55,8 +55,8 @@ public class PunishCommands implements CommandExecutor {
         if (sender.hasPermission("taunsm.punish." + label) || sender.hasPermission("taunsm.punish.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
-                    case "command":
-                        //method((Player) sender, args);
+                    case "detonate":
+                        detonate((Player) sender, args);
                         break;
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
@@ -65,5 +65,21 @@ public class PunishCommands implements CommandExecutor {
         }
         //Ausgabe: "Du hast nicht die nötigen Permissions"
         return true;
+    }
+    
+    private void detonate(Player sender, String[] args){
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /detonate <Spieler>"
+        }
+        if(args.length >= 1) {
+            if (plugin.getServer().getPlayer(args[0]) != null) {
+                Player target = plugin.getServer().getPlayer(args[0]);
+                target.getWorld().createExplosion(target.getLocation(), 2);
+                //Ausgabe: "Du hast " + target.getDisplayName() + " hochgejagt"
+            } else {
+                //Ausgabe: "Kein Spieler mit diesem Namen online"
+            }
+            
+        }
     }
 }

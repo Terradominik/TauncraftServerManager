@@ -58,6 +58,9 @@ public class AdministrationCommands implements CommandExecutor {
                     case "invsee":
                         invsee((Player) sender, args);
                         break;
+                    case "end":
+                        end((Player) sender, args);
+                        break;
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
@@ -75,7 +78,20 @@ public class AdministrationCommands implements CommandExecutor {
             if (plugin.getServer().getPlayer(args[0]) != null) {
                 Player target = plugin.getServer().getPlayer(args[0]);
                 sender.openInventory(target.getInventory());
-                //Ausgabe: "Du hast das Inventar von " + target + " geöffnet"
+                //Ausgabe: "Du hast das Inventar von " + target.getDisplayName() + " geöffnet"
+            }
+        }
+    }
+    
+    private void end(Player sender, String[] args) {
+        if (args.length == 0) {
+            sender.openInventory(sender.getEnderChest());
+        }
+        if (args.length >= 1) {
+            if (plugin.getServer().getPlayer(args[0]) != null) {
+                Player target = plugin.getServer().getPlayer(args[0]);
+                sender.openInventory(target.getEnderChest());
+                //Ausgabe: "Du hast die Enderchest von " + target.getDisplayName() + " geöffnet"
             }
         }
     }

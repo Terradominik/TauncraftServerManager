@@ -19,6 +19,12 @@ commands:
    invsee:
      description: Inventar öffnen
      usage: /<command> [arg0]
+   end:
+     description: Enderchest öffnen
+     usage: /<command> [arg0]
    effect:
      description: Effekt abspielen
+     usage: /<command> [arg0]
+   detonate:
+     description: Explosion erzeugen
      usage: /<command> [arg0]

@@ -91,7 +91,7 @@ public class TeleportCommands implements CommandExecutor {
             //Ausgabe: "Verwendung: /tp <Spieler1> [Spieler2]"
         }
         if (args.length == 1) {
-            try {
+            if (plugin.getServer().getPlayer(args[0]) != null) {
                 Player target = plugin.getServer().getPlayer(args[0]);
                 sender.teleport(target);
                 //Ausgabe (an sender): "Du wurdest zu " + target.getName() " geportet"
@@ -99,8 +99,7 @@ public class TeleportCommands implements CommandExecutor {
                 for (int a = 0; a < 5; a++) {
                     sender.getWorld().playEffect(sender.getLocation(), Effect.ENDER_SIGNAL, null);
                 }
-
-            } catch (NullPointerException npe) {
+            } else {
                 //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
             }
         } else {
@@ -121,14 +120,14 @@ public class TeleportCommands implements CommandExecutor {
      */
     private void tpConsole(CommandSender sender, String[] args) {
         if (args.length >= 2) {
-            try {
+            if (plugin.getServer().getPlayer(args[0]) != null && plugin.getServer().getPlayer(args[1]) != null) {
                 Player target1 = plugin.getServer().getPlayer(args[0]);
                 Player target2 = plugin.getServer().getPlayer(args[1]);
                 target1.teleport(target2);
                 //Ausgabe (an sender): target1.getName() + " wurde zu " + target2.getName() + " geportet"
                 //Ausgabe (an target1): target2.getName() + " wurde von " + sender.getName() + " zu dir geportet"
                 //Ausgabe (an target2): sender.getName() + " hat dich zu " + target1.getName() + " geportet"
-            } catch (NullPointerException npe) {
+            }else{
                 //Ausgabe (an sender): Die Spieler konnten nicht gefunden werden
             }
         }
@@ -151,12 +150,12 @@ public class TeleportCommands implements CommandExecutor {
             //Ausgabe "Verwendung: /s <Spieler>"
         }
         if (args.length >= 1) {
-            try {
+            if (plugin.getServer().getPlayer(args[0]) != null) {
                 Player target = plugin.getServer().getPlayer(args[0]);
                 target.teleport(sender);
                 //Ausgabe (an sender): target.getName() " wurde zu dir geportet"
                 //Ausgabe (an target): sender.getName() + " hat dich zu ihm geportet"
-            } catch (NullPointerException npe) {
+            }else{
                 //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
             }
         }

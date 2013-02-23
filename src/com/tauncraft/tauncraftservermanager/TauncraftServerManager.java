@@ -61,9 +61,11 @@ public class TauncraftServerManager extends JavaPlugin {
         //this.getCommand("head").setExecutor(fc);
 
         //Punish
+        this.getCommand("detonate").setExecutor(pc);
 
         //Administration
         this.getCommand("invsee").setExecutor(ac);
+        this.getCommand("end").setExecutor(ac);
 
 
         //Listener Registration
