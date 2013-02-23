@@ -9,8 +9,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 /**
- * @author Terradominik
- * @version 2012-02-22
+ * @author
+ * Terradominik
+ * @version
+ * 2012-02-22
  */
 public class BlockListener implements Listener {
 
@@ -21,9 +23,16 @@ public class BlockListener implements Listener {
     }
 
     /**
-     * Ünberprüft ob der Spieler Blöcke zerstören darf
+     * Ünberprüft
+     * ob
+     * der
+     * Spieler
+     * Blöcke
+     * zerstören
+     * darf
      *
-     * @param event
+     * @param
+     * event
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
@@ -31,9 +40,16 @@ public class BlockListener implements Listener {
     }
 
     /**
-     * Überprüft ob der Spieler Blöcke platzieren darf
+     * Überprüft
+     * ob
+     * der
+     * Spieler
+     * Blöcke
+     * platzieren
+     * darf
      *
-     * @param event
+     * @param
+     * event
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
@@ -41,9 +57,17 @@ public class BlockListener implements Listener {
     }
 
     /**
-     * Überprüft ob der Spieler die nötigen Permissions hat
+     * Überprüft
+     * ob
+     * der
+     * Spieler
+     * die
+     * nötigen
+     * Permissions
+     * hat
      *
-     * @param spieler
+     * @param
+     * spieler
      * @return
      */
     public boolean cancelCheck(Player spieler) {

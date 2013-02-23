@@ -19,3 +19,6 @@ commands:
    invsee:
      description: Inventar öffnen
      usage: /<command> [arg0]
+   effect:
+     description: Effekt abspielen
+     usage: /<command> [arg0]

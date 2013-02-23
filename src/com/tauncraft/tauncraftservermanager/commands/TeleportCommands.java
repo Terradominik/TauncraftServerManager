@@ -1,6 +1,7 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import org.bukkit.Effect;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,10 +9,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 /**
- * Command Klasse
+ * Command
+ * Klasse
  *
- * @author Terradomninik | raffi287
- * @version 2012-02-22
+ * @author
+ * Terradomninik
+ * |
+ * raffi287
+ * @version
+ * 2012-02-22
  */
 public class TeleportCommands implements CommandExecutor {
 
@@ -22,17 +28,34 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Beim eingeben eines Command
+     * Beim
+     * eingeben
+     * eines
+     * Command
      *
-     * @param sender sender des Commands
-     * @param command Command
-     * @param label Name des Commands
-     * @param args Parameter des Commands
+     * @param
+     * sender
+     * sender
+     * des
+     * Commands
+     * @param
+     * command
+     * Command
+     * @param
+     * label
+     * Name
+     * des
+     * Commands
+     * @param
+     * args
+     * Parameter
+     * des
+     * Commands
      * @return
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.teleport." + label) || sender.hasPermission("taunsm.teleport.*") ||sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.teleport." + label) || sender.hasPermission("taunsm.teleport.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
                     case "tp":
@@ -42,7 +65,7 @@ public class TeleportCommands implements CommandExecutor {
                         s((Player) sender, args);
                         break;
                     default:
-                        //Ausgabe: "Das Command wurde noch nicht implementiert"
+                    //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
             }
         }
@@ -51,10 +74,17 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Teleportiert dich zu einem anderen Spieler
+     * Teleportiert
+     * dich
+     * zu
+     * einem
+     * anderen
+     * Spieler
      *
-     * @param sender
-     * @param args
+     * @param
+     * sender
+     * @param
+     * args
      */
     private void tp(Player sender, String[] args) {
         if (args.length == 0) {
@@ -66,6 +96,10 @@ public class TeleportCommands implements CommandExecutor {
                 sender.teleport(target);
                 //Ausgabe (an sender): "Du wurdest zu " + target.getName() " geportet"
                 //Ausgabe (an target): sender.getName() + " hat sich zu dir geportet"
+                for (int a = 0; a < 5; a++) {
+                    sender.getWorld().playEffect(sender.getLocation(), Effect.ENDER_SIGNAL, null);
+                }
+
             } catch (NullPointerException npe) {
                 //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
             }
@@ -75,10 +109,15 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Teleportiert target1 zu target2
+     * Teleportiert
+     * target1
+     * zu
+     * target2
      *
-     * @param sender
-     * @param args
+     * @param
+     * sender
+     * @param
+     * args
      */
     private void tpConsole(CommandSender sender, String[] args) {
         if (args.length >= 2) {
@@ -96,13 +135,19 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Teleportiert einen Spieler zu dir
-     * 
-     * @param sender
-     * @param args 
+     * Teleportiert
+     * einen
+     * Spieler
+     * zu
+     * dir
+     *
+     * @param
+     * sender
+     * @param
+     * args
      */
     private void s(Player sender, String[] args) {
-        if(args.length == 0) {
+        if (args.length == 0) {
             //Ausgabe "Verwendung: /s <Spieler>"
         }
         if (args.length >= 1) {

@@ -17,33 +17,49 @@ import org.bukkit.plugin.Plugin;
  * Raffael
  */
 public class ChatCommands implements CommandExecutor {
-    
-    
+
     private Plugin plugin;
 
     public ChatCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
-    
+
     /**
-     * Beim eingeben eines Command
+     * Beim
+     * eingeben
+     * eines
+     * Command
      *
-     * @param sender sender des Commands
-     * @param command Command
-     * @param label Name des Commands
-     * @param args Parameter des Commands
+     * @param
+     * sender
+     * sender
+     * des
+     * Commands
+     * @param
+     * command
+     * Command
+     * @param
+     * label
+     * Name
+     * des
+     * Commands
+     * @param
+     * args
+     * Parameter
+     * des
+     * Commands
      * @return
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.chat." + label) || sender.hasPermission("taunsm.chat.*") ||sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.chat." + label) || sender.hasPermission("taunsm.chat.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
                     case "command":
                         //method((Player) sender, args);
                         break;
                     default:
-                        //Ausgabe: "Das Command wurde noch nicht implementiert"
+                    //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
             }
         }

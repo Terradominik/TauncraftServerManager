@@ -11,10 +11,16 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * TauncraftServerManager - Hauptklasse
+ * TauncraftServerManager
+ * -
+ * Hauptklasse
  *
- * @author Terradominik | raffi287
- * @version 2012-02-22
+ * @author
+ * Terradominik
+ * |
+ * raffi287
+ * @version
+ * 2012-02-22
  */
 public class TauncraftServerManager extends JavaPlugin {
 
@@ -27,7 +33,8 @@ public class TauncraftServerManager extends JavaPlugin {
     private final AdministrationCommands ac = new AdministrationCommands(this);
 
     /**
-     * Beim Enablen
+     * Beim
+     * Enablen
      */
     @Override
     public void onEnable() {
@@ -35,36 +42,38 @@ public class TauncraftServerManager extends JavaPlugin {
         this.loadConfig();
 
         //Command Registration
-        
-            //Teleport
+
+        //Teleport
         this.getCommand("tp").setExecutor(tpc);
         //this.getCommand("tps").setExecutor(tpc);
         this.getCommand("s").setExecutor(tpc);
         //this.getCommand("port").setExecutor(tpc);
-        
-            //Chat
+
+        //Chat
         //this.getCommand("mod").setExecutor(cc);
         //this.getCommand("leitung").setExecutor(cc);
         //this.getCommand("say").setExecutor(cc);
 
-        
-            //Fun
-        this.getCommand("blockhead").setExecutor(fc);
-        //this.getCommand("head").setExecutor(fc);
-        
-            //Punish
 
-            //Administration
+        //Fun
+        this.getCommand("blockhead").setExecutor(fc);
+        this.getCommand("effect").setExecutor(fc);
+        //this.getCommand("head").setExecutor(fc);
+
+        //Punish
+
+        //Administration
         this.getCommand("invsee").setExecutor(ac);
-        
-        
+
+
         //Listener Registration
         pm.registerEvents(this.blockListener, this);
         pm.registerEvents(this.quitListener, this);
     }
 
     /**
-     * Beim Disablen
+     * Beim
+     * Disablen
      */
     @Override
     public void onDisable() {
@@ -73,7 +82,8 @@ public class TauncraftServerManager extends JavaPlugin {
     }
 
     /**
-     * Ladet Config
+     * Ladet
+     * Config
      */
     public void loadConfig() {
         getConfig().options().copyDefaults(true);
