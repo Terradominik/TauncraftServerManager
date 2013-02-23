@@ -7,7 +7,6 @@ import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
 import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,13 +18,13 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class TauncraftServerManager extends JavaPlugin {
 
-    public final BlockListener blockListener = new BlockListener(this);
-    public final QuitListener quitListener = new QuitListener(this);
-    private TeleportCommands tpc = new TeleportCommands(this);
-    private ChatCommands cc = new ChatCommands(this);
-    private FunCommands fc = new FunCommands(this);
-    private PunishCommands pc = new PunishCommands(this);
-    private AdministrationCommands ac = new AdministrationCommands(this);
+    private final BlockListener blockListener = new BlockListener(this);
+    private final QuitListener quitListener = new QuitListener(this);
+    private final TeleportCommands tpc = new TeleportCommands(this);
+    private final ChatCommands cc = new ChatCommands(this);
+    private final FunCommands fc = new FunCommands(this);
+    private final PunishCommands pc = new PunishCommands(this);
+    private final AdministrationCommands ac = new AdministrationCommands(this);
 
     /**
      * Beim Enablen
