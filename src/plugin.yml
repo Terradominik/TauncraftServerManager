@@ -10,3 +10,12 @@ commands:
    tp:
       description: Teleportation
       usage: /<command> [arg0] [arg1]
+   s:
+      description: Teleportation
+      usage: /<command> [arg0]
+   blockhead:
+     description: Block als kopf
+     usage: /<command> [arg0]
+   invsee:
+     description: Inventar öffnen
+     usage: /<command> [arg0]
