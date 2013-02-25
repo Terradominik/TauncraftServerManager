@@ -80,6 +80,9 @@ public class AdministrationCommands implements CommandExecutor {
                 sender.openInventory(target.getInventory());
                 //Ausgabe: "Du hast das Inventar von " + target.getDisplayName() + " geöffnet"
             }
+            else {
+                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
+            }
         }
     }
     
@@ -92,6 +95,9 @@ public class AdministrationCommands implements CommandExecutor {
                 Player target = plugin.getServer().getPlayer(args[0]);
                 sender.openInventory(target.getEnderChest());
                 //Ausgabe: "Du hast die Enderchest von " + target.getDisplayName() + " geöffnet"
+            }
+            else{
+                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
             }
         }
     }

@@ -77,7 +77,7 @@ public class PunishCommands implements CommandExecutor {
                 target.getWorld().createExplosion(target.getLocation(), 2);
                 //Ausgabe: "Du hast " + target.getDisplayName() + " hochgejagt"
             } else {
-                //Ausgabe: "Kein Spieler mit diesem Namen online"
+                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
             }
             
         }
