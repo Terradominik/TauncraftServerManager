@@ -11,16 +11,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * TauncraftServerManager
- * -
- * Hauptklasse
+ * TauncraftServerManager - Hauptklasse
  *
- * @author
- * Terradominik
- * |
- * raffi287
- * @version
- * 2012-02-22
+ * @author Terradominik | raffi287
+ * @version 2012-02-22
  */
 public class TauncraftServerManager extends JavaPlugin {
 
@@ -33,8 +27,7 @@ public class TauncraftServerManager extends JavaPlugin {
     private final AdministrationCommands ac = new AdministrationCommands(this);
 
     /**
-     * Beim
-     * Enablen
+     * Beim Enablen
      */
     @Override
     public void onEnable() {
@@ -74,8 +67,7 @@ public class TauncraftServerManager extends JavaPlugin {
     }
 
     /**
-     * Beim
-     * Disablen
+     * Beim Disablen
      */
     @Override
     public void onDisable() {
@@ -84,8 +76,7 @@ public class TauncraftServerManager extends JavaPlugin {
     }
 
     /**
-     * Ladet
-     * Config
+     * Ladet Config
      */
     public void loadConfig() {
         getConfig().options().copyDefaults(true);

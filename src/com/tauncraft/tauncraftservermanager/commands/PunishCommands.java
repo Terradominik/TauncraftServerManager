@@ -12,9 +12,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 /**
+ * PunishCommands Klasse
  *
- * @author
- * Raffael
+ * @author Terradomninik | raffi287
+ * @version 2012-02-22
  */
 public class PunishCommands implements CommandExecutor {
 
@@ -25,29 +26,16 @@ public class PunishCommands implements CommandExecutor {
     }
 
     /**
-     * Beim
-     * eingeben
-     * eines
-     * Command
+     * Beim eingeben eines Command
      *
-     * @param
-     * sender
-     * sender
-     * des
-     * Commands
-     * @param
-     * command
+     * @param sender
+     * sender des Commands
+     * @param command
      * Command
-     * @param
-     * label
-     * Name
-     * des
-     * Commands
-     * @param
-     * args
-     * Parameter
-     * des
-     * Commands
+     * @param label
+     * Name des Commands
+     * @param args
+     * Parameter des Commands
      * @return
      */
     @Override

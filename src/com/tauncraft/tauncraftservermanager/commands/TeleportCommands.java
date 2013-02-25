@@ -9,15 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 /**
- * Command
- * Klasse
+ * TeleportCommands Klasse
  *
- * @author
- * Terradomninik
- * |
- * raffi287
- * @version
- * 2012-02-22
+ * @author Terradomninik | raffi287
+ * @version 2012-02-22
  */
 public class TeleportCommands implements CommandExecutor {
 
@@ -28,29 +23,16 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Beim
-     * eingeben
-     * eines
-     * Command
+     * Beim eingeben eines Command
      *
-     * @param
-     * sender
-     * sender
-     * des
-     * Commands
-     * @param
-     * command
+     * @param sender
+     * sender des Commands
+     * @param command
      * Command
-     * @param
-     * label
-     * Name
-     * des
-     * Commands
-     * @param
-     * args
-     * Parameter
-     * des
-     * Commands
+     * @param label
+     * Name des Commands
+     * @param args
+     * Parameter des Commands
      * @return
      */
     @Override
@@ -74,17 +56,10 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Teleportiert
-     * dich
-     * zu
-     * einem
-     * anderen
-     * Spieler
+     * Teleportiert dich zu einem anderen Spieler
      *
-     * @param
-     * sender
-     * @param
-     * args
+     * @param sender
+     * @param args
      */
     private void tp(Player sender, String[] args) {
         if (args.length == 0) {
@@ -108,15 +83,10 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Teleportiert
-     * target1
-     * zu
-     * target2
+     * Teleportiert target1 zu target2
      *
-     * @param
-     * sender
-     * @param
-     * args
+     * @param sender
+     * @param args
      */
     private void tpConsole(CommandSender sender, String[] args) {
         if (args.length >= 2) {
@@ -134,16 +104,10 @@ public class TeleportCommands implements CommandExecutor {
     }
 
     /**
-     * Teleportiert
-     * einen
-     * Spieler
-     * zu
-     * dir
+     * Teleportiert einen Spieler zu dir
      *
-     * @param
-     * sender
-     * @param
-     * args
+     * @param sender
+     * @param args
      */
     private void s(Player sender, String[] args) {
         if (args.length == 0) {
