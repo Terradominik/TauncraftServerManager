@@ -49,6 +49,12 @@ public class AdministrationCommands implements CommandExecutor {
                     case "end":
                         end((Player) sender, args);
                         break;
+                    case "day":
+                        day((Player) sender);
+                        break;
+                    case "night":
+                        night((Player) sender);
+                        break;
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
@@ -89,4 +95,14 @@ public class AdministrationCommands implements CommandExecutor {
             }
         }
     }
+    
+    private void day(Player sender) {
+        sender.getWorld().setTime(300);
+        //Ausgabe: "Es wurde Tag"
+   }
+    
+    private void night(Player sender) {
+        sender.getWorld().setTime(14000);
+        //Ausgabe: "Es wurde Nacht"
+   }
 }

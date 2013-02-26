@@ -28,3 +28,9 @@ commands:
    detonate:
      description: Explosion erzeugen
      usage: /<command> [arg0]
+   day:
+     description: Macht Tag
+     usage: /<command>
+   night:
+     description: Macht Nacht
+     usage: /<command>
