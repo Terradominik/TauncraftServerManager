@@ -6,11 +6,13 @@ package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -51,6 +53,9 @@ public class FunCommands implements CommandExecutor {
                     case "effect":
                         effect((Player) sender, args);
                         break;
+                    case "head":
+                        head((Player) sender, args);
+                        break;
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
@@ -73,7 +78,6 @@ public class FunCommands implements CommandExecutor {
             } catch (Exception e) {
                 //Ausgabe: "Das ist kein gültiger Block"
             }
-
         } else {
             i = sender.getItemInHand();
         }
@@ -110,7 +114,21 @@ public class FunCommands implements CommandExecutor {
                 default:
                 //Ausgabe: "Der Effekt wurde noch nicht implementiert"
             }
-
+        }
+    }
+    
+    private void head(Player sender, String[] args) {
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /head <Spieler>"
+        }
+        if (args.length >= 1) {
+            ItemStack i = new ItemStack(Material.SKULL_ITEM);
+            i.setDurability((short) 3);
+            SkullMeta sm = (SkullMeta) i.getItemMeta();
+            sm.setOwner(args[0]);
+            i.setItemMeta(sm);
+            sender.getInventory().addItem(i);
+            //Ausgabe: "Du hast nun den Kopf von " + args[0]
         }
     }
 }

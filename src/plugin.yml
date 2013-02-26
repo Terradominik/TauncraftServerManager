@@ -16,6 +16,9 @@ commands:
    blockhead:
      description: Block als kopf
      usage: /<command> [arg0]
+   head:
+     description: Kopf von Spieler
+     usage: /<command> [arg0]
    invsee:
      description: Inventar öffnen
      usage: /<command> [arg0]
@@ -27,6 +30,9 @@ commands:
      usage: /<command> [arg0]
    detonate:
      description: Explosion erzeugen
+     usage: /<command> [arg0]
+   lightning:
+     description: Blitz erzeugen
      usage: /<command> [arg0]
    day:
      description: Macht Tag

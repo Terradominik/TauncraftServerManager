@@ -44,7 +44,10 @@ public class PunishCommands implements CommandExecutor {
             if (sender instanceof Player) {
                 switch (label) {
                     case "detonate":
-                        detonate((Player) sender, args);
+                        detonate(args);
+                        break;
+                    case "lightning":
+                        lightning(args);
                         break;
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
@@ -55,7 +58,7 @@ public class PunishCommands implements CommandExecutor {
         return true;
     }
     
-    private void detonate(Player sender, String[] args){
+    private void detonate(String[] args){
         if(args.length == 0) {
             //Ausgabe: "Verwendung: /detonate <Spieler>"
         }
@@ -67,7 +70,21 @@ public class PunishCommands implements CommandExecutor {
             } else {
                 //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
             }
-            
+        }
+    }
+    
+    private void lightning (String[] args) {
+        if(args.length == 0) {
+            //Ausgabe: "Verwendung: /lightning <Spieler>"
+        }
+        if(args.length >= 1) {
+            if (plugin.getServer().getPlayer(args[0]) != null) {
+                Player target = plugin.getServer().getPlayer(args[0]);
+                target.getWorld().strikeLightning(target.getLocation());
+                //Ausgabe: "Du hast " + target.getDisplayName() + " einen Blitzschlag verpasst"
+            } else {
+                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
+            }
         }
     }
 }
