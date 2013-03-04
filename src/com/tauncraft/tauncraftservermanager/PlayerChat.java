@@ -16,21 +16,18 @@ public class PlayerChat {
     private Plugin plugin;
     private String chatName;
     private String format;
-    private Set<String> spielerListe;
+    private Set<String> spielerSet;
     
-    public PlayerChat(Plugin plugin, String chatName, String[] formatierung, Set<String> spielerListe) {
+    /**
+     * @param plugin        Die Instanz, des jeweiligen Plugins zum aufrufen der Plugin Methoden
+     * @param chatName      Der Anzeige Name des Chats, sollte aus 3 Buchstaben bestehen
+     * @param format        Die Formatierung des Textes [0] ist vor dem Chatnamen, [1] nach dem Chat Namen, [2] nach dem Spieler Namen
+     * @param spieler       Das Set der Spieler an die Gesendet werden soll
+     */
+    public PlayerChat(Plugin plugin, String chatName, String[] format, Set<String> spielerSet) {
         this.plugin = plugin;
-        this.spielerListe = spielerListe;
-        
-        format = "<f0><chatName><f1><rangfarbe><spieler><f2><nachricht>";
-        format.replace("<f0>", formatierung[0]);
-        format.replace("<f1>", formatierung[1]);
-        format.replace("<f2>", formatierung[2]);
-        format.replace("<chatName>", chatName);
-        format.replace("<rangfarbe>", "%3$s");
-        format.replace("<message>", "%1$s");
-        format.replace("<nachricht>", "%2$s");
-        
+        this.spielerSet = spielerSet;
+        this.format = format[0] + chatName + format[1] + "%3$s" + "%1$s" + format[2] + "%2$s";
         plugin.getServer().getPluginManager().registerEvents(new PlayerChatListener(), plugin);
     }
     
@@ -39,12 +36,10 @@ public class PlayerChat {
         @EventHandler
         public void onPlayerAsynchChatEvent(AsyncPlayerChatEvent event) {
             Player spieler = event.getPlayer();
-            if (spielerListe.contains(spieler.getName())) {
+            if (spielerSet.contains(spieler.getName())) {
                 Set<Player> recipients = event.getRecipients();
                 recipients.clear();
-                for (String target : spielerListe) {
-                    recipients.add(plugin.getServer().getPlayer(target));
-                }
+                for (String target : spielerSet) recipients.add(plugin.getServer().getPlayer(target));
                 event.setFormat(String.format(format, "%1$s", "%2%s", RangManager.getRangColor(spieler)));
             }
         }
