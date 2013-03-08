@@ -6,7 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
  * TeleportCommands Klasse
@@ -16,7 +15,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class TeleportCommands implements CommandExecutor {
 
-    private Plugin plugin;
+    private TauncraftServerManager plugin;
 
     public TeleportCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
@@ -37,7 +36,10 @@ public class TeleportCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.teleport." + label) || sender.hasPermission("taunsm.teleport.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.teleport." + label)
+         || sender.hasPermission("taunsm.teleport.*")
+         || sender.hasPermission("taunsm.*")
+         || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
                     case "tp":
@@ -47,11 +49,11 @@ public class TeleportCommands implements CommandExecutor {
                         s((Player) sender, args);
                         break;
                     default:
-                    //Ausgabe: "Das Command wurde noch nicht implementiert"
+                    plugin.send((Player) sender, "Dieses Command wurde noch nicht implementiert");
                 }
             }
         }
-        //Ausgabe: "Du hast nicht die nötigen Permissions"
+        plugin.send((Player) sender, "Du hast nicht die nötigen Rechte für dieses Command");
         return true;
     }
 

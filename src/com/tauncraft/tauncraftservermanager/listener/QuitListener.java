@@ -1,6 +1,5 @@
 package com.tauncraft.tauncraftservermanager.listener;
 
-import com.tauncraft.tauncraftservermanager.SpecListe;
 import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.event.EventHandler;
@@ -18,6 +17,5 @@ public class QuitListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         SpielerListe.remove(event.getPlayer());
-        SpecListe.remove(event.getPlayer());
     }
 }

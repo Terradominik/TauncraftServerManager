@@ -7,6 +7,8 @@ import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
 import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class TauncraftServerManager extends JavaPlugin {
 
+    private final RangManager rangManager = new RangManager(this);
     private final BlockListener blockListener = new BlockListener(this);
     private final QuitListener quitListener = new QuitListener(this);
     private final TeleportCommands tpc = new TeleportCommands(this);
@@ -25,6 +28,10 @@ public class TauncraftServerManager extends JavaPlugin {
     private final FunCommands fc = new FunCommands(this);
     private final PunishCommands pc = new PunishCommands(this);
     private final AdministrationCommands ac = new AdministrationCommands(this);
+    
+    private String broadcastFormat = ChatColor.AQUA + "";
+    private String privateFormat = ChatColor.AQUA + "[TauncraftSM]";
+    
 
     /**
      * Beim Enablen
@@ -84,5 +91,19 @@ public class TauncraftServerManager extends JavaPlugin {
     public void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
+    }
+    
+    /**
+     * Broadcast Message
+     */
+    public void broadcast(String text) {
+        this.getServer().broadcastMessage(broadcastFormat + text);
+    }
+    
+    /**
+     * Private Message
+     */
+    public void send(Player spieler, String text) {
+        spieler.sendMessage(privateFormat + text);
     }
 }

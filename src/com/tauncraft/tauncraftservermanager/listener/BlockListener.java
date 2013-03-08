@@ -9,10 +9,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 /**
- * @author
- * Terradominik
- * @version
- * 2012-02-22
+ * @author Terradominik
+ * @version 2012-02-22
  */
 public class BlockListener implements Listener {
 
@@ -23,52 +21,23 @@ public class BlockListener implements Listener {
     }
 
     /**
-     * Ünberprüft
-     * ob
-     * der
-     * Spieler
-     * Blöcke
-     * zerstören
-     * darf
-     *
-     * @param
-     * event
+     * Überprüft ob der Spieler Blöcke zerstören darf
      */
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockBreak(BlockBreakEvent event) {
         event.setCancelled(cancelCheck(event.getPlayer()));
     }
 
     /**
-     * Überprüft
-     * ob
-     * der
-     * Spieler
-     * Blöcke
-     * platzieren
-     * darf
-     *
-     * @param
-     * event
+     * Überprüft ob der Spieler Blöcke platzieren darf
      */
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockPlace(BlockPlaceEvent event) {
         event.setCancelled(cancelCheck(event.getPlayer()));
     }
 
     /**
-     * Überprüft
-     * ob
-     * der
-     * Spieler
-     * die
-     * nötigen
-     * Permissions
-     * hat
-     *
-     * @param
-     * spieler
-     * @return
+     * Überprüft ob der Spieler die Nötigen Permissions hat
      */
     public boolean cancelCheck(Player spieler) {
         if (!(spieler.hasPermission("taunsm.world." + spieler.getWorld().getName().toLowerCase())
