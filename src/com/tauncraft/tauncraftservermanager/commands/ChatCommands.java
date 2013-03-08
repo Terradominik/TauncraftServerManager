@@ -52,6 +52,8 @@ public class ChatCommands implements CommandExecutor {
                         break;
                     case "server":
                         serverMessage(args);
+                    case "clearmsg":
+                        clearMessage(args);
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }

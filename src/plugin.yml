@@ -37,6 +37,15 @@ commands:
    day:
      description: Macht Tag
      usage: /<command>
-   night:
-     description: Macht Nacht
-     usage: /<command>
+   mod:
+     description: Leitungs Nachricht
+     usage: /<command> [text]
+   leitung:
+     description: Leitungs Nachricht
+     usage: /<command> [text]
+   server:
+     description: Server Message
+     usage: /<command> [text]
+   server:
+     description: Clear Message
+     usage: /<command> [text]
