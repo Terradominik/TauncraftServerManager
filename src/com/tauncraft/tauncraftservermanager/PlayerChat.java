@@ -32,7 +32,6 @@ public class PlayerChat {
     }
     
     private class PlayerChatListener implements Listener {
-        
         @EventHandler
         public void onPlayerAsynchChatEvent(AsyncPlayerChatEvent event) {
             Player spieler = event.getPlayer();
