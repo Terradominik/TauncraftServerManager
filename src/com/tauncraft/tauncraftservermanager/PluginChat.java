@@ -28,5 +28,4 @@ public class PluginChat {
         text = String.format(format, text);
         for (String spieler : spielerSet) plugin.getServer().getPlayer(spieler).sendMessage(text);
     }
-    
 }

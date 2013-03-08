@@ -5,6 +5,7 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,9 +44,14 @@ public class ChatCommands implements CommandExecutor {
         if (sender.hasPermission("taunsm.chat." + label) || sender.hasPermission("taunsm.chat.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
-                    case "command":
-                        //method((Player) sender, args);
+                    case "mod":
+                        leitungsMessage(args);
                         break;
+                    case "leitung":
+                        leitungsMessage(args);
+                        break;
+                    case "server":
+                        serverMessage(args);
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
@@ -53,5 +59,24 @@ public class ChatCommands implements CommandExecutor {
         }
         //Ausgabe: "Du hast nicht die nötigen Permissions"
         return true;
+    }
+    
+    private void leitungsMessage(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : args) sb.append(s);
+        plugin.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "Leitung: " + sb);
+    }
+    
+    private void serverMessage(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : args) sb.append(s);
+        plugin.getServer().broadcastMessage(ChatColor.DARK_RED + "Server: " + sb);
+    }
+    
+    private void clearMessage(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : args) sb.append(s);
+        String msg = ChatColor.translateAlternateColorCodes('&', sb.toString());
+        plugin.getServer().broadcastMessage(msg);
     }
 }

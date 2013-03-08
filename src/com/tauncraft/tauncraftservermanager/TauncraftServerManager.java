@@ -30,7 +30,7 @@ public class TauncraftServerManager extends JavaPlugin {
     private final AdministrationCommands ac = new AdministrationCommands(this);
     
     private String broadcastFormat = ChatColor.AQUA + "";
-    private String privateFormat = ChatColor.AQUA + "[TauncraftSM]";
+    private String privateFormat = ChatColor.DARK_GRAY + "";
     
 
     /**
