@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 public enum Rang {
     NEU("Neu"),
     SPIELER("Spieler"),
-    BAU_TEAM("Bau-Team"),
+    BAU_TEAM("Bau-Team", ChatColor.GOLD),
     ALPHA_BAU_TEAM("Alpha Bau-Team", ChatColor.GOLD),
     SPECIAL("Special", ChatColor.DARK_PURPLE),
     MOD("Mod", ChatColor.DARK_GREEN),
