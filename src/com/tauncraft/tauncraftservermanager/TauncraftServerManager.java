@@ -8,7 +8,7 @@ import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -103,7 +103,7 @@ public class TauncraftServerManager extends JavaPlugin {
     /**
      * Private Message
      */
-    public void send(Player spieler, String text) {
+    public void send(CommandSender spieler, String text) {
         spieler.sendMessage(privateFormat + text);
     }
 }

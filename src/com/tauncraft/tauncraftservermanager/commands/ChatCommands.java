@@ -10,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
  * ChatCommands Klasse
@@ -20,7 +19,8 @@ import org.bukkit.plugin.Plugin;
  */
 public class ChatCommands implements CommandExecutor {
 
-    private Plugin plugin;
+    private TauncraftServerManager plugin;
+    private String chatFormat = ChatColor.DARK_PURPLE + "";
 
     public ChatCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
@@ -29,14 +29,10 @@ public class ChatCommands implements CommandExecutor {
     /**
      * Beim eingeben eines Command
      *
-     * @param sender
-     * sender des Commands
-     * @param command
-     * Command
-     * @param label
-     * Name des Commands
-     * @param args
-     * Parameter des Commands
+     * @param sender sender des Commands
+     * @param command Command 
+     * @param label Name des Commands 
+     * @param args Parameter des Commands
      * @return
      */
     @Override
@@ -54,6 +50,14 @@ public class ChatCommands implements CommandExecutor {
                         serverMessage(args);
                     case "clearmsg":
                         clearMessage(args);
+                    case "tell":
+                        tell(sender,args);
+                    case "whisper":
+                        tell(sender,args);
+                    case "tt":
+                        tell(sender,args);
+                    case "t":
+                        tell(sender,args);
                     default:
                     //Ausgabe: "Das Command wurde noch nicht implementiert"
                 }
@@ -80,5 +84,17 @@ public class ChatCommands implements CommandExecutor {
         for (String s : args) sb.append(s);
         String msg = ChatColor.translateAlternateColorCodes('&', sb.toString());
         plugin.getServer().broadcastMessage(msg);
+    }
+
+    private void tell(CommandSender sender, String[] args) {
+        Player receiver = plugin.getServer().getPlayer(args[0]);
+        if (receiver == null) plugin.send(sender, "Der Spieler " + args[0] + " konnte nicht gefunden werden");
+        else {
+            args[0] = "";
+            StringBuilder sb = new StringBuilder();
+            for (String s : args) sb.append(s);
+            plugin.send(sender, ChatColor.DARK_PURPLE + "Tell zu " + receiver.getName() + ": " + sb.toString());
+            plugin.send(receiver, ChatColor.DARK_PURPLE + "Tell von " + sender.getName() + ": " + sb.toString());
+        }
     }
 }
