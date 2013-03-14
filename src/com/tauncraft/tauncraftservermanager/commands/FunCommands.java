@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.plugin.Plugin;
 
 /**
  * FunCommands Klasse
@@ -19,7 +18,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class FunCommands implements CommandExecutor {
 
-    private Plugin plugin;
+    private TauncraftServerManager plugin;
 
     public FunCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;

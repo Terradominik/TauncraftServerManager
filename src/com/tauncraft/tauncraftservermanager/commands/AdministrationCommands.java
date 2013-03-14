@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
  * AdministrationCommands Klasse
@@ -15,7 +14,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class AdministrationCommands implements CommandExecutor {
 
-    private Plugin plugin;
+    private TauncraftServerManager plugin;
 
     public AdministrationCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;

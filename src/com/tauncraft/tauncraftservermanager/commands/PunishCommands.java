@@ -15,7 +15,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class PunishCommands implements CommandExecutor {
 
-    private Plugin plugin;
+    private TauncraftServerManager plugin;
 
     public PunishCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
