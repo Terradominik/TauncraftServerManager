@@ -2,6 +2,7 @@ package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,26 +37,27 @@ public class FunCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("taunsm.fun." + label)
-         || sender.hasPermission("taunsm.fun.*")
-         || sender.hasPermission("taunsm.*")
-         || sender.isOp()) {
+                || sender.hasPermission("taunsm.fun.*")
+                || sender.hasPermission("taunsm.*")
+                || sender.isOp()) {
             if (sender instanceof Player) {
+                Player playersender = (Player) sender;
                 switch (label) {
                     case "blockhead":
-                        blockhead((Player) sender, args);
+                        blockhead(playersender, args);
                         break;
                     case "effect":
-                        effect((Player) sender, args);
+                        effect(playersender, args);
                         break;
                     case "head":
-                        head((Player) sender, args);
+                        head(playersender, args);
                         break;
                     default:
-                    //Ausgabe: "Das Command wurde noch nicht implementiert"
+                        plugin.send(sender, "Das Command wurde noch nicht implementiert");
                 }
             }
         }
-        //Ausgabe: "Du hast nicht die nötigen Permissions"
+        plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
 
@@ -65,12 +67,10 @@ public class FunCommands implements CommandExecutor {
             try {
                 String[] sa = args[0].split(":");
                 i = new ItemStack(Integer.parseInt(sa[0]));
-                if (sa.length >= 2) {
-                    i.setDurability(Short.parseShort(sa[1]));
-                }
-                //Ausgabe: "Dein Kopf ist jetzt Block " + strings[0]
+                if (sa.length >= 2) i.setDurability(Short.parseShort(sa[1]));
+                plugin.send(sender, "Dein Kopf ist jetzt Block " + args[0]);
             } catch (Exception e) {
-                //Ausgabe: "Das ist kein gültiger Block"
+                plugin.send(sender, "Das ist kein gültiger Block");
             }
         } else {
             i = sender.getItemInHand();
@@ -79,11 +79,11 @@ public class FunCommands implements CommandExecutor {
     }
 
     private void effect(Player sender, String[] args) {
-        String id = " ";
         if (args.length == 0) {
-            //Ausgabe: "Verwendung: /effect <id>"
-            //Ausgabe: "IDs: EnderAuge = 1"
-            //Ausgabe: "Rauch = 2"
+            plugin.send(sender, "Verwendung: /effect <id>");
+            plugin.send(sender, "IDs: ");
+            plugin.send(sender, "1: Ender Auge");
+            plugin.send(sender, "2: Rauch");
         }
         if (args.length == 1) {
             switch (args[0]) {
@@ -93,28 +93,21 @@ public class FunCommands implements CommandExecutor {
                     }
                     break;
                 case "2":
+                    Location loc = sender.getLocation();
                     for (int a = 0; a < 10; a++) {
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 1);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 2);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 3);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 4);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 5);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 6);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 7);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 8);
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.SMOKE, 9);
+                        for (int i = 1; i < 10; i++) {
+                            loc.getWorld().playEffect(loc, Effect.SMOKE, i);
+                        }
                     }
                     break;
                 default:
-                //Ausgabe: "Der Effekt wurde noch nicht implementiert"
+                plugin.send(sender, "Der Effekt wurde noch nicht implementiert");
             }
         }
     }
     
     private void head(Player sender, String[] args) {
-        if(args.length == 0) {
-            //Ausgabe: "Verwendung: /head <Spieler>"
-        }
+        if(args.length == 0) plugin.send(sender, "Verwendung: /head <Spieler>");
         if (args.length >= 1) {
             ItemStack i = new ItemStack(Material.SKULL_ITEM);
             i.setDurability((short) 3);
@@ -122,7 +115,7 @@ public class FunCommands implements CommandExecutor {
             sm.setOwner(args[0]);
             i.setItemMeta(sm);
             sender.getInventory().addItem(i);
-            //Ausgabe: "Du hast nun den Kopf von " + args[0]
+            plugin.send(sender, "Du hast nun den Kopf von " + args[0]);
         }
     }
 }

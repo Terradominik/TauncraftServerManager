@@ -32,44 +32,43 @@ public class AdministrationCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("taunsm.admin." + label)
-         || sender.hasPermission("taunsm.admin.*")
-         || sender.hasPermission("taunsm.*")
-         || sender.isOp()) {
+                || sender.hasPermission("taunsm.admin.*")
+                || sender.hasPermission("taunsm.*")
+                || sender.isOp()) {
             if (sender instanceof Player) {
+                Player playersender = (Player) sender;
                 switch (label) {
                     case "invsee":
-                        invsee((Player) sender, args);
+                        invsee(playersender, args);
                         break;
                     case "end":
-                        end((Player) sender, args);
+                        end(playersender, args);
                         break;
                     case "day":
-                        day((Player) sender);
+                        day(playersender);
                         break;
                     case "night":
-                        night((Player) sender);
+                        night(playersender);
                         break;
                     default:
-                    //Ausgabe: "Das Command wurde noch nicht implementiert"
+                        plugin.send(sender, "Das Command wurde noch nicht implementiert");
                 }
             }
         }
-        //Ausgabe: "Du hast nicht die nötigen Permissions"
+        plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
 
     private void invsee(Player sender, String[] args) {
-        if (args.length == 0) {
-            //Ausgabe: "Verwendung: /invsee <Spieler>"
-        }
+        if (args.length == 0) plugin.send(sender, "Verwendung: /invsee <Spieler>");
         if (args.length >= 1) {
-            if (plugin.getServer().getPlayer(args[0]) != null) {
-                Player target = plugin.getServer().getPlayer(args[0]);
+            Player target = plugin.getServer().getPlayer(args[0]);
+            if (target != null) {
                 sender.openInventory(target.getInventory());
-                //Ausgabe: "Du hast das Inventar von " + target.getDisplayName() + " geöffnet"
+                plugin.send(sender, "Du hast das Inventar von " + target.getName() + " geöffnet");
             }
             else {
-                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
+                plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
             }
         }
     }
@@ -77,26 +76,27 @@ public class AdministrationCommands implements CommandExecutor {
     private void end(Player sender, String[] args) {
         if (args.length == 0) {
             sender.openInventory(sender.getEnderChest());
+            plugin.send(sender, "Du hast deine Enderchest geöffnet");
         }
         if (args.length >= 1) {
-            if (plugin.getServer().getPlayer(args[0]) != null) {
-                Player target = plugin.getServer().getPlayer(args[0]);
+            Player target = plugin.getServer().getPlayer(args[0]);
+            if (target != null) {
                 sender.openInventory(target.getEnderChest());
-                //Ausgabe: "Du hast die Enderchest von " + target.getDisplayName() + " geöffnet"
+                plugin.send(sender, "Du hast die Enderchest von " + target.getDisplayName() + " geöffnet");
             }
             else{
-                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
+                plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
             }
         }
     }
     
     private void day(Player sender) {
         sender.getWorld().setTime(300);
-        //Ausgabe: "Es wurde Tag"
+        plugin.send(sender, "Es wurde Tag");
    }
     
     private void night(Player sender) {
         sender.getWorld().setTime(14000);
-        //Ausgabe: "Es wurde Nacht"
+        plugin.send(sender, "Es wurde Nacht");
    }
 }

@@ -33,23 +33,32 @@ public class TeleportCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("taunsm.teleport." + label)
-         || sender.hasPermission("taunsm.teleport.*")
-         || sender.hasPermission("taunsm.*")
-         || sender.isOp()) {
+                || sender.hasPermission("taunsm.teleport.*")
+                || sender.hasPermission("taunsm.*")
+                || sender.isOp()) {
             if (sender instanceof Player) {
+                Player playersender = (Player) sender;
                 switch (label) {
                     case "tp":
-                        tp((Player) sender, args);
+                        tp(playersender, args);
                         break;
                     case "s":
-                        s((Player) sender, args);
+                        s(playersender, args);
                         break;
                     default:
-                    plugin.send((Player) sender, "Dieses Command wurde noch nicht implementiert");
+                        plugin.send(sender, "Dieses Command wurde noch nicht implementiert");
+                }
+            } else {
+                switch (label) {
+                    case "tp":
+                        tpConsole(sender, args);
+                        break;
+                    default:
+                        plugin.send(sender, "Dieses Command wurde noch nicht implementiert");
                 }
             }
         }
-        plugin.send((Player) sender, "Du hast nicht die nötigen Rechte für dieses Command");
+        plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
 
@@ -60,24 +69,19 @@ public class TeleportCommands implements CommandExecutor {
      * @param args
      */
     private void tp(Player sender, String[] args) {
-        if (args.length == 0) {
-            //Ausgabe: "Verwendung: /tp <Spieler1> [Spieler2]"
-        }
-        if (args.length == 1) {
-            if (plugin.getServer().getPlayer(args[0]) != null) {
-                Player target = plugin.getServer().getPlayer(args[0]);
+        if (args.length == 0) plugin.send(sender, "Verwendung: /tp <Spieler1> [Spieler2]");
+        else if (args.length == 1) {
+            Player target = plugin.getServer().getPlayer(args[0]);
+            if (target != null) {
                 sender.teleport(target);
-                //Ausgabe (an sender): "Du wurdest zu " + target.getName() " geportet"
-                //Ausgabe (an target): sender.getName() + " hat sich zu dir geportet"
+                plugin.send(sender, "Du wurdest zu " + target.getName() + " geportet");
+                plugin.send(target, sender.getName() + " hat sich zu dir geportet");
                 for (int a = 0; a < 5; a++) {
                     sender.getWorld().playEffect(sender.getLocation(), Effect.ENDER_SIGNAL, null);
                 }
-            } else {
-                //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
-            }
-        } else {
-            tpConsole(sender, args);
-        }
+            } 
+            else plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
+        } else tpConsole(sender,args);
     }
 
     /**
@@ -88,16 +92,15 @@ public class TeleportCommands implements CommandExecutor {
      */
     private void tpConsole(CommandSender sender, String[] args) {
         if (args.length >= 2) {
-            if (plugin.getServer().getPlayer(args[0]) != null && plugin.getServer().getPlayer(args[1]) != null) {
-                Player target1 = plugin.getServer().getPlayer(args[0]);
-                Player target2 = plugin.getServer().getPlayer(args[1]);
+            Player target1 = plugin.getServer().getPlayer(args[0]);
+            Player target2 = plugin.getServer().getPlayer(args[1]);
+            if (target1 != null && target2 != null) {
                 target1.teleport(target2);
-                //Ausgabe (an sender): target1.getName() + " wurde zu " + target2.getName() + " geportet"
-                //Ausgabe (an target1): target2.getName() + " wurde von " + sender.getName() + " zu dir geportet"
-                //Ausgabe (an target2): sender.getName() + " hat dich zu " + target1.getName() + " geportet"
-            }else{
-                //Ausgabe (an sender): Die Spieler konnten nicht gefunden werden
+                plugin.send(sender, target1.getName() + " wurde zu " + target2.getName() + " geportet");
+                plugin.send(target1, target2.getName() + " wurde von " + sender.getName() + " zu dir geportet");
+                plugin.send(target2, sender.getName() + " hat dich zu " + target1.getName() + " geportet");
             }
+            else plugin.send(sender, "Die Spieler konnten nicht gefunden werden");
         }
     }
 
@@ -108,18 +111,14 @@ public class TeleportCommands implements CommandExecutor {
      * @param args
      */
     private void s(Player sender, String[] args) {
-        if (args.length == 0) {
-            //Ausgabe "Verwendung: /s <Spieler>"
-        }
-        if (args.length >= 1) {
+        if (args.length == 0) plugin.send(sender, "Verwendung: /s <Spieler>");
+        else if (args.length >= 1) {
             if (plugin.getServer().getPlayer(args[0]) != null) {
                 Player target = plugin.getServer().getPlayer(args[0]);
                 target.teleport(sender);
-                //Ausgabe (an sender): target.getName() " wurde zu dir geportet"
-                //Ausgabe (an target): sender.getName() + " hat dich zu ihm geportet"
-            }else{
-                //Ausgabe (an sender): "Es ist kein Spieler mit dem Namen " + strings[0] + " online"
-            }
+                plugin.send(sender, target.getName() + " wurde zu dir geportet");
+                plugin.send(target, sender.getName() + " hat dich zu ihm geportet");
+            }else plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
         }
     }
 }

@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
  * PunishCommands Klasse
@@ -33,52 +32,46 @@ public class PunishCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("taunsm.punish." + label)
-         || sender.hasPermission("taunsm.punish.*")
-         || sender.hasPermission("taunsm.*")
-         || sender.isOp()) {
-            if (sender instanceof Player) {
-                switch (label) {
-                    case "detonate":
-                        detonate(args);
-                        break;
-                    case "lightning":
-                        lightning(args);
-                        break;
-                    default:
-                    //Ausgabe: "Das Command wurde noch nicht implementiert"
-                }
+                || sender.hasPermission("taunsm.punish.*")
+                || sender.hasPermission("taunsm.*")
+                || sender.isOp()) {
+            switch (label) {
+                case "detonate":
+                    detonate(sender, args);
+                    break;
+                case "lightning":
+                    lightning(sender, args);
+                    break;
+                default:
+                    plugin.send(sender, "Das Command wurde noch nicht implementiert");
             }
         }
-        //Ausgabe: "Du hast nicht die nötigen Permissions"
+        plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
     
-    private void detonate(String[] args){
-        if(args.length == 0) {
-            //Ausgabe: "Verwendung: /detonate <Spieler>"
-        }
+    private void detonate(CommandSender sender, String[] args){
+        if(args.length == 0) plugin.send(sender, "Verwendung: /detonate <Spieler>");
         if(args.length >= 1) {
-            if (plugin.getServer().getPlayer(args[0]) != null) {
-                Player target = plugin.getServer().getPlayer(args[0]);
+            Player target = plugin.getServer().getPlayer(args[0]);
+            if (target != null) {
                 target.getWorld().createExplosion(target.getLocation(), 2);
-                //Ausgabe: "Du hast " + target.getDisplayName() + " hochgejagt"
+                plugin.send(sender, "Du hast " + target.getDisplayName() + " hochgejagt");
             } else {
-                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
+                plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
             }
         }
     }
     
-    private void lightning (String[] args) {
-        if(args.length == 0) {
-            //Ausgabe: "Verwendung: /lightning <Spieler>"
-        }
+    private void lightning (CommandSender sender, String[] args) {
+        if(args.length == 0) plugin.send(sender, "Verwendung: /lightning <Spieler>");
         if(args.length >= 1) {
-            if (plugin.getServer().getPlayer(args[0]) != null) {
-                Player target = plugin.getServer().getPlayer(args[0]);
+            Player target = plugin.getServer().getPlayer(args[0]);
+            if (target != null) {
                 target.getWorld().strikeLightning(target.getLocation());
-                //Ausgabe: "Du hast " + target.getDisplayName() + " einen Blitzschlag verpasst"
+                plugin.send(sender, "Du hast " + target.getDisplayName() + " einen Blitzschlag verpasst");
             } else {
-                //Ausgabe: "Es ist kein Spieler mit dem Namen " + args[0] + " online"
+                plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
             }
         }
     }

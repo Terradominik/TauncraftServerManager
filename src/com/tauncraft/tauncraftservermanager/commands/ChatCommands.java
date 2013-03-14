@@ -34,38 +34,42 @@ public class ChatCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("taunsm.chat." + label)
-         || sender.hasPermission("taunsm.chat.*")
-         || sender.hasPermission("taunsm.*")
-         || sender.isOp()) {
-            if (sender instanceof Player) {
-                switch (label) {
-                    case "mod":
-                        leitungsMessage(args);
-                        break;
-                    case "leitung":
-                        leitungsMessage(args);
-                        break;
-                    case "server":
-                        serverMessage(args);
-                    case "clearmsg":
-                        clearMessage(args);
-                    case "tell":
-                        tell(sender,args);
-                    case "whisper":
-                        tell(sender,args);
-                    case "tt":
-                        tell(sender,args);
-                    case "t":
-                        tell(sender,args);
-                    default:
-                    //Ausgabe: "Das Command wurde noch nicht implementiert"
-                }
+                || sender.hasPermission("taunsm.chat.*")
+                || sender.hasPermission("taunsm.*")
+                || sender.isOp()) {
+            switch (label) {
+                case "mod":
+                    leitungsMessage(args);
+                    break;
+                case "leitung":
+                    leitungsMessage(args);
+                    break;
+                case "server":
+                    serverMessage(args);
+                    break;
+                case "clearmsg":
+                    clearMessage(args);
+                    break;
+                case "tell":
+                    tell(sender, args);
+                    break;
+                case "whisper":
+                    tell(sender, args);
+                    break;
+                case "tt":
+                    tell(sender, args);
+                    break;
+                case "t":
+                    tell(sender, args);
+                    break;
+                default:
+                    plugin.send(sender, "Das Command wurde noch nicht implementiert");
             }
         }
-        //Ausgabe: "Du hast nicht die nötigen Permissions"
+        plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
-    
+
     private void leitungsMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
         for (String s : args) sb.append(s);
