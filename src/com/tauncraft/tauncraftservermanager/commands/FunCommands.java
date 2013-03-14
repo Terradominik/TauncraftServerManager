@@ -29,29 +29,26 @@ public class FunCommands implements CommandExecutor {
      * Beim eingeben eines Command
      *
      * @param sender sender des Commands
-     * @param command Command 
+     * @param cmd Command 
      * @param label Name des Commands 
      * @param args Parameter des Commands
      * @return ob das Command erfolgreich war
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.fun." + label)
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (sender.hasPermission("taunsm.fun." + cmd.getName())
                 || sender.hasPermission("taunsm.fun.*")
                 || sender.hasPermission("taunsm.*")
                 || sender.isOp()) {
             if (sender instanceof Player) {
                 Player playersender = (Player) sender;
-                switch (label) {
+                switch (cmd.getName()) {
                     case "blockhead":
-                        blockhead(playersender, args);
-                        break;
+                        return blockhead(playersender, args);
                     case "effect":
-                        effect(playersender, args);
-                        break;
+                        return effect(playersender, args);
                     case "head":
-                        head(playersender, args);
-                        break;
+                        return head(playersender, args);
                     default:
                         plugin.send(sender, "Das Command wurde noch nicht implementiert");
                 }
@@ -61,61 +58,63 @@ public class FunCommands implements CommandExecutor {
         return true;
     }
 
-    private void blockhead(Player sender, String[] args) {
-        ItemStack i = null;
-        if (args.length >= 1) {
+    /**
+     * Setzt den Kopf des Spielers zu einem beliebigen Block
+     */
+    private boolean blockhead(Player sender, String[] args) {
+        if (args.length == 0) sender.getInventory().setHelmet(sender.getItemInHand());
+        else {
             try {
                 String[] sa = args[0].split(":");
-                i = new ItemStack(Integer.parseInt(sa[0]));
+                ItemStack i = new ItemStack(Integer.parseInt(sa[0]));
                 if (sa.length >= 2) i.setDurability(Short.parseShort(sa[1]));
+                sender.getInventory().setHelmet(i);
                 plugin.send(sender, "Dein Kopf ist jetzt Block " + args[0]);
             } catch (Exception e) {
                 plugin.send(sender, "Das ist kein gültiger Block");
             }
-        } else {
-            i = sender.getItemInHand();
         }
-        sender.getInventory().setHelmet(i);
+        return true;
     }
 
-    private void effect(Player sender, String[] args) {
-        if (args.length == 0) {
-            plugin.send(sender, "Verwendung: /effect <id>");
-            plugin.send(sender, "IDs: ");
-            plugin.send(sender, "1: Ender Auge");
-            plugin.send(sender, "2: Rauch");
-        }
-        if (args.length == 1) {
-            switch (args[0]) {
-                case "1":
-                    for (int a = 0; a < 10; a++) {
-                        sender.getWorld().playEffect(sender.getLocation(), Effect.ENDER_SIGNAL, null);
+    /**
+     * Spielt einen Effekt in der Nähe des Spielers ab und macht ihn dadurch besonders
+     */
+    private boolean effect(Player sender, String[] args) {
+        if (args.length != 1) return false;
+        
+        switch (args[0]) {
+            case "1":
+                for (int a = 0; a < 10; a++) {
+                    sender.getWorld().playEffect(sender.getLocation(), Effect.ENDER_SIGNAL, null);
+                }
+                break;
+            case "2":
+                Location loc = sender.getLocation();
+                for (int a = 0; a < 10; a++) {
+                    for (int i = 1; i < 10; i++) {
+                        loc.getWorld().playEffect(loc, Effect.SMOKE, i);
                     }
-                    break;
-                case "2":
-                    Location loc = sender.getLocation();
-                    for (int a = 0; a < 10; a++) {
-                        for (int i = 1; i < 10; i++) {
-                            loc.getWorld().playEffect(loc, Effect.SMOKE, i);
-                        }
-                    }
-                    break;
-                default:
+                }
+                break;
+            default:
                 plugin.send(sender, "Der Effekt wurde noch nicht implementiert");
-            }
         }
+        return true;
     }
     
-    private void head(Player sender, String[] args) {
-        if(args.length == 0) plugin.send(sender, "Verwendung: /head <Spieler>");
-        if (args.length >= 1) {
-            ItemStack i = new ItemStack(Material.SKULL_ITEM);
-            i.setDurability((short) 3);
-            SkullMeta sm = (SkullMeta) i.getItemMeta();
-            sm.setOwner(args[0]);
-            i.setItemMeta(sm);
-            sender.getInventory().addItem(i);
-            plugin.send(sender, "Du hast nun den Kopf von " + args[0]);
-        }
+    /**
+     * Erstellt einen Kopf des Spielers
+     */
+    private boolean head(Player sender, String[] args) {
+        ItemStack i = new ItemStack(Material.SKULL_ITEM);
+        i.setDurability((short) 3);
+        SkullMeta sm = (SkullMeta) i.getItemMeta();
+        if (args.length == 0) sm.setOwner(sender.getName());
+        else sm.setOwner(args[0]);
+        i.setItemMeta(sm);
+        sender.getInventory().addItem(i);
+        plugin.send(sender, "Du hast nun den Kopf von " + args[0]);
+        return true;
     }
 }

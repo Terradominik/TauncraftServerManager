@@ -26,42 +26,26 @@ public class ChatCommands implements CommandExecutor {
      * Beim eingeben eines Command
      *
      * @param sender sender des Commands
-     * @param command Command 
+     * @param cmd Command 
      * @param label Name des Commands 
      * @param args Parameter des Commands
      * @return ob das Command erfolgreich war
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.chat." + label)
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (sender.hasPermission("taunsm.chat." + cmd.getName())
                 || sender.hasPermission("taunsm.chat.*")
                 || sender.hasPermission("taunsm.*")
                 || sender.isOp()) {
-            switch (label) {
-                case "mod":
-                    leitungsMessage(args);
-                    break;
+            switch (cmd.getName()) {
                 case "leitung":
-                    leitungsMessage(args);
-                    break;
+                    return leitungsMessage(args);
                 case "server":
-                    serverMessage(args);
-                    break;
+                    return serverMessage(args);
                 case "clearmsg":
-                    clearMessage(args);
-                    break;
+                    return clearMessage(args);
                 case "tell":
-                    tell(sender, args);
-                    break;
-                case "whisper":
-                    tell(sender, args);
-                    break;
-                case "tt":
-                    tell(sender, args);
-                    break;
-                case "t":
-                    tell(sender, args);
-                    break;
+                    return tell(sender, args);
                 default:
                     plugin.send(sender, "Das Command wurde noch nicht implementiert");
             }
@@ -70,26 +54,41 @@ public class ChatCommands implements CommandExecutor {
         return true;
     }
 
-    private void leitungsMessage(String[] args) {
+    /**
+     * Sendet eine Leitungsnachricht
+     */
+    private boolean leitungsMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
         for (String s : args) sb.append(s);
         plugin.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "Leitung: " + sb);
+        return true;
     }
     
-    private void serverMessage(String[] args) {
+    /**
+     * Sendet eine Servernachricht
+     */
+    private boolean serverMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
         for (String s : args) sb.append(s);
         plugin.getServer().broadcastMessage(ChatColor.DARK_RED + "Server: " + sb);
+        return true;
     }
     
-    private void clearMessage(String[] args) {
+    /**
+     * Sendet eine reine Nachricht ohne Formatierung (gut zum Testen)
+     */
+    private boolean clearMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
         for (String s : args) sb.append(s);
         String msg = ChatColor.translateAlternateColorCodes('&', sb.toString());
         plugin.getServer().broadcastMessage(msg);
+        return true;
     }
 
-    private void tell(CommandSender sender, String[] args) {
+    /**
+     * Sendet eine private Nachricht
+     */
+    private boolean tell(CommandSender sender, String[] args) {
         Player receiver = plugin.getServer().getPlayer(args[0]);
         if (receiver == null) plugin.send(sender, "Der Spieler " + args[0] + " konnte nicht gefunden werden");
         else {
@@ -99,5 +98,6 @@ public class ChatCommands implements CommandExecutor {
             plugin.send(sender, ChatColor.DARK_PURPLE + "Tell zu " + receiver.getName() + ": " + sb.toString());
             plugin.send(receiver, ChatColor.DARK_PURPLE + "Tell von " + sender.getName() + ": " + sb.toString());
         }
+        return true;
     }
 }

@@ -7,45 +7,67 @@ url: http://www.tauncraft.com
 version: 0.1
 permissions:
 commands:
-   tp:
-      description: Teleportation
-      usage: /<command> [arg0] [arg1]
-   s:
-      description: Teleportation
-      usage: /<command> [arg0]
-   blockhead:
-     description: Block als kopf
-     usage: /<command> [arg0]
-   head:
-     description: Kopf von Spieler
-     usage: /<command> [arg0]
-   invsee:
-     description: Inventar öffnen
-     usage: /<command> [arg0]
-   end:
-     description: Enderchest öffnen
-     usage: /<command> [arg0]
-   effect:
-     description: Effekt abspielen
-     usage: /<command> [arg0]
-   detonate:
-     description: Explosion erzeugen
-     usage: /<command> [arg0]
-   lightning:
-     description: Blitz erzeugen
-     usage: /<command> [arg0]
-   day:
-     description: Macht Tag
-     usage: /<command>
-   mod:
-     description: Leitungs Nachricht
-     usage: /<command> [text]
-   leitung:
-     description: Leitungs Nachricht
-     usage: /<command> [text]
-   server:
-     description: Server Message
-     usage: /<command> [text]
-   server:
-     description: Clear Message
-     usage: /<command> [text]
+  
+# Administration Commands:
+  invsee:
+    description: Zeigt das Inventar eines Spielers
+    usage: /<command> <spieler>
+  end:
+    description: Zeigt die Endertruhe eines Spielers
+    usage: /<command> [spieler]
+  day:
+    description: Setzt die Zeit in der Welt des Senders auf Tag
+    usage: /<command>
+  night:
+    description: Setzt die Zeit in der Welt des Senders auf Nacht
+    usage: /<command>
+ 
+ # Chat Commands
+  leitung:
+    description: Sendet eine Leitungsnachricht
+    usage: /<command> [text]...
+    aliases: mod
+  server:
+    description: Sender eine Servernachricht
+    usage: /<command> [text]...
+  clearmsg:
+    description: Sendet eine reine Nachricht ohne Formatierung (gut zum Testen)
+    usage: /<command> [text]...
+  tell:
+    description: Sendet eine private Nachricht
+    usage: /<command> <spieler> [text]...
+    aliases: [tt,t,msg,whisper,pn]
+    
+# Fun Commands
+  blockhead:
+    description: Setzt den Kopf des Spielers zu einem beliebigen Block
+    usage: /<command> [id[":"<subid>]]
+    aliases: blockkopf
+  effect:
+    description: Spielt einen Effekt in der Nähe des Spielers ab und macht ihn dadurch besonders
+    usag: /<command> <id>
+    aliases: effekt
+  head:
+    description: Erstellt einen Kopf des Spielers
+    usage: /<command> [spieler]
+    aliases: kopf
+    
+# Punish Commands
+  detonate:
+    description: Lasst einen Spieler Explodieren (nicht Violet zeigen)
+    usage: /<command> <spieler>
+    aliases: explode
+  lightning:
+    description: Schleudert einen Blitz auf einen Spieler (nicht Violet zeigen)
+    usage: /<command> <spieler>
+    aliases: blitz
+  
+# Teleport Commands
+  tp:
+    description: Teleportiert den Sender zu einem anderen Spieler
+    usage: /<command> <spieler1> [spieler2]
+    aliases: teleport
+  s:
+    description: Teleportiert einen Spieler zum Sender
+    usage: /<command> <spieler>
+    aliases: tphere
