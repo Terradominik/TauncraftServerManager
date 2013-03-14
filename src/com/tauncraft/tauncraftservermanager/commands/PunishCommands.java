@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
@@ -15,7 +11,7 @@ import org.bukkit.plugin.Plugin;
  * PunishCommands Klasse
  *
  * @author Terradomninik | raffi287
- * @version 2012-02-22
+ * @version 0.1
  */
 public class PunishCommands implements CommandExecutor {
 
@@ -28,15 +24,11 @@ public class PunishCommands implements CommandExecutor {
     /**
      * Beim eingeben eines Command
      *
-     * @param sender
-     * sender des Commands
-     * @param command
-     * Command
-     * @param label
-     * Name des Commands
-     * @param args
-     * Parameter des Commands
-     * @return
+     * @param sender sender des Commands
+     * @param command Command 
+     * @param label Name des Commands 
+     * @param args Parameter des Commands
+     * @return ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

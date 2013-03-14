@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
@@ -15,7 +11,7 @@ import org.bukkit.entity.Player;
  * ChatCommands Klasse
  *
  * @author Terradomninik | raffi287
- * @version 2012-02-22
+ * @version 0.1
  */
 public class ChatCommands implements CommandExecutor {
 
@@ -33,7 +29,7 @@ public class ChatCommands implements CommandExecutor {
      * @param command Command 
      * @param label Name des Commands 
      * @param args Parameter des Commands
-     * @return
+     * @return ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  * TeleportCommands Klasse
  *
  * @author Terradomninik | raffi287
- * @version 2012-02-22
+ * @version 0.1
  */
 public class TeleportCommands implements CommandExecutor {
 
@@ -20,19 +20,15 @@ public class TeleportCommands implements CommandExecutor {
     public TeleportCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
-
+    
     /**
      * Beim eingeben eines Command
      *
-     * @param sender
-     * sender des Commands
-     * @param command
-     * Command
-     * @param label
-     * Name des Commands
-     * @param args
-     * Parameter des Commands
-     * @return
+     * @param sender sender des Commands
+     * @param command Command 
+     * @param label Name des Commands 
+     * @param args Parameter des Commands
+     * @return ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
