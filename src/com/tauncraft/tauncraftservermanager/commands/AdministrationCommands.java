@@ -32,7 +32,10 @@ public class AdministrationCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.admin." + label) || sender.hasPermission("taunsm.admin.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.admin." + label)
+         || sender.hasPermission("taunsm.admin.*")
+         || sender.hasPermission("taunsm.*")
+         || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
                     case "invsee":

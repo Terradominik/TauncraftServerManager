@@ -36,7 +36,10 @@ public class FunCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("taunsm.fun." + label) || sender.hasPermission("taunsm.fun.*") || sender.hasPermission("taunsm.*") || sender.isOp()) {
+        if (sender.hasPermission("taunsm.fun." + label)
+         || sender.hasPermission("taunsm.fun.*")
+         || sender.hasPermission("taunsm.*")
+         || sender.isOp()) {
             if (sender instanceof Player) {
                 switch (label) {
                     case "blockhead":
