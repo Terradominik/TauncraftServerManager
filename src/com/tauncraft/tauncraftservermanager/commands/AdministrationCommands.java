@@ -2,6 +2,7 @@ package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.Restart;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -154,7 +155,7 @@ public class AdministrationCommands implements CommandExecutor {
             
         OfflinePlayer target = plugin.getServer().getPlayer(name);
         if (target != null)
-            ((Player) target).kickPlayer("Du wurdest gebanned:\n" + sb.toString() + "\nUm entbanned zu werden melde dich in unserem TS");
+            target.getPlayer().kickPlayer("Du wurdest gebanned:\n" + sb.toString() + "\nUm entbanned zu werden melde dich in unserem TS");
         else
             target = plugin.getServer().getOfflinePlayer(name);
         target.setBanned(true);
@@ -178,12 +179,18 @@ public class AdministrationCommands implements CommandExecutor {
         return true;
     }
     
-    /**
+    /** 
      * Bereitet den Server auf einen Restart vor
      */
     private boolean restart(String[] args) {
-        if (args.length == 0) Restart.setRestart();
-        else if (args[0].equalsIgnoreCase("stop")) Restart.stopRestart();
+        if (args.length == 0 && !Restart.getRestart()) {
+            plugin.broadcast(ChatColor.DARK_RED + "Nach beenden der laufenden Runden Restart");
+            Restart.setRestart();
+        }
+        else if (args[0].equalsIgnoreCase("stop")) {
+            plugin.broadcast(ChatColor.DARK_RED + "Die Restart Sequenz wurde abgebrochen");
+            Restart.stopRestart();
+        }
         return true;
     }
 }

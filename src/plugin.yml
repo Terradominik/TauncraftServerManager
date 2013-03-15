@@ -54,6 +54,10 @@ commands:
     usage: /<command> <spieler> [<text>]...
     aliases: [tt,t,msg,whisper,pn]
     
+# Config Commands
+  configset:
+    description: Setzt einen Wert in die Config
+    usage: /<command> <pfad> [<text>]...
 # Fun Commands
   blockhead:
     description: Setzt den Kopf des Spielers zu einem beliebigen Block
