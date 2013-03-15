@@ -14,7 +14,7 @@ commands:
     usage: /<command> <spieler>
   end:
     description: Zeigt die Endertruhe eines Spielers
-    usage: /<command> [spieler]
+    usage: /<command> [<spieler>]
   day:
     description: Setzt die Zeit in der Welt des Senders auf Tag
     usage: /<command>
@@ -23,37 +23,41 @@ commands:
     usage: /<command>
   kick:
     description: Kickt einen Spieler
-    usage: /<command> <spieler> [text]...
+    usage: /<command> <spieler> [<text>]...
     aliases: bb
   ban:
     description: Banned einen Spieler vom Server
-    usage: /<command> <spieler> [text]...
+    usage: /<command> <spieler> [<text>]...
     aliases: [bann, bb4ever, tschuess, banhammer, vertreib]
   unban:
     description: Entbanned einen Spieler vom Server
     usage: /<command> <spieler>
     aliases: [pardon, entban, entbann]
+  restart:
+    description: Bereitet den Server auf einen Restart vor
+    usage: /<command> [stop]
+    aliases: reboot
  
  # Chat Commands
   leitung:
     description: Sendet eine Leitungsnachricht
-    usage: /<command> [text]...
+    usage: /<command> [<text>]...
     aliases: mod
   server:
     description: Sender eine Servernachricht
-    usage: /<command> [text]...
+    usage: /<command> [<text>]...
   clearmsg:
     description: Sendet eine reine Nachricht ohne Formatierung (gut zum Testen)
-    usage: /<command> [text]...
+    usage: /<command> [<text>]...
   tell:
     description: Sendet eine private Nachricht
-    usage: /<command> <spieler> [text]...
+    usage: /<command> <spieler> [<text>]...
     aliases: [tt,t,msg,whisper,pn]
     
 # Fun Commands
   blockhead:
     description: Setzt den Kopf des Spielers zu einem beliebigen Block
-    usage: /<command> [id[":"<subid>]]
+    usage: /<command> [<id>[:<subid>]]
     aliases: blockkopf
   effect:
     description: Spielt einen Effekt in der Nähe des Spielers ab und macht ihn dadurch besonders
@@ -61,7 +65,7 @@ commands:
     aliases: effekt
   head:
     description: Erstellt einen Kopf des Spielers
-    usage: /<command> [spieler]
+    usage: /<command> [<spieler>]
     aliases: kopf
     
 # Punish Commands
@@ -77,7 +81,7 @@ commands:
 # Teleport Commands
   tp:
     description: Teleportiert den Sender zu einem anderen Spieler
-    usage: /<command> <spieler1> [spieler2]
+    usage: /<command> <spieler1> [<spieler2>]
     aliases: teleport
   s:
     description: Teleportiert einen Spieler zum Sender

@@ -1,5 +1,6 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.Restart;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -44,6 +45,8 @@ public class AdministrationCommands implements CommandExecutor {
                     return ban(sender, args);
                 case "unban":
                     return unban(sender, args);
+                case "restart":
+                    return restart(args);
             }
             if (sender instanceof Player) {
                 Player playersender = (Player) sender;
@@ -172,6 +175,15 @@ public class AdministrationCommands implements CommandExecutor {
         target.setBanned(false);
         plugin.broadcast(target.getName() + " wurde entbanned");
         //Unban Protokoll sender.getName() hat target.getName() entbanned
+        return true;
+    }
+    
+    /**
+     * Bereitet den Server auf einen Restart vor
+     */
+    private boolean restart(String[] args) {
+        if (args.length == 0) Restart.setRestart();
+        else if (args[0].equalsIgnoreCase("stop")) Restart.stopRestart();
         return true;
     }
 }
