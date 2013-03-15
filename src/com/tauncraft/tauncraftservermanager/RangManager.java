@@ -1,3 +1,4 @@
+
 package com.tauncraft.tauncraftservermanager;
 
 import java.util.Map;
@@ -11,13 +12,14 @@ import org.bukkit.plugin.Plugin;
  * Noch nicht Fertig! (Ränge werden mit Enums gelöst)
  * @author Dominik
  */
+
 public class RangManager {
     private static Map<String, Rang> rangMap;
     private Plugin plugin;
 
     public RangManager(Plugin plugin) {
         this.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), plugin);
+        //plugin.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), plugin);
     }
     
     public static Map<String, Rang> getRangMap() {
@@ -25,9 +27,10 @@ public class RangManager {
     }
     
     public static Rang getRangColor(Player spieler) {
-        return rangMap.get(spieler.getName());
+        //return rangMap.get(spieler.getName());
+        return Rang.ADMIN;
     }
-    
+    /**
     private class PlayerJoinListener implements Listener {
         @EventHandler
         public void onPlayerJoin(PlayerJoinEvent event) {
@@ -41,4 +44,7 @@ public class RangManager {
             else if (spieler.hasPermission("rang.neu")) rangMap.put(spieler.getName(), Rang.NEU);
         }
     }
+    */
+    
+    
 }
