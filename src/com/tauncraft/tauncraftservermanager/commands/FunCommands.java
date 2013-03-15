@@ -49,12 +49,11 @@ public class FunCommands implements CommandExecutor {
                         return effect(playersender, args);
                     case "head":
                         return head(playersender, args);
-                    default:
-                        plugin.send(sender, "Das Command wurde noch nicht implementiert");
                 }
             }
+            plugin.send(sender, "Das Command wurde noch nicht implementiert");
         }
-        plugin.send(sender, "Du hast nicht die nötigen Rechte");
+        else plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
 

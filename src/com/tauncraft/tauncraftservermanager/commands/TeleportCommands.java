@@ -43,19 +43,16 @@ public class TeleportCommands implements CommandExecutor {
                         return tp(playersender, args);
                     case "s":
                         return s(playersender, args);
-                    default:
-                        plugin.send(sender, "Dieses Command wurde noch nicht implementiert");
                 }
             } else {
                 switch (cmd.getName()) {
                     case "tp":
                         return tpConsole(sender, args);
-                    default:
-                        plugin.send(sender, "Dieses Command wurde noch nicht implementiert");
                 }
             }
-        }
-        plugin.send(sender, "Du hast nicht die nötigen Rechte");
+            plugin.send(sender, "Dieses Command wurde noch nicht implementiert");
+        } 
+        else plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
 
@@ -105,8 +102,8 @@ public class TeleportCommands implements CommandExecutor {
     private boolean s(Player sender, String[] args) {
         if (args.length == 0) return false;
         
-        if (plugin.getServer().getPlayer(args[0]) != null) {
-            Player target = plugin.getServer().getPlayer(args[0]);
+        Player target = plugin.getServer().getPlayer(args[0]);
+        if (target != null) {
             target.teleport(sender);
             plugin.send(sender, target.getName() + " wurde zu dir geportet");
             plugin.send(target, sender.getName() + " hat dich zu ihm geportet");

@@ -40,11 +40,10 @@ public class PunishCommands implements CommandExecutor {
                     return detonate(sender, args);
                 case "lightning":
                     return lightning(sender, args);
-                default:
-                    plugin.send(sender, "Das Command wurde noch nicht implementiert");
             }
+            plugin.send(sender, "Das Command wurde noch nicht implementiert");
         }
-        plugin.send(sender, "Du hast nicht die nötigen Rechte");
+        else plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
     
@@ -58,9 +57,8 @@ public class PunishCommands implements CommandExecutor {
         if (target != null) {
             target.getWorld().createExplosion(target.getLocation(), 2);
             plugin.send(sender, "Du hast " + target.getDisplayName() + " hochgejagt");
-        } else {
+        } else
             plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
-        }
         return true;
     }
     
@@ -74,9 +72,8 @@ public class PunishCommands implements CommandExecutor {
         if (target != null) {
             target.getWorld().strikeLightning(target.getLocation());
             plugin.send(sender, "Du hast " + target.getDisplayName() + " einen Blitzschlag verpasst");
-        } else {
+        } else 
             plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
-        }
         return true;
     }
 }

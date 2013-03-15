@@ -21,6 +21,18 @@ commands:
   night:
     description: Setzt die Zeit in der Welt des Senders auf Nacht
     usage: /<command>
+  kick:
+    description: Kickt einen Spieler
+    usage: /<command> <spieler> [text]...
+    aliases: bb
+  ban:
+    description: Banned einen Spieler vom Server
+    usage: /<command> <spieler> [text]...
+    aliases: [bann, bb4ever, tschuess, banhammer, vertreib]
+  unban:
+    description: Entbanned einen Spieler vom Server
+    usage: /<command> <spieler>
+    aliases: [pardon, entban, entbann]
  
  # Chat Commands
   leitung:

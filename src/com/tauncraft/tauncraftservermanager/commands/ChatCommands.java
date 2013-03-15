@@ -46,11 +46,10 @@ public class ChatCommands implements CommandExecutor {
                     return clearMessage(args);
                 case "tell":
                     return tell(sender, args);
-                default:
-                    plugin.send(sender, "Das Command wurde noch nicht implementiert");
             }
+            plugin.send(sender, "Das Command wurde noch nicht implementiert");
         }
-        plugin.send(sender, "Du hast nicht die nötigen Rechte");
+        else plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
 
