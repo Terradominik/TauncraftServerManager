@@ -37,6 +37,10 @@ commands:
     description: Bereitet den Server auf einen Restart vor
     usage: /<command> [stop]
     aliases: reboot
+  seen:
+    description: Gibt das Datum zurück an dem der Spieler das letzte Mal Online war
+    usage: /<command> <spieler>
+    aliases: [last, lastonline]
  
  # Chat Commands
   leitung:

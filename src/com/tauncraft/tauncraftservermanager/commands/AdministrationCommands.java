@@ -60,6 +60,8 @@ public class AdministrationCommands implements CommandExecutor {
                         return day(playersender);
                     case "night":
                         return night(playersender);
+                    case "seen":
+                        return seen(playersender, args);
                 }
             }
             plugin.send(sender, "Das Command wurde noch nicht implementiert");
@@ -191,6 +193,16 @@ public class AdministrationCommands implements CommandExecutor {
             plugin.broadcast(ChatColor.DARK_RED + "Die Restart Sequenz wurde abgebrochen");
             Restart.stopRestart();
         }
+        return true;
+    }
+    
+    /**
+     * Gibt das Datum zurück an dem der Spieler das letzte Mal Online war
+     */
+    private boolean seen(Player sender, String[] args){
+        if(args.length == 0)return false;
+        OfflinePlayer target = plugin.getServer().getPlayer(args[0]);
+        plugin.send(sender, target.getName() + " hat das letzte Mal am " + target.getLastPlayed() + "gespielt");
         return true;
     }
 }
