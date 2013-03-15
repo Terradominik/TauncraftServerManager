@@ -26,9 +26,9 @@ public class TauncraftServerManager extends JavaPlugin {
     private final RangManager rangManager = new RangManager(this);
     
     //Listener
-    private final BlockListener blockListener = new BlockListener(this);
-    private final JoinListener joinListener = new JoinListener(this);
-    private final QuitListener quitListener = new QuitListener(this);
+    private BlockListener blockListener;
+    private JoinListener joinListener;
+    private QuitListener quitListener;
     
     //Commands
     private final AdministrationCommands ac = new AdministrationCommands(this);
@@ -85,6 +85,9 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("tp").setExecutor(tpc);
         this.getCommand("s").setExecutor(tpc);
 
+        blockListener = new BlockListener(this);
+        joinListener = new JoinListener(this);
+        quitListener = new QuitListener(this);
         //Listener Registration
         pm.registerEvents(this.blockListener, this);
         pm.registerEvents(this.joinListener, this);

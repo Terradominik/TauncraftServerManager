@@ -8,8 +8,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 
 /**
- * @author
- * Dominik
+ * PlayerChat Klasse
+ *
+ * @author Terradominik | raffi287
+ * @version 2012-02-22
  */
 public class PlayerChat {
 

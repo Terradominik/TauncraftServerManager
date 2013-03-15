@@ -204,7 +204,7 @@ public class AdministrationCommands implements CommandExecutor {
         if(args.length == 0)return false;
         OfflinePlayer target = plugin.getServer().getPlayer(args[0]);
         Date d = new Date(target.getLastPlayed());
-        plugin.send(sender, target.getName() + " hat das letzte Mal am " + d.toString() + "gespielt");
+        plugin.send(sender, target.getName() + " hat das letzte Mal am " + d.toString() + " gespielt");
         return true;
     }
 }
