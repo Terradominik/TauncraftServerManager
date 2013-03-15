@@ -66,6 +66,7 @@ public class ConfigCommands implements CommandExecutor {
         for (String s : args) sb.append(s);
         
         plugin.getConfig().set(path, sb.toString());
+        plugin.saveConfig();
         return true;
     }
 }

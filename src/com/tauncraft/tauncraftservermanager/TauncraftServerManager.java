@@ -48,7 +48,7 @@ public class TauncraftServerManager extends JavaPlugin {
     @Override
     public void onEnable() {
         final PluginManager pm = getServer().getPluginManager();
-        this.loadConfig();
+        this.saveDefaultConfig();
 
         //Command Registration
         
@@ -100,14 +100,6 @@ public class TauncraftServerManager extends JavaPlugin {
         this.saveConfig();
     }
 
-    /**
-     * Ladet Config
-     */
-    public void loadConfig() {
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-    }
-    
     /**
      * Broadcast Message
      */
