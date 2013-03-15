@@ -2,6 +2,7 @@ package com.tauncraft.tauncraftservermanager;
 
 import com.tauncraft.tauncraftservermanager.commands.AdministrationCommands;
 import com.tauncraft.tauncraftservermanager.commands.ChatCommands;
+import com.tauncraft.tauncraftservermanager.commands.ConfigCommands;
 import com.tauncraft.tauncraftservermanager.commands.FunCommands;
 import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
 import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
@@ -30,11 +31,12 @@ public class TauncraftServerManager extends JavaPlugin {
     private final QuitListener quitListener = new QuitListener(this);
     
     //Commands
+    private final AdministrationCommands ac = new AdministrationCommands(this);
+    private final ChatCommands chc = new ChatCommands(this);
+    private final ConfigCommands cfc = new ConfigCommands(this);
     private final TeleportCommands tpc = new TeleportCommands(this);
-    private final ChatCommands cc = new ChatCommands(this);
     private final FunCommands fc = new FunCommands(this);
     private final PunishCommands pc = new PunishCommands(this);
-    private final AdministrationCommands ac = new AdministrationCommands(this);
     
     private String broadcastFormat = ChatColor.AQUA + "";
     private String privateFormat = ChatColor.DARK_GRAY + "";
@@ -49,20 +51,27 @@ public class TauncraftServerManager extends JavaPlugin {
         this.loadConfig();
 
         //Command Registration
+        
+        //Administration Commands
+        this.getCommand("invsee").setExecutor(ac);
+        this.getCommand("end").setExecutor(ac);
+        this.getCommand("day").setExecutor(ac);
+        this.getCommand("night").setExecutor(ac);
+        this.getCommand("kick").setExecutor(ac);
+        this.getCommand("ban").setExecutor(ac);
+        this.getCommand("unban").setExecutor(ac);
+        this.getCommand("restart").setExecutor(ac);
+        
+        //Chat Commands
+        this.getCommand("leitung").setExecutor(chc);
+        this.getCommand("server").setExecutor(chc);
+        this.getCommand("clearmsg").setExecutor(chc);
+        this.getCommand("tell").setExecutor(chc);
 
-        //Teleport
-        this.getCommand("tp").setExecutor(tpc);
-        //this.getCommand("tps").setExecutor(tpc);
-        this.getCommand("s").setExecutor(tpc);
-        //this.getCommand("port").setExecutor(tpc);
-
-        //Chat
-        //this.getCommand("mod").setExecutor(cc);
-        //this.getCommand("leitung").setExecutor(cc);
-        //this.getCommand("say").setExecutor(cc);
-
-
-        //Fun
+        //Config Commands
+        this.getCommand("configset").setExecutor(cfc);
+        
+        //Fun Commands
         this.getCommand("blockhead").setExecutor(fc);
         this.getCommand("effect").setExecutor(fc);
         this.getCommand("head").setExecutor(fc);
@@ -71,12 +80,9 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("detonate").setExecutor(pc);
         this.getCommand("lightning").setExecutor(pc);
 
-        //Administration
-        this.getCommand("invsee").setExecutor(ac);
-        this.getCommand("end").setExecutor(ac);
-        this.getCommand("day").setExecutor(ac);
-        this.getCommand("night").setExecutor(ac);
-
+        //Teleport Commands
+        this.getCommand("tp").setExecutor(tpc);
+        this.getCommand("s").setExecutor(tpc);
 
         //Listener Registration
         pm.registerEvents(this.blockListener, this);

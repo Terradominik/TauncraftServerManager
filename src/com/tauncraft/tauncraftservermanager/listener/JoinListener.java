@@ -1,6 +1,7 @@
 package com.tauncraft.tauncraftservermanager.listener;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,7 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player spieler = event.getPlayer();
+        event.setJoinMessage(ChatColor.DARK_GRAY + spieler.getName() + " hat den Server betreten");
         if (spieler.hasPlayedBefore()) {
             plugin.broadcast(welcomeMessage.replace("<name>", spieler.getName()));
         }

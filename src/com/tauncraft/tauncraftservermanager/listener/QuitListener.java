@@ -2,6 +2,8 @@ package com.tauncraft.tauncraftservermanager.listener;
 
 import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -16,6 +18,8 @@ public class QuitListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        SpielerListe.remove(event.getPlayer());
+        Player spieler = event.getPlayer();
+        SpielerListe.remove(spieler);
+        event.setQuitMessage(ChatColor.DARK_GRAY + spieler.getName() + " hat den Server verlassen");
     }
 }

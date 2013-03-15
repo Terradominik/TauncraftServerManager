@@ -58,6 +58,7 @@ commands:
   configset:
     description: Setzt einen Wert in die Config
     usage: /<command> <pfad> [<text>]...
+    
 # Fun Commands
   blockhead:
     description: Setzt den Kopf des Spielers zu einem beliebigen Block
