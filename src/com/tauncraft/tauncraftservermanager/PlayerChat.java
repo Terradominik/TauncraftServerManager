@@ -3,6 +3,7 @@ package com.tauncraft.tauncraftservermanager;
 import java.util.Set;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
@@ -34,7 +35,8 @@ public class PlayerChat {
     }
     
     private class PlayerChatListener implements Listener {
-        @EventHandler
+        
+        @EventHandler(priority = EventPriority.HIGHEST) 
         public void onPlayerAsynchChatEvent(AsyncPlayerChatEvent event) {
             Player spieler = event.getPlayer();
             if (spielerSet.contains(spieler.getName())) {

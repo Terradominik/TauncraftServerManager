@@ -1,11 +1,13 @@
 package com.tauncraft.tauncraftservermanager;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * @author Dominik
  */
-public class TauncraftPlayer {
+public class TaunPlayer {
     public Chat writeChat;
     public LinkedList<Chat> listeningChats;
     
@@ -13,10 +15,13 @@ public class TauncraftPlayer {
     private Rang rang;
     private String name;
     
-    public TauncraftPlayer(String name, int taunpoints, Rang rang) {
+    private static Map<String, TaunPlayer> tp = new HashMap<>();
+    
+    public TaunPlayer(String name, int taunpoints, Rang rang) {
         this.name = name;
         this.taunpoints = taunpoints;
         this.rang = rang;
+        tp.put(name, this);
     }
     
     public void addTaunpoints(int value) {
@@ -30,5 +35,13 @@ public class TauncraftPlayer {
             taunpoints -= value;
         }
         else throw new NotEnoughTaunpointsException();
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public Map<String, TaunPlayer> getMap() {
+        return tp;
     }
 }

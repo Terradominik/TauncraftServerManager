@@ -38,7 +38,7 @@ public class TauncraftServerManager extends JavaPlugin {
     private final FunCommands fc = new FunCommands(this);
     private final PunishCommands pc = new PunishCommands(this);
     
-    private String broadcastFormat = ChatColor.AQUA + "";
+    private String broadcastFormat = ChatColor.DARK_AQUA + "";
     private String privateFormat = ChatColor.DARK_GRAY + "";
     
 
