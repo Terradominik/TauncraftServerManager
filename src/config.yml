@@ -1,3 +1,8 @@
 # Default Config!
 motd: "Das ist die Tagesnachricht"
 welcomemsg: "Das ist die Willkommensnachricht"
+datenbank:
+  user: username
+  password: passwort
+  servername: servername
+  databasename: datenbankname

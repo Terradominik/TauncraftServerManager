@@ -24,6 +24,7 @@ public class TauncraftServerManager extends JavaPlugin {
 
     //Manager
     private final RangManager rangManager = new RangManager(this);
+    private final DatabaseManager databaseManager = new DatabaseManager(this);
     
     //Listener
     private BlockListener blockListener;
