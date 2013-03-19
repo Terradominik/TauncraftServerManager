@@ -23,8 +23,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class TauncraftServerManager extends JavaPlugin {
 
     //Manager
-    private final RangManager rangManager = new RangManager(this);
-    private final DatabaseManager databaseManager = new DatabaseManager(this);
+    private RangManager rangManager;
+    private DatabaseManager databaseManager;
     
     //Listener
     private BlockListener blockListener;
@@ -50,6 +50,10 @@ public class TauncraftServerManager extends JavaPlugin {
     public void onEnable() {
         final PluginManager pm = getServer().getPluginManager();
         this.saveDefaultConfig();
+        
+        //Manager
+        rangManager = new RangManager(this);
+        databaseManager = new DatabaseManager(this);
 
         //Command Registration
         

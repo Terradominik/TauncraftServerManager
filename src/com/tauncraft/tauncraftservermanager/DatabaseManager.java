@@ -46,4 +46,13 @@ public class DatabaseManager {
         }
         return null;
     }
+    
+    public static PreparedStatement prepareStatement(String sql) {
+        try {
+            return con.prepareStatement(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

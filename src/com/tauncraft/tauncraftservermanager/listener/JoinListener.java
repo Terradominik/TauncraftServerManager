@@ -2,10 +2,10 @@ package com.tauncraft.tauncraftservermanager.listener;
 
 import com.tauncraft.tauncraftservermanager.DatabaseManager;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
@@ -42,13 +42,12 @@ public class JoinListener implements Listener {
     }
 
     private void insertNewPlayer(Player spieler) {
-        String sql = "INSERT INTO spieler (name,firstJoin,joinIP) VALUES (" 
-                + spieler.getName() + ", " 
-                + new Timestamp(new Date().getTime()) + ", " 
-                + spieler.getAddress().getAddress().toString() + ");"; 
-        Statement stmnt = DatabaseManager.getStatement();
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("INSERT INTO spieler (name,firstJoin,joinIP) VALUES (?,?,?);");
         try {
-            stmnt.executeUpdate(sql);
+            stmnt.setString(1, spieler.getName());
+            stmnt.setTimestamp(2, new Timestamp(Calendar.getInstance().getTime().getTime()));
+            stmnt.setString(3, spieler.getAddress().getAddress().getHostAddress());
+            stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
             Logger.getLogger(JoinListener.class.getName()).log(Level.SEVERE, null, ex);
