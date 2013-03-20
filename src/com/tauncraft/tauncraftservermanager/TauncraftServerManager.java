@@ -9,8 +9,10 @@ import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.JoinListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
+import com.tauncraft.tauncraftservermanager.listener.TestPlayerListener;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +32,7 @@ public class TauncraftServerManager extends JavaPlugin {
     private BlockListener blockListener;
     private JoinListener joinListener;
     private QuitListener quitListener;
+    private TestPlayerListener testPlayerListener; //TODO nur Test!
     
     //Commands
     private final AdministrationCommands ac = new AdministrationCommands(this);
@@ -93,10 +96,13 @@ public class TauncraftServerManager extends JavaPlugin {
         blockListener = new BlockListener(this);
         joinListener = new JoinListener(this);
         quitListener = new QuitListener(this);
+        testPlayerListener = new TestPlayerListener();
+        
         //Listener Registration
         pm.registerEvents(this.blockListener, this);
         pm.registerEvents(this.joinListener, this);
         pm.registerEvents(this.quitListener, this);
+        pm.registerEvents(this.testPlayerListener, this);
     }
 
     /**

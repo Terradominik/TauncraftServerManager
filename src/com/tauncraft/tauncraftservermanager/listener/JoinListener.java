@@ -1,8 +1,11 @@
 package com.tauncraft.tauncraftservermanager.listener;
 
 import com.tauncraft.tauncraftservermanager.DatabaseManager;
+import com.tauncraft.tauncraftservermanager.Rang;
+import com.tauncraft.tauncraftservermanager.TaunPlayer;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -28,10 +31,15 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player spieler = event.getPlayer();
+        spieler.getFirstPlayed();
         event.setJoinMessage(ChatColor.DARK_GRAY + spieler.getName() + " hat den Server betreten");
         if (!spieler.hasPlayedBefore()) {
             plugin.broadcast(welcomeMessage.replace("<name>", spieler.getName()));
             this.insertNewPlayer(spieler);
+        } else {
+            if(!this.registerPlayer(spieler)) {
+                this.insertNewPlayer(spieler);
+            }
         }
         plugin.send(spieler, motd);
     }
@@ -51,6 +59,25 @@ public class JoinListener implements Listener {
             stmnt.close();
         } catch (SQLException ex) {
             Logger.getLogger(JoinListener.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.registerPlayer(spieler);
+    }
+
+    private boolean registerPlayer(Player spieler) {
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT userID,name,taunPoints,rangID FROM spieler WHERE name=?;");
+        try {
+            stmnt.setString(1, spieler.getName());
+            ResultSet rs = stmnt.executeQuery();
+            if (!rs.isBeforeFirst()) return false;
+            Rang rang = Rang.valueOf(rs.getString(4));
+            new TaunPlayer(rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
+            spieler.setDisplayName(rang.getColor() + spieler.getName());
+            rs.close();
+            stmnt.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(JoinListener.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }
