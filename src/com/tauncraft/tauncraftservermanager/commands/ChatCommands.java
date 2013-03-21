@@ -1,5 +1,7 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.Chat;
+import com.tauncraft.tauncraftservermanager.TaunPlayer;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -46,6 +48,8 @@ public class ChatCommands implements CommandExecutor {
                     return clearMessage(args);
                 case "tell":
                     return tell(sender, args);
+                case "chat":
+                    return sender instanceof Player ? chat((Player) sender,args) : false;
             }
             plugin.send(sender, "Das Command wurde noch nicht implementiert");
         }
@@ -97,6 +101,18 @@ public class ChatCommands implements CommandExecutor {
             plugin.send(sender, ChatColor.DARK_PURPLE + "Tell zu " + receiver.getName() + ": " + sb.toString());
             plugin.send(receiver, ChatColor.DARK_PURPLE + "Tell von " + sender.getName() + ": " + sb.toString());
         }
+        return true;
+    }
+
+    private boolean chat(Player player, String[] args) {
+        if (args.length == 0) return false;
+        for (Chat c : Chat.getChats()) {
+            if (c.getName().equalsIgnoreCase(args[0])) {
+              TaunPlayer.get(player).addChat(c);
+              return true;
+            }
+        }
+        plugin.send(player, "Es wurde kein Chat mit dem Namen " + args[0] + " gefunden");
         return true;
     }
 }

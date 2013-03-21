@@ -1,7 +1,6 @@
 package com.tauncraft.tauncraftservermanager;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,32 +10,37 @@ import org.bukkit.entity.Player;
  */
 public class TaunPlayer {
     public Chat writeChat;
-    public HashSet<Chat> listeningChats;
     
-    private int taunpoints;
+    private int totalTaunpoints;
+    private int differTaunpoints;
     private Rang rang;
     private String name;
     private int id;
+    private TauncraftServerManager plugin;
     
     private static Map<String, TaunPlayer> tp = new HashMap<>();
     
-    public TaunPlayer(int id, String name, int taunpoints, Rang rang) {
+    public TaunPlayer(TauncraftServerManager plugin, int id, String name, int taunpoints, Rang rang) {
+        this.plugin = plugin;
         this.id = id;
         this.name = name;
-        this.taunpoints = taunpoints;
+        totalTaunpoints = taunpoints;
         this.rang = rang;
         tp.put(name, this);
+        for (Chat c : plugin.getDefaultChats()) c.addPlayer(name);
     }
     
     public void addTaunpoints(int value) {
         if (value < 0) throw new IllegalArgumentException();
-        this.taunpoints += taunpoints;
+        totalTaunpoints += value;
+        differTaunpoints += value;
     }
     
     public void removeTaunpoints(int value) throws NotEnoughTaunpointsException {
         if (value < 0) throw new IllegalArgumentException();
-        if (taunpoints - value >= 0) {
-            taunpoints -= value;
+        if (totalTaunpoints - value >= 0) {
+            totalTaunpoints -= value;
+            differTaunpoints -= value;
         }
         else throw new NotEnoughTaunpointsException();
     }
@@ -50,7 +54,11 @@ public class TaunPlayer {
     }
     
     public int getTaunpoints() {
-        return taunpoints;
+        return totalTaunpoints;
+    }
+    
+    public int getDifferTaunpoints() {
+        return differTaunpoints;
     }
     
     public Rang getRang() {
@@ -71,5 +79,9 @@ public class TaunPlayer {
     
     public static TaunPlayer get(Player player) {
         return tp.get(player.getName());
+    }
+    
+    public void addChat(Chat c) {
+        c.addPlayer(name);
     }
 }

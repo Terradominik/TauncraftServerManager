@@ -70,7 +70,7 @@ public class JoinListener implements Listener {
             ResultSet rs = stmnt.executeQuery();
             if (!rs.isBeforeFirst()) return false;
             Rang rang = Rang.valueOf(rs.getString(4));
-            new TaunPlayer(rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
+            new TaunPlayer(plugin,rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
             spieler.setDisplayName(rang.getColor() + spieler.getName());
             rs.close();
             stmnt.close();
