@@ -64,7 +64,7 @@ public class JoinListener implements Listener {
     }
 
     private boolean registerPlayer(Player spieler) {
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT userID,name,taunPoints,rangID FROM spieler WHERE name=?;");
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT userID,name,taunPoints,rangID FROM spieler WHERE name=? LIMIT 1;");
         try {
             stmnt.setString(1, spieler.getName());
             ResultSet rs = stmnt.executeQuery();

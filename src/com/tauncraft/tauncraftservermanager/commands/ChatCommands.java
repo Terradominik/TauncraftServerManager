@@ -104,6 +104,9 @@ public class ChatCommands implements CommandExecutor {
         return true;
     }
 
+    /**
+     * Ändert den write Chat
+     */
     private boolean chat(Player player, String[] args) {
         if (args.length == 0) return false;
         for (Chat c : Chat.getChats()) {

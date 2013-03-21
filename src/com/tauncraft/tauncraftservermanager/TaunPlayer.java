@@ -100,7 +100,7 @@ public class TaunPlayer {
     }
     
     public void load() {
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE id=?;");
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE id=? LIMIT 1;");
         try {
             stmnt.setInt(1, id);
             ResultSet rs = stmnt.executeQuery();

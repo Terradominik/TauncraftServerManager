@@ -81,6 +81,16 @@ commands:
     usage: /<command> [<spieler>]
     aliases: kopf
     
+# Player Commands
+  profile:
+    description: Zeigt das Profil eines Spielers
+    usage: /<command> [<spieler>]
+    aliases: [info,describe]
+  top:
+    description: Zeigt die Spieler mit den meisten Taunpoints
+    usage: /<command> [<limit>]
+    aliases: [toptaunpoints,topstats]
+
 # Punish Commands
   detonate:
     description: Lasst einen Spieler Explodieren (nicht Violet zeigen)
