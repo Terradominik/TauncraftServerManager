@@ -32,7 +32,7 @@ public class JoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player spieler = event.getPlayer();
         spieler.getFirstPlayed();
-        event.setJoinMessage(ChatColor.DARK_GRAY + spieler.getName() + " hat den Server betreten");
+        event.setJoinMessage(ChatColor.YELLOW + spieler.getName() + " hat den Server betreten");
         if (!spieler.hasPlayedBefore()) {
             plugin.broadcast(welcomeMessage.replace("<name>", spieler.getName()));
             this.insertNewPlayer(spieler);
@@ -71,7 +71,6 @@ public class JoinListener implements Listener {
             if (!rs.isBeforeFirst()) return false;
             Rang rang = Rang.valueOf(rs.getString(4));
             new TaunPlayer(plugin,rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
-            spieler.setDisplayName(rang.getColor() + spieler.getName());
             rs.close();
             stmnt.close();
             return true;

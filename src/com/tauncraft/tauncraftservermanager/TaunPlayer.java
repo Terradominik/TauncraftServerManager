@@ -1,5 +1,8 @@
 package com.tauncraft.tauncraftservermanager;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
@@ -83,5 +86,34 @@ public class TaunPlayer {
     
     public void addChat(Chat c) {
         c.addPlayer(name);
+    }
+    
+    public void save() {
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET taunpoints=taunpoints+? WHERE id=?;");
+        try {
+            stmnt.setInt(1, differTaunpoints);
+            stmnt.setInt(2, id);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+        }
+    }
+    
+    public void load() {
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE id=?;");
+        try {
+            stmnt.setInt(1, id);
+            ResultSet rs = stmnt.executeQuery();
+            differTaunpoints = 0;
+            totalTaunpoints = rs.getInt(1);
+            rs.close();
+            stmnt.close();
+        } catch (SQLException ex) {
+        }
+    }
+    
+    public void reload() {
+        this.save();
+        this.load();
     }
 }

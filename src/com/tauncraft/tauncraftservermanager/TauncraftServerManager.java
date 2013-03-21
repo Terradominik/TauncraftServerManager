@@ -45,8 +45,8 @@ public class TauncraftServerManager extends JavaPlugin {
     private String privateFormat = ChatColor.DARK_GRAY + "";
     
     //Chats
-    private Chat allgemeinChat;
-    private Chat leitungChat;
+    private static Chat allgemeinChat;
+    private static Chat leitungChat;
     
 
     /**
@@ -135,7 +135,7 @@ public class TauncraftServerManager extends JavaPlugin {
         spieler.sendMessage(privateFormat + text);
     }
     
-    public Chat[] getDefaultChats() {
+    public static Chat[] getDefaultChats() {
         return new Chat[]{allgemeinChat, leitungChat};
     }
 }

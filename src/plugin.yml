@@ -57,6 +57,10 @@ commands:
     description: Sendet eine private Nachricht
     usage: /<command> <spieler> [<text>]...
     aliases: [tt,t,msg,whisper,pn]
+  chat:
+    description: Ändert den write Chat
+    usage: /<command> <chatname>
+    aliases: [switchchat,changechat]
     
 # Config Commands
   configset:

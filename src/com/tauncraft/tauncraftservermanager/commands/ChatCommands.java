@@ -109,6 +109,7 @@ public class ChatCommands implements CommandExecutor {
         for (Chat c : Chat.getChats()) {
             if (c.getName().equalsIgnoreCase(args[0])) {
               TaunPlayer.get(player).addChat(c);
+              plugin.send(player, "Der Chat wurde zu " + c.getName() + " geändert");
               return true;
             }
         }
