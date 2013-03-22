@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -58,7 +56,6 @@ public class JoinListener implements Listener {
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(JoinListener.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.registerPlayer(spieler);
     }
@@ -75,7 +72,6 @@ public class JoinListener implements Listener {
             stmnt.close();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(JoinListener.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
