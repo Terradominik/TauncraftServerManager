@@ -3,7 +3,9 @@ package com.tauncraft.tauncraftservermanager;
 import com.tauncraft.tauncraftservermanager.commands.AdministrationCommands;
 import com.tauncraft.tauncraftservermanager.commands.ChatCommands;
 import com.tauncraft.tauncraftservermanager.commands.ConfigCommands;
+import com.tauncraft.tauncraftservermanager.commands.CreativeCommands;
 import com.tauncraft.tauncraftservermanager.commands.FunCommands;
+import com.tauncraft.tauncraftservermanager.commands.PlayerCommands;
 import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
 import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
@@ -37,9 +39,11 @@ public class TauncraftServerManager extends JavaPlugin {
     private final AdministrationCommands ac = new AdministrationCommands(this);
     private final ChatCommands chc = new ChatCommands(this);
     private final ConfigCommands cfc = new ConfigCommands(this);
-    private final TeleportCommands tpc = new TeleportCommands(this);
+    private final CreativeCommands crc = new CreativeCommands(this);
     private final FunCommands fc = new FunCommands(this);
-    private final PunishCommands pc = new PunishCommands(this);
+    private final PlayerCommands plc = new PlayerCommands(this);
+    private final PunishCommands puc = new PunishCommands(this);
+    private final TeleportCommands tpc = new TeleportCommands(this);
     
     private String broadcastFormat = ChatColor.DARK_AQUA + "";
     private String privateFormat = ChatColor.DARK_GRAY + "";
@@ -83,14 +87,22 @@ public class TauncraftServerManager extends JavaPlugin {
         //Config Commands
         this.getCommand("configset").setExecutor(cfc);
         
+        //Creative Commands
+        this.getCommand("tc").setExecutor(crc);
+        this.getCommand("gm").setExecutor(crc);
+        
         //Fun Commands
         this.getCommand("blockhead").setExecutor(fc);
         this.getCommand("effect").setExecutor(fc);
         this.getCommand("head").setExecutor(fc);
+        
+        //Player Commands
+        this.getCommand("profile").setExecutor(plc);
+        this.getCommand("top").setExecutor(plc);
 
         //Punish
-        this.getCommand("detonate").setExecutor(pc);
-        this.getCommand("lightning").setExecutor(pc);
+        this.getCommand("detonate").setExecutor(puc);
+        this.getCommand("lightning").setExecutor(puc);
 
         //Teleport Commands
         this.getCommand("tp").setExecutor(tpc);

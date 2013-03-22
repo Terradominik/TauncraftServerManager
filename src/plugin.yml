@@ -67,6 +67,16 @@ commands:
     description: Setzt einen Wert in die Config
     usage: /<command> <pfad> [<text>]...
     
+# Creative Commands
+  tc:
+    description: Toggelt den Gamemode zwischen Creative und Survival
+    usage: /<command> [<spieler>]
+    aliases: [toggle,togglegm,creative]
+  gm:
+    description: Ändert den Gamemode
+    usage: /<command> <gamemodename>|<gamemodeid>|<<spieler> <gamemodename>|<gammodeid>>
+    alisases: [gamemode,switchgm,spielmodi]
+
 # Fun Commands
   blockhead:
     description: Setzt den Kopf des Spielers zu einem beliebigen Block
