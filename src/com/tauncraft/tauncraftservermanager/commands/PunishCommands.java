@@ -55,7 +55,7 @@ public class PunishCommands implements CommandExecutor {
         
         Player target = plugin.getServer().getPlayer(args[0]);
         if (target != null) {
-            target.getWorld().createExplosion(target.getLocation(), 2);
+            target.getWorld().createExplosion(target.getLocation().getX(), target.getLocation().getY(), target.getLocation().getZ(), 2, false, false);
             plugin.send(sender, "Du hast " + target.getDisplayName() + " hochgejagt");
         } else
             plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");

@@ -19,17 +19,18 @@ public class TaunPlayer {
     private Rang rang;
     private String name;
     private int id;
-    private TauncraftServerManager plugin;
     
     private static Map<String, TaunPlayer> tp = new HashMap<>();
     
     public TaunPlayer(TauncraftServerManager plugin, int id, String name, int taunpoints, Rang rang) {
-        this.plugin = plugin;
         this.id = id;
         this.name = name;
         totalTaunpoints = taunpoints;
         this.rang = rang;
         tp.put(name, this);
+        System.out.println(id + ", " +  name + ", " +  taunpoints + ", " +  rang);
+        writeChat = plugin.getDefaultWriteChat();
+        this.setPlayerListName();
         for (Chat c : plugin.getDefaultChats()) c.addPlayer(name);
     }
     
@@ -115,5 +116,9 @@ public class TaunPlayer {
     public void reload() {
         this.save();
         this.load();
+    }
+    
+    public void setPlayerListName(){
+        this.getPlayer().setPlayerListName(rang.getColor() + name);
     }
 }

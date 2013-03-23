@@ -137,7 +137,7 @@ public class AdministrationCommands implements CommandExecutor {
         if (target != null) {
             args[0] = "";
             StringBuilder sb = new StringBuilder();
-            for (String s : args) sb.append(s);
+            for (String s : args) sb.append(s).append(" ");
             target.kickPlayer("Du wurdest gekickt: " + sb.toString());
             plugin.broadcast(target.getName() + " wurde gekickt: " + sb.toString());
         } else 
@@ -154,7 +154,7 @@ public class AdministrationCommands implements CommandExecutor {
         String name = args[0];
         args[0] = "";
         StringBuilder sb = new StringBuilder();
-        for (String s : args) sb.append(s);
+        for (String s : args) sb.append(s).append(" ");
             
         OfflinePlayer target = plugin.getServer().getPlayer(name);
         if (target != null)

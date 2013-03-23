@@ -56,6 +56,7 @@ public class JoinListener implements Listener {
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
+            System.out.println("insert " + ex.getMessage());
         }
         this.registerPlayer(spieler);
     }
@@ -65,14 +66,17 @@ public class JoinListener implements Listener {
         try {
             stmnt.setString(1, spieler.getName());
             ResultSet rs = stmnt.executeQuery();
-            if (!rs.isBeforeFirst()) return false;
+            if (!rs.last()) return false;
             Rang rang = Rang.valueOf(rs.getString(4));
             new TaunPlayer(plugin,rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
             rs.close();
             stmnt.close();
             return true;
         } catch (SQLException ex) {
+            System.out.println("register " + ex.getMessage());
             return false;
         }
     }
+    
+    
 }

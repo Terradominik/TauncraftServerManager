@@ -9,7 +9,7 @@ public enum Rang {
     ALPHA_BAU_TEAM("Alpha Bau-Team", ChatColor.GOLD),
     SPECIAL("Special", ChatColor.DARK_PURPLE),
     MOD("Mod", ChatColor.DARK_GREEN),
-    ADMIN("Admin", ChatColor.RED);
+    ADMIN("Admin", ChatColor.DARK_RED);
     
     private String name;
     private ChatColor farbe;

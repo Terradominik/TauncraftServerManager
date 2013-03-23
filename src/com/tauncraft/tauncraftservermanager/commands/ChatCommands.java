@@ -62,7 +62,7 @@ public class ChatCommands implements CommandExecutor {
      */
     private boolean leitungsMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
-        for (String s : args) sb.append(s);
+        for (String s : args) sb.append(s).append(" ");
         plugin.getServer().broadcastMessage(ChatColor.DARK_PURPLE + "Leitung: " + sb);
         return true;
     }
@@ -72,7 +72,7 @@ public class ChatCommands implements CommandExecutor {
      */
     private boolean serverMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
-        for (String s : args) sb.append(s);
+        for (String s : args) sb.append(s).append(" ");
         plugin.getServer().broadcastMessage(ChatColor.DARK_RED + "Server: " + sb);
         return true;
     }
@@ -82,7 +82,7 @@ public class ChatCommands implements CommandExecutor {
      */
     private boolean clearMessage(String[] args) {
         StringBuilder sb = new StringBuilder();
-        for (String s : args) sb.append(s);
+        for (String s : args) sb.append(s).append(" ");
         String msg = ChatColor.translateAlternateColorCodes('&', sb.toString());
         plugin.getServer().broadcastMessage(msg);
         return true;
@@ -97,7 +97,7 @@ public class ChatCommands implements CommandExecutor {
         else {
             args[0] = "";
             StringBuilder sb = new StringBuilder();
-            for (String s : args) sb.append(s);
+            for (String s : args) sb.append(s).append(" ");
             plugin.send(sender, ChatColor.DARK_PURPLE + "Tell zu " + receiver.getName() + ": " + sb.toString());
             plugin.send(receiver, ChatColor.DARK_PURPLE + "Tell von " + sender.getName() + ": " + sb.toString());
         }
@@ -108,6 +108,7 @@ public class ChatCommands implements CommandExecutor {
      * Ändert den write Chat
      */
     private boolean chat(Player player, String[] args) {
+        plugin.broadcast("CHAT");
         if (args.length == 0) return false;
         for (Chat c : Chat.getChats()) {
             if (c.getName().equalsIgnoreCase(args[0])) {

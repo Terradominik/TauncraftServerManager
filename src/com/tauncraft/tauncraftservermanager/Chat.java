@@ -28,14 +28,21 @@ public class Chat {
     public Chat(String name, ChatColor color) {
         this.name = name;
         prefix = color + "[" + name + "] ";
-        suffix = color + ": ";
+        suffix = ": " + color;
+        allChats.add(this);
+    }
+    
+    public Chat(String name,ChatColor prefixcol, ChatColor suffixcol){
+        this.name = name;
+        prefix = prefixcol + "[" + name + "] ";
+        suffix = ": " + suffixcol;
         allChats.add(this);
     }
         
     public Chat(String name, String displayName, ChatColor color) {
         this.name = name;
         prefix = color + "[" + displayName + "] ";
-        suffix = color + ": ";
+        suffix = ": " + color;
         allChats.add(this);
     } 
     

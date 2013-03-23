@@ -63,7 +63,7 @@ public class ConfigCommands implements CommandExecutor {
         String path = args[0];
         args[0] = "";
         StringBuilder sb = new StringBuilder();
-        for (String s : args) sb.append(s);
+        for (String s : args) sb.append(s).append(" ");
         
         plugin.getConfig().set(path, sb.toString());
         plugin.saveConfig();

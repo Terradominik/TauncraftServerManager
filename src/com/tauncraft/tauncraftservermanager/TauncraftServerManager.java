@@ -26,7 +26,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class TauncraftServerManager extends JavaPlugin {
 
     //Manager
-    private RangManager rangManager;
     private DatabaseManager databaseManager;
     
     //Listener
@@ -62,7 +61,6 @@ public class TauncraftServerManager extends JavaPlugin {
         this.saveDefaultConfig();
         
         //Manager
-        rangManager = new RangManager(this);
         databaseManager = new DatabaseManager(this);
 
         //Command Registration
@@ -120,8 +118,8 @@ public class TauncraftServerManager extends JavaPlugin {
         pm.registerEvents(this.chatListener, this);
         
         //Chats
-        allgemeinChat = new Chat("Allgemein",ChatColor.AQUA);
-        leitungChat = new Chat("LeitungIntern",ChatColor.RED);
+        allgemeinChat = new Chat("Allgemein",ChatColor.DARK_AQUA,ChatColor.WHITE);
+        leitungChat = new Chat("LeitungIntern",ChatColor.DARK_RED);
     }
 
     /**
@@ -149,5 +147,9 @@ public class TauncraftServerManager extends JavaPlugin {
     
     public static Chat[] getDefaultChats() {
         return new Chat[]{allgemeinChat, leitungChat};
+    }
+    
+    public static Chat getDefaultWriteChat(){
+        return allgemeinChat;
     }
 }
