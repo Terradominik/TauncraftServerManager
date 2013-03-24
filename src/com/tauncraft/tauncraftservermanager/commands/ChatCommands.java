@@ -108,11 +108,12 @@ public class ChatCommands implements CommandExecutor {
      * Ändert den write Chat
      */
     private boolean chat(Player player, String[] args) {
-        plugin.broadcast("CHAT");
         if (args.length == 0) return false;
         for (Chat c : Chat.getChats()) {
             if (c.getName().equalsIgnoreCase(args[0])) {
-              TaunPlayer.get(player).addChat(c);
+              TaunPlayer tp = TaunPlayer.get(player);
+              tp.addChat(c);
+              tp.writeChat = c;
               plugin.send(player, "Der Chat wurde zu " + c.getName() + " geändert");
               return true;
             }

@@ -32,6 +32,7 @@ public class TaunPlayer {
         writeChat = plugin.getDefaultWriteChat();
         this.setPlayerListName();
         for (Chat c : plugin.getDefaultChats()) c.addPlayer(name);
+        for (Chat c : plugin.getSpecialChats(rang)) c.addPlayer(name);
     }
     
     public void addTaunpoints(int value) {

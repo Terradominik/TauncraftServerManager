@@ -81,6 +81,7 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("server").setExecutor(chc);
         this.getCommand("clearmsg").setExecutor(chc);
         this.getCommand("tell").setExecutor(chc);
+        this.getCommand("chat").setExecutor(chc);
 
         //Config Commands
         this.getCommand("configset").setExecutor(cfc);
@@ -146,10 +147,18 @@ public class TauncraftServerManager extends JavaPlugin {
     }
     
     public static Chat[] getDefaultChats() {
-        return new Chat[]{allgemeinChat, leitungChat};
+        return new Chat[]{allgemeinChat};
     }
     
     public static Chat getDefaultWriteChat(){
         return allgemeinChat;
+    }
+    
+    public static Chat[] getSpecialChats(Rang rang){
+        if(rang == rang.ADMIN || rang == rang.MOD || rang == rang.SPECIAL){
+            return new Chat[] {leitungChat};
+        } else{
+            return new Chat[] {};
+        }
     }
 }
