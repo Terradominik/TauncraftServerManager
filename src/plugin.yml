@@ -110,6 +110,10 @@ commands:
     description: Schleudert einen Blitz auf einen Spieler (nicht Violet zeigen)
     usage: /<command> <spieler>
     aliases: blitz
+  spiderstorm:
+    description: spawnt 5 böse Wölfe (nicht Violet zeigen)
+    usage: /<command> <spieler>
+    aliases: spider
   
 # Teleport Commands
   tp:

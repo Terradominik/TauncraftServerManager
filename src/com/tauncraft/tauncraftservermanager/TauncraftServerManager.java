@@ -102,6 +102,7 @@ public class TauncraftServerManager extends JavaPlugin {
         //Punish
         this.getCommand("detonate").setExecutor(puc);
         this.getCommand("lightning").setExecutor(puc);
+        this.getCommand("spiderstorm").setExecutor(puc);
 
         //Teleport Commands
         this.getCommand("tp").setExecutor(tpc);

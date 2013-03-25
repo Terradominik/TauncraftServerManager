@@ -92,6 +92,7 @@ public class ChatCommands implements CommandExecutor {
      * Sendet eine private Nachricht
      */
     private boolean tell(CommandSender sender, String[] args) {
+        if (args.length == 0) return false;
         Player receiver = plugin.getServer().getPlayer(args[0]);
         if (receiver == null) plugin.send(sender, "Der Spieler " + args[0] + " konnte nicht gefunden werden");
         else {
