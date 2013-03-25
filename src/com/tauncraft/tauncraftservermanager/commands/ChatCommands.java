@@ -114,8 +114,8 @@ public class ChatCommands implements CommandExecutor {
             if (c.getName().equalsIgnoreCase(args[0])) {
               TaunPlayer tp = TaunPlayer.get(player);
               tp.addChat(c);
-              tp.writeChat = c;
-              plugin.send(player, "Der Chat wurde zu " + c.getName() + " geändert");
+              if(tp.setWriteChat(c)) plugin.send(player, "Der Chat wurde zu " + c.getName() + " geändert");
+              else plugin.send(player, "Du hast nicht die nötigen Rechte " + c.getName() + " zu betreten");
               return true;
             }
         }

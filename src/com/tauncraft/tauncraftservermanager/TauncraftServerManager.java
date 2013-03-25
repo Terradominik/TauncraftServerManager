@@ -12,8 +12,14 @@ import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.ChatListener;
 import com.tauncraft.tauncraftservermanager.listener.JoinListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.logging.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -47,10 +53,8 @@ public class TauncraftServerManager extends JavaPlugin {
     private String broadcastFormat = ChatColor.DARK_AQUA + "";
     private String privateFormat = ChatColor.DARK_GRAY + "";
     
-    //Chats
-    private static Chat allgemeinChat;
-    private static Chat leitungChat;
-    
+    private static Chat defaultWriteChat;
+    private static Chat[] defaultChats;
 
     /**
      * Beim Enablen
@@ -119,9 +123,7 @@ public class TauncraftServerManager extends JavaPlugin {
         pm.registerEvents(this.quitListener, this);
         pm.registerEvents(this.chatListener, this);
         
-        //Chats
-        allgemeinChat = new Chat("Allgemein",ChatColor.DARK_AQUA,ChatColor.WHITE);
-        leitungChat = new Chat("LeitungIntern",ChatColor.DARK_RED);
+        this.loadChats();
     }
 
     /**
@@ -147,19 +149,33 @@ public class TauncraftServerManager extends JavaPlugin {
         spieler.sendMessage(privateFormat + text);
     }
     
-    public static Chat[] getDefaultChats() {
-        return new Chat[]{allgemeinChat};
+    public static Chat[] getDefaultChats(Rang rang) {
+        return defaultChats;
     }
     
     public static Chat getDefaultWriteChat(){
-        return allgemeinChat;
+        return defaultWriteChat;
     }
     
-    public static Chat[] getSpecialChats(Rang rang){
-        if(rang == rang.ADMIN || rang == rang.MOD || rang == rang.SPECIAL){
-            return new Chat[] {leitungChat};
-        } else{
-            return new Chat[] {};
-        }
+    private void loadChats() {
+         ConfigurationSection mainCs = this.getConfig().getConfigurationSection("chats");
+         Set<Chat> defaultChats = new HashSet();
+         for (String subString : mainCs.getValues(false).keySet()) {
+             ConfigurationSection subCs = mainCs.getConfigurationSection("chats." + subString);
+             String name = subString;
+             String prefix = subCs.getString("prefix");
+             if (prefix == null) prefix = "";
+             String suffix = subCs.getString("suffix");
+             if (suffix == null) suffix = "";
+             List<String> stringRaenge = subCs.getStringList("raenge");
+             Set<Rang> raenge = new HashSet();
+             for (String stringRang : stringRaenge) {
+                 Rang rang = Rang.valueOf(stringRang);
+                 raenge.add(rang);
+             }
+             Chat c = new Chat(name,prefix,suffix,raenge);
+             if(subCs.getBoolean("default")) defaultChats.add(c);
+             if(subCs.getBoolean("defaultWriteChat")) defaultWriteChat = c;
+         }
     }
 }

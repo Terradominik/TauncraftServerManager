@@ -17,7 +17,7 @@ public class ChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerAsynchChatEvent(AsyncPlayerChatEvent event) {
         TaunPlayer tp = TaunPlayer.get(event.getPlayer());
-        Chat targetChat = tp.writeChat;
+        Chat targetChat = tp.getWriteChat();
         Set<Player> recipients = event.getRecipients();
         recipients.clear();
         recipients.addAll(targetChat.getListener());

@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
  * @author Dominik
  */
 public class TaunPlayer {
-    public Chat writeChat;
+    private Chat writeChat;
     
     private int totalTaunpoints;
     private int differTaunpoints;
@@ -31,8 +31,7 @@ public class TaunPlayer {
         System.out.println(id + ", " +  name + ", " +  taunpoints + ", " +  rang);
         writeChat = plugin.getDefaultWriteChat();
         this.setPlayerListName();
-        for (Chat c : plugin.getDefaultChats()) c.addPlayer(name);
-        for (Chat c : plugin.getSpecialChats(rang)) c.addPlayer(name);
+        for (Chat c : plugin.getDefaultChats(rang)) c.addPlayer(name);
     }
     
     public void addTaunpoints(int value) {
@@ -121,5 +120,17 @@ public class TaunPlayer {
     
     public void setPlayerListName(){
         this.getPlayer().setPlayerListName(rang.getColor() + name);
+    }
+    
+    public boolean setWriteChat(Chat c) {
+        if (c.getRaenge().contains(rang) || c.getRaenge().size() == 0) {
+            writeChat = c;
+            return true;
+        }
+        return false;
+    }
+    
+    public Chat getWriteChat() {
+        return writeChat;
     }
 }

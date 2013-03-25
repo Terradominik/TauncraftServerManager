@@ -11,45 +11,18 @@ import org.bukkit.entity.Player;
  */
 public class Chat {
     private static Set<Chat> allChats = new HashSet<>();
-    private static short counter = 0;
     private String name;
     private Set<Player> listener = new HashSet<>();
+    private Set<Rang> raenge;
     
     private String prefix;
     private String suffix;
     
-    public Chat(String name) {
+    public Chat(String name, String prefix, String suffix, Set<Rang> raenge) {
         this.name = name;
-        prefix = "[" + name + "] ";
-        suffix = ": ";
-        allChats.add(this);
-    }
-    
-    public Chat(String name, ChatColor color) {
-        this.name = name;
-        prefix = color + "[" + name + "] ";
-        suffix = ": " + color;
-        allChats.add(this);
-    }
-    
-    public Chat(String name,ChatColor prefixcol, ChatColor suffixcol){
-        this.name = name;
-        prefix = prefixcol + "[" + name + "] ";
-        suffix = ": " + suffixcol;
-        allChats.add(this);
-    }
-        
-    public Chat(String name, String displayName, ChatColor color) {
-        this.name = name;
-        prefix = color + "[" + displayName + "] ";
-        suffix = ": " + color;
-        allChats.add(this);
-    } 
-    
-    public Chat(String name, String prefix, String suffix) {
-        this.name = name;
-        this.prefix = prefix;
-        this.suffix = suffix;
+        this.prefix = ChatColor.translateAlternateColorCodes('&', prefix);
+        this.suffix = ChatColor.translateAlternateColorCodes('&', suffix);
+        this.raenge = raenge;
         allChats.add(this);
     }
     
@@ -69,16 +42,30 @@ public class Chat {
         return name.equals(c.getName());
     }
     
-    public void addPlayer(Player p) {
-        listener.add(p);
+    public boolean addPlayer(Player p) {
+        TaunPlayer tp = TaunPlayer.get(p);
+        if (raenge.contains(tp.getRang()) || raenge.size() == 0) {
+            listener.add(p);
+            return true;
+        }
+        return false;
     }
     
-    public void addPlayer(TaunPlayer p) {
-        listener.add(p.getPlayer());
+    public boolean addPlayer(TaunPlayer tp) {
+        if (raenge.contains(tp.getRang()) || raenge.size() == 0) {
+            listener.add(tp.getPlayer());
+            return true;
+        }
+        return false;
     }
     
-    public void addPlayer(String p) {
-        listener.add(Bukkit.getPlayer(p));
+    public boolean addPlayer(String p) {
+        TaunPlayer tp = TaunPlayer.get(p);
+        if (raenge.contains(tp.getRang()) || raenge.size() == 0) {
+            listener.add(tp.getPlayer());
+            return true;
+        }
+        return false;
     }
     
     public void removePlayer(Player p) {
@@ -103,5 +90,9 @@ public class Chat {
     
     public String getName() {
         return name;
+    }
+    
+    public Set<Rang> getRaenge() {
+        return raenge;
     }
 }

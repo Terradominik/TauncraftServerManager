@@ -6,3 +6,16 @@ datenbank:
   password: passwort
   servername: servername
   databasename: datenbankname
+chats:
+  Allgemein:
+    prefix: "&3[Allgemein]"
+    suffix: ":&f"
+    default: true
+    defaultWriteChat: true
+  LeitungIntern:
+    prefix: "&4[LeitungIntern]"
+    suffix: "&4"
+    default: true
+    raenge: [MOD,ADMIN,SPECIAL]
+    
+    
