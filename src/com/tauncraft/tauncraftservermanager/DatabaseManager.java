@@ -23,6 +23,7 @@ public class DatabaseManager {
             try {
                 con = ds.getConnection();
             } catch (SQLException ex) {
+                System.out.println("Error DatabaseManager:\n" + ex.getMessage());
             }
         }
     }
@@ -38,6 +39,7 @@ public class DatabaseManager {
         try {
             return con.createStatement();
         } catch (SQLException ex) {
+            System.out.println("Error getStatement:\n" + ex.getMessage());
         }
         return null;
     }
@@ -46,6 +48,7 @@ public class DatabaseManager {
         try {
             return con.prepareStatement(sql);
         } catch (SQLException ex) {
+            System.out.println("Error prepareStetment:\n" + ex.getMessage());
         }
         return null;
     }

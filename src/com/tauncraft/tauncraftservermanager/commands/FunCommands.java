@@ -1,5 +1,6 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -36,6 +37,10 @@ public class FunCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         if (sender.hasPermission("taunsm.fun." + cmd.getName())
                 || sender.hasPermission("taunsm.fun.*")
                 || sender.hasPermission("taunsm.*")

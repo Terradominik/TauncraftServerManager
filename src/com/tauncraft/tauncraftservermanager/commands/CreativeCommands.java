@@ -1,5 +1,6 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.util.IllegalFormatException;
 import org.bukkit.GameMode;
@@ -29,6 +30,10 @@ public class CreativeCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         if (sender.hasPermission("taunsm.creative." + cmd.getName())
                 || sender.hasPermission("taunsm.creative.*")
                 || sender.hasPermission("taunsm.*")

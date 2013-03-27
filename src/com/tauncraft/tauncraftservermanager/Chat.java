@@ -19,6 +19,7 @@ public class Chat {
     private String suffix;
     
     public Chat(String name, String prefix, String suffix, Set<Rang> raenge) {
+        System.out.println("Neuer Chat registriert: " + name + " | " + prefix + " | " + suffix + " | " + raenge);
         this.name = name;
         this.prefix = ChatColor.translateAlternateColorCodes('&', prefix);
         this.suffix = ChatColor.translateAlternateColorCodes('&', suffix);

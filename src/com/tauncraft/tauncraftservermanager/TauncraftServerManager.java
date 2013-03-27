@@ -14,9 +14,7 @@ import com.tauncraft.tauncraftservermanager.listener.JoinListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
-import java.util.logging.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -160,8 +158,8 @@ public class TauncraftServerManager extends JavaPlugin {
     private void loadChats() {
          ConfigurationSection mainCs = this.getConfig().getConfigurationSection("chats");
          Set<Chat> defaultChats = new HashSet();
-         for (String subString : mainCs.getValues(false).keySet()) {
-             ConfigurationSection subCs = mainCs.getConfigurationSection("chats." + subString);
+         for (String subString : mainCs.getKeys(false)) {
+             ConfigurationSection subCs = mainCs.getConfigurationSection(subString);
              String name = subString;
              String prefix = subCs.getString("prefix");
              if (prefix == null) prefix = "";
@@ -177,5 +175,6 @@ public class TauncraftServerManager extends JavaPlugin {
              if(subCs.getBoolean("default")) defaultChats.add(c);
              if(subCs.getBoolean("defaultWriteChat")) defaultWriteChat = c;
          }
+         TauncraftServerManager.defaultChats = defaultChats.toArray(new Chat[0]);
     }
 }

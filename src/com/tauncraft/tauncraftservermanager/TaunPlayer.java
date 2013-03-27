@@ -22,16 +22,15 @@ public class TaunPlayer {
     
     private static Map<String, TaunPlayer> tp = new HashMap<>();
     
-    public TaunPlayer(TauncraftServerManager plugin, int id, String name, int taunpoints, Rang rang) {
+    public TaunPlayer(int id, String name, int taunpoints, Rang rang) {
         this.id = id;
         this.name = name;
         totalTaunpoints = taunpoints;
         this.rang = rang;
         tp.put(name, this);
-        System.out.println(id + ", " +  name + ", " +  taunpoints + ", " +  rang);
-        writeChat = plugin.getDefaultWriteChat();
-        this.setPlayerListName();
-        for (Chat c : plugin.getDefaultChats(rang)) c.addPlayer(name);
+        writeChat = TauncraftServerManager.getDefaultWriteChat();
+        Bukkit.getPlayer(name).setPlayerListName(rang.getColor() + name);
+        for (Chat c : TauncraftServerManager.getDefaultChats(rang)) c.addPlayer(this);
     }
     
     public void addTaunpoints(int value) {

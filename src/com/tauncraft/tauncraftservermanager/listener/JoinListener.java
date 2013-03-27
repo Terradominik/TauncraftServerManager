@@ -56,7 +56,7 @@ public class JoinListener implements Listener {
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
-            System.out.println("insert " + ex.getMessage());
+            System.out.println("Error insetrNewPlayer:\n" + ex.getMessage());
         }
         this.registerPlayer(spieler);
     }
@@ -68,12 +68,12 @@ public class JoinListener implements Listener {
             ResultSet rs = stmnt.executeQuery();
             if (!rs.last()) return false;
             Rang rang = Rang.valueOf(rs.getString(4));
-            new TaunPlayer(plugin,rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
+            new TaunPlayer(rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
             rs.close();
             stmnt.close();
             return true;
         } catch (SQLException ex) {
-            System.out.println("register " + ex.getMessage());
+            System.out.println("Error registerPlayer:\n" + ex.getMessage());
             return false;
         }
     }
