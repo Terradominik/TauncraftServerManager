@@ -49,6 +49,8 @@ public class AdministrationCommands implements CommandExecutor {
                     return unban(sender, args);
                 case "restart":
                     return restart(args);
+                case "warn":
+                    return warn(sender, args);
             }
             if (sender instanceof Player) {
                 Player playersender = (Player) sender;
@@ -205,6 +207,20 @@ public class AdministrationCommands implements CommandExecutor {
         OfflinePlayer target = plugin.getServer().getPlayer(args[0]);
         Date d = new Date(target.getLastPlayed());
         plugin.send(sender, target.getName() + " hat das letzte Mal am " + d.toString() + " gespielt");
+        return true;
+    }
+
+    /**
+     * Verwarnt einen Spieler
+     */
+    private boolean warn(CommandSender sender, String[] args) {
+        if(args.length == 0)return false;
+        OfflinePlayer target = plugin.getServer().getPlayer(args[0]);
+        if (target == null) target = plugin.getServer().getOfflinePlayer(args[0]);
+        args[0] = "";
+        StringBuilder sb = new StringBuilder();
+        for (String arg : args) sb.append(arg + " ");
+        plugin.broadcast(ChatColor.RED + "Verwarnung für " + target.getName() + " von " + sender.getName() + ", Grund:" + sb.toString());
         return true;
     }
 }

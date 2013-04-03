@@ -77,6 +77,7 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("unban").setExecutor(ac);
         this.getCommand("restart").setExecutor(ac);
         this.getCommand("seen").setExecutor(ac);
+        this.getCommand("warn").setExecutor(ac);
         
         //Chat Commands
         this.getCommand("leitung").setExecutor(chc);

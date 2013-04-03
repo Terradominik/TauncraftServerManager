@@ -41,6 +41,10 @@ commands:
     description: Gibt das Datum zurück an dem der Spieler das letzte Mal Online war
     usage: /<command> <spieler>
     aliases: [last, lastonline]
+  warn:
+    description: Verwarnt einen Spieler
+    usage: /<command> <spieler> [<grund>]
+    aliases: [vp, verwarn, verwarnpunkt, warnpunkt, wp]
  
  # Chat Commands
   leitung:
