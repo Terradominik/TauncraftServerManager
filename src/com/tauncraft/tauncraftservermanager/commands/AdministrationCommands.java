@@ -2,6 +2,7 @@ package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.Ports;
 import com.tauncraft.tauncraftservermanager.Restart;
+import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.util.Date;
 import org.bukkit.ChatColor;
@@ -80,6 +81,10 @@ public class AdministrationCommands implements CommandExecutor {
      * Zeigt das Inventar eines Spielers
      */
     private boolean invsee(Player sender, String[] args) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         if (args.length == 0) return false;
 
         Player target = plugin.getServer().getPlayer(args[0]);
@@ -96,6 +101,10 @@ public class AdministrationCommands implements CommandExecutor {
      * Zeigt die Endertruhe eines Spielers
      */
     private boolean end(Player sender, String[] args) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         if (args.length == 0) {
             sender.openInventory(sender.getEnderChest());
             plugin.send(sender, "Du hast deine Enderchest geöffnet");
@@ -118,6 +127,10 @@ public class AdministrationCommands implements CommandExecutor {
      * Setzt die Zeit in der Welt des Senders auf Tag
      */
     private boolean day(Player sender) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         sender.getWorld().setTime(300);
         plugin.send(sender, "Es wurde Tag");
         return true;
@@ -127,6 +140,10 @@ public class AdministrationCommands implements CommandExecutor {
      * Setzt die Zeit in der Welt des Senders auf Nacht
      */
     private boolean night(Player sender) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         sender.getWorld().setTime(14000);
         plugin.send(sender, "Es wurde Nacht");
         return true;

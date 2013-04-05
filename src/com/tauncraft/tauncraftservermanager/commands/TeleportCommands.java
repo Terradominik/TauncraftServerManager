@@ -2,6 +2,7 @@ package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.DatabaseManager;
 import com.tauncraft.tauncraftservermanager.Ports;
+import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +40,10 @@ public class TeleportCommands implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (SpielerListe.contains(sender.getName())) {
+            plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
+            return true;
+        }
         if (sender.hasPermission("taunsm.teleport." + cmd.getName())
                 || sender.hasPermission("taunsm.teleport.*")
                 || sender.hasPermission("taunsm.*")
