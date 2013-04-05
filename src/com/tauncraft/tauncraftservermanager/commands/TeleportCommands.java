@@ -1,7 +1,9 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.Ports;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,6 +45,8 @@ public class TeleportCommands implements CommandExecutor {
                         return tp(playersender, args);
                     case "s":
                         return s(playersender, args);
+                    case "port":
+                        return port(playersender, args);
                 }
             } else {
                 switch (cmd.getName()) {
@@ -109,6 +113,21 @@ public class TeleportCommands implements CommandExecutor {
             plugin.send(target, sender.getName() + " hat dich zu ihm geportet");
         } else 
             plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
+        return true;
+    }
+    
+    
+    /**
+     * Portet einen Spieler zu einer definierten Location
+     */
+    private boolean port(Player sender, String[] args) {
+        if(args.length == 0) return false;
+        Location loc = Ports.getPort(args[0]);
+        if (loc == null) plugin.send(sender, "Es ist kein Port mit dem Namen " + args[0] + " registriert");
+        else {
+            sender.teleport(loc);
+            plugin.send(sender, "Du wurdest erfolgreich zu " + args[0] + " geportet");
+        }
         return true;
     }
 }

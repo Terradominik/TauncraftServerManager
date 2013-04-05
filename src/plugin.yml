@@ -45,6 +45,14 @@ commands:
     description: Verwarnt einen Spieler
     usage: /<command> <spieler> [<grund>]
     aliases: [vp, verwarn, verwarnpunkt, warnpunkt, wp]
+  addport:
+    description: Fügt einen neuen Port hinzu
+    usage: /<command> <name>
+    aliases: [setport,createport,portcreate]
+  removeport:
+    description: Löscht einen Port
+    usage: /<command> <name>
+    aliases: [deleteport,portdelete]
  
  # Chat Commands
   leitung:
@@ -128,3 +136,8 @@ commands:
     description: Teleportiert einen Spieler zum Sender
     usage: /<command> <spieler>
     aliases: tphere
+  port:
+    description: Teleportiert einen Spieler zu einer definierten Location
+    usage: /<command> <name>
+    aliases: [portto,warp]
+    

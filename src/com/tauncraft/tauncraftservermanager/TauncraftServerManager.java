@@ -82,6 +82,8 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("restart").setExecutor(ac);
         this.getCommand("seen").setExecutor(ac);
         this.getCommand("warn").setExecutor(ac);
+        this.getCommand("addport").setExecutor(ac);
+        this.getCommand("removeport").setExecutor(ac);
         
         //Chat Commands
         this.getCommand("leitung").setExecutor(chc);
@@ -114,6 +116,7 @@ public class TauncraftServerManager extends JavaPlugin {
         //Teleport Commands
         this.getCommand("tp").setExecutor(tpc);
         this.getCommand("s").setExecutor(tpc);
+        this.getCommand("port").setExecutor(tpc);
 
         blockListener = new BlockListener(this);
         joinListener = new JoinListener(this);

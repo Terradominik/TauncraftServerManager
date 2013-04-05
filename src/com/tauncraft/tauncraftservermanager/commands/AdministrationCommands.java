@@ -1,5 +1,6 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.Ports;
 import com.tauncraft.tauncraftservermanager.Restart;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.util.Date;
@@ -65,6 +66,8 @@ public class AdministrationCommands implements CommandExecutor {
                         return night(playersender);
                     case "seen":
                         return seen(playersender, args);
+                    case "addport":
+                        return addport(playersender, args);
                 }
             }
             plugin.send(sender, "Das Command wurde noch nicht implementiert");
@@ -221,6 +224,26 @@ public class AdministrationCommands implements CommandExecutor {
         StringBuilder sb = new StringBuilder();
         for (String arg : args) sb.append(arg + " ");
         plugin.broadcast(ChatColor.RED + "Verwarnung für " + target.getName() + " von " + sender.getName() + ", Grund:" + sb.toString());
+        return true;
+    }
+
+    /**
+     * Fügt einen neuen Port hinzu
+     */
+    private boolean addport(Player sender, String[] args) {
+        if (args.length == 0) return false;
+        if(Ports.addPort(args[0], sender.getLocation())) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich hinzugefügt");
+        else plugin.send(sender, "Es trat ein Fehler beim Hinzufügen von " + args[0] + " auf");
+        return true;
+    }
+    
+    /**
+     * Löscht einen Port
+     */
+    private boolean removeport(Player sender, String[] args) {
+        if (args.length == 0) return false;
+        if(Ports.removePort(args[0])) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich gelöscht");
+        else plugin.send(sender, "Es trat ein Fehler beim Löschen von " + args[0] + " auf");
         return true;
     }
 }

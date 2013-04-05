@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -15,7 +17,7 @@ import org.bukkit.World;
  */
 public class Ports {
     public TauncraftServerManager plugin;
-    private Map<String,Location> ports = new HashMap<>();
+    private static Map<String,Location> ports = new HashMap<>();
     
     
     public Ports(TauncraftServerManager plugin) {
@@ -23,14 +25,19 @@ public class Ports {
         loadPorts();
     }
     
-    public Location getPort(String name) {
+    public static Location getPort(String name) {
         return ports.get(name);
     }
     
-    public boolean addPort(String name, Location loc) {
-        ports.put(name, loc);
-        
-        String sql = "INSERT INTO ports (name,world,x,y,z,yaw,pitch) VALUES (?,?,?,?,?,?,?);";
+    public static boolean addPort(String name, Location loc) {
+        String sql;
+        boolean update = ports.containsKey(name);
+        if (update) {
+            sql = "UPDATE ports SET name=?,world=?,x=?,y=?,z=?,yaw=?,pitch=? WHERE name=?";
+        } else {
+            sql = "INSERT INTO ports (name,world,x,y,z,yaw,pitch) VALUES (?,?,?,?,?,?,?);";
+        }
+
         PreparedStatement ps = DatabaseManager.prepareStatement(sql);
         try {
             ps.setString(1, name);
@@ -40,15 +47,32 @@ public class Ports {
             ps.setInt(5, loc.getBlockZ());
             ps.setFloat(6, loc.getYaw());
             ps.setFloat(7, loc.getPitch());
-            
+            if (update) ps.setString(8, name);
+                
             ps.close();
         } catch (SQLException ex) {
             System.out.println("Fehler beim Speichern der Ports: " + name + " " + loc.toString());
             return false;
         }
+        ports.put(name, loc);
         return true;
     }
 
+    public static boolean removePort(String name) {
+        String sql = "DELETE FROM ports WHERE name=?";
+        PreparedStatement ps = DatabaseManager.prepareStatement(sql);
+        try {
+            ps.setString(1, name);
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Fehler beim Löschen der Ports: " + name);
+            return false;
+        }
+        ports.remove(name);
+        return true;
+    }
+    
     private void loadPorts() {
         Statement stmnt = DatabaseManager.getStatement();
         try {
