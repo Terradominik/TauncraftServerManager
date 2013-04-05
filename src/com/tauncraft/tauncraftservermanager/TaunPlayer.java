@@ -132,4 +132,16 @@ public class TaunPlayer {
     public Chat getWriteChat() {
         return writeChat;
     }
+    
+    public boolean addToSpiel(String konzept) {
+        return SpielerListe.add(name,konzept);
+    }
+    
+    public boolean removeFromSpiel() {
+        return SpielerListe.remove(name);
+    }
+    
+    public String getSpiel() {
+        return SpielerListe.getSpiel(name);
+    }
 }

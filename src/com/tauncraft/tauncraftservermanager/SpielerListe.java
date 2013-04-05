@@ -1,7 +1,7 @@
 package com.tauncraft.tauncraftservermanager;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.entity.Player;
 
 /**
@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
  */
 public class SpielerListe {
 
-    private static Set<String> spielerListe = new HashSet<>();
+    private static HashMap<String,String> spielerListe = new HashMap<>();
 
     /**
      * Return die Liste
      */
-    public static Set<String> get() {
+    public static Map<String,String> get() {
         return spielerListe;
     }
 
@@ -29,42 +29,70 @@ public class SpielerListe {
     /**
      * Added einen Spieler anhand des Namens
      */
-    public static boolean add(String spieler) {
-        return spielerListe.add(spieler);
+    public static boolean add(String spieler, String konzeptname) {
+        return spielerListe.put(spieler, konzeptname) != null;
     }
 
     /**
      * Added einen Spieler anhand des Player Objektes
      */
-    public static boolean add(Player spieler) {
-        return spielerListe.add(spieler.getName());
+    public static boolean add(Player spieler, String konzeptname) {
+        return spielerListe.put(spieler.getName(),konzeptname) != null;
     }
 
     /**
      * Removed einen Spieler anhand des Namens
      */
     public static boolean remove(String spieler) {
-        return spielerListe.remove(spieler);
+        return spielerListe.remove(spieler) != null;
     }
 
     /**
      * Removed einen Spieler anhand des Player Objektes
      */
     public static boolean remove(Player spieler) {
-        return spielerListe.remove(spieler.getName());
+        return spielerListe.remove(spieler.getName()) != null;
     }
     
     /**
      * Removed einen Spieler anhand des Namens
      */
     public static boolean contains(String spieler) {
-        return spielerListe.contains(spieler);
+        return spielerListe.containsKey(spieler);
     }
     
     /**
      * Removed einen Spieler anhand des Player Objektes
      */
     public static boolean contains(Player spieler) {
-        return spielerListe.contains(spieler.getName());
+        return spielerListe.containsKey(spieler.getName());
+    }
+    
+    /**
+     * Überprüft anhand des Namens ob ein Spieler im angegebenen Konzept ist
+     */
+    public static boolean contains(String spieler, String konzept) {
+        return spielerListe.get(spieler).equals(konzept);
+    }
+    
+    /**
+     * Überprüft anhand des Spieler Objektes ob ein Spieler im angegebenen Konzept ist
+     */
+    public static boolean contains(Player spieler, String konzept) {
+        return spielerListe.get(spieler.getName()).equals(konzept);
+    }
+    
+    /**
+     * Gibt anhand des Namens das Spiel zurück, indem sich der Spieler befindet
+     */
+    public static String getSpiel(String spieler) {
+        return spielerListe.get(spieler);
+    }
+    
+    /**
+     * Gibt anhand des Spieler Objektes das Spiel zurück, indem sich der Spieler befindet
+     */
+    public static String getSpiel(Player spieler) {
+        return spielerListe.get(spieler.getName());
     }
 }
