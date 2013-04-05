@@ -128,7 +128,7 @@ public class TaunPlayer {
     }
     
     public boolean setWriteChat(Chat c) {
-        if (c.getRaenge().contains(rang) || c.getRaenge().size() == 0) {
+        if (c.getRaenge().contains(rang) || c.getRaenge().isEmpty()) {
             writeChat = c;
             return true;
         }

@@ -48,11 +48,11 @@ commands:
   addport:
     description: Fügt einen neuen Port hinzu
     usage: /<command> <name>
-    aliases: [setport,createport,portcreate]
+    aliases: [setport,createport,portcreate,newport,portnew]
   removeport:
     description: Löscht einen Port
     usage: /<command> <name>
-    aliases: [deleteport,portdelete]
+    aliases: [deleteport,portdelete,portremove]
  
  # Chat Commands
   leitung:
@@ -140,4 +140,8 @@ commands:
     description: Teleportiert einen Spieler zu einer definierten Location
     usage: /<command> <name>
     aliases: [portto,warp]
+  portlist:
+    description: Zeigt eine Liste aller verfügbaren Ports an
+    usage: /<command> [<seitenzahl>]
+    aliases: [portliste]
     

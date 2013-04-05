@@ -1,7 +1,12 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
+import com.tauncraft.tauncraftservermanager.DatabaseManager;
 import com.tauncraft.tauncraftservermanager.Ports;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -47,6 +52,8 @@ public class TeleportCommands implements CommandExecutor {
                         return s(playersender, args);
                     case "port":
                         return port(playersender, args);
+                    case "portlist":
+                        return portlist(playersender, args);
                 }
             } else {
                 switch (cmd.getName()) {
@@ -122,12 +129,72 @@ public class TeleportCommands implements CommandExecutor {
      */
     private boolean port(Player sender, String[] args) {
         if(args.length == 0) return false;
+        if(args[0].equalsIgnoreCase("add")
+                || args[0].equalsIgnoreCase("set")
+                || args[0].equalsIgnoreCase("create")
+                || args[0].equalsIgnoreCase("new")) {
+            
+            plugin.getCommand("addport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 0, args.length-1));
+            return true;
+        }
+        if(args[0].equalsIgnoreCase("delete")
+                || args[0].equalsIgnoreCase("remove")) {
+            
+            plugin.getCommand("removeport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 0, args.length-1));
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("list")
+                || args[0].equalsIgnoreCase("liste")) {
+            
+            plugin.getCommand("portlist").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 0, args.length-1));
+            return true;
+        }
+                
         Location loc = Ports.getPort(args[0]);
         if (loc == null) plugin.send(sender, "Es ist kein Port mit dem Namen " + args[0] + " registriert");
         else {
             sender.teleport(loc);
             plugin.send(sender, "Du wurdest erfolgreich zu " + args[0] + " geportet");
         }
+        return true;
+    }
+
+    /**
+     * Zeigt eine Liste aller verfügbaren Ports an
+     */
+    private boolean portlist(Player sender, String[] args) {
+        int pageNr;
+        try {
+            pageNr = Integer.parseInt(args[0])-1;
+            if (pageNr > 1) {
+                plugin.send(sender, "Die Angegebene Zahl muss positiv sein");
+                return true;
+            }
+        } catch (NumberFormatException nfe) {
+            pageNr = 0;
+        }
+        String sql = "SELECT * FROM ports ORDER BY name LIMIT ?, ?";
+        PreparedStatement ps = DatabaseManager.prepareStatement(sql);
+        try {
+            ps.setInt(1,(pageNr-1)*10);
+            ps.setInt(2,(pageNr*20)-1);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            plugin.send(sender, "Protliste Seite " + pageNr);
+            while(rs.next()) {
+                plugin.send(sender, rs.getString(2) + ": "
+                        + "   " + rs.getString(3)
+                        + "," + rs.getString(4)
+                        + "," + rs.getString(5));
+            }
+            
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Fehler beim Anzeigen der Portliste: " + ex.getMessage());
+        }
+          
         return true;
     }
 }

@@ -98,6 +98,7 @@ public class Ports {
             }
             
             rs.close();
+            stmnt.close();
         } catch (SQLException ex) {
             System.out.println("Fehler beim Laden der Ports: " + ex.getMessage());
         }
