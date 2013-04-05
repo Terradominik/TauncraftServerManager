@@ -99,8 +99,8 @@ public class ChatCommands implements CommandExecutor {
             args[0] = "";
             StringBuilder sb = new StringBuilder();
             for (String s : args) sb.append(s).append(" ");
-            plugin.send(sender, ChatColor.DARK_PURPLE + "Tell zu " + receiver.getName() + ":" + sb.toString());
-            plugin.send(receiver, ChatColor.DARK_PURPLE + "Tell von " + sender.getName() + ":" + sb.toString());
+            plugin.send(sender, ChatColor.DARK_PURPLE + "[Tell] zu " + receiver.getName() + ":" + sb.toString());
+            plugin.send(receiver, ChatColor.DARK_PURPLE + "[Tell] von " + sender.getName() + ":" + sb.toString());
         }
         return true;
     }
