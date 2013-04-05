@@ -117,8 +117,14 @@ public class TaunPlayer {
         this.load();
     }
     
-    public void setPlayerListName(){
-        this.getPlayer().setPlayerListName(rang.getColor() + name);
+    public void resetPlayerListName(){
+        String stringName = (rang.getColor() + name).substring(0,16);
+        this.getPlayer().setPlayerListName(stringName);
+    }
+    
+    public void setPlayerListName(String prefix, String suffix){
+        String stringName = (prefix + name + suffix).substring(0,16);
+        this.getPlayer().setPlayerListName(prefix + name + suffix);
     }
     
     public boolean setWriteChat(Chat c) {

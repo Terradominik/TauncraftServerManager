@@ -37,13 +37,14 @@ public class SpielerListe {
      * Added einen Spieler anhand des Player Objektes
      */
     public static boolean add(Player spieler, String konzeptname) {
-        return spielerListe.put(spieler.getName(),konzeptname) != null;
+        return SpielerListe.add(spieler.getName(), konzeptname);
     }
 
     /**
      * Removed einen Spieler anhand des Namens
      */
     public static boolean remove(String spieler) {
+        TaunPlayer.get(spieler).resetPlayerListName();
         return spielerListe.remove(spieler) != null;
     }
 
@@ -51,7 +52,7 @@ public class SpielerListe {
      * Removed einen Spieler anhand des Player Objektes
      */
     public static boolean remove(Player spieler) {
-        return spielerListe.remove(spieler.getName()) != null;
+        return SpielerListe.remove(spieler.getName());
     }
     
     /**
@@ -65,7 +66,7 @@ public class SpielerListe {
      * Removed einen Spieler anhand des Player Objektes
      */
     public static boolean contains(Player spieler) {
-        return spielerListe.containsKey(spieler.getName());
+        return SpielerListe.contains(spieler.getName());
     }
     
     /**
@@ -79,7 +80,7 @@ public class SpielerListe {
      * Überprüft anhand des Spieler Objektes ob ein Spieler im angegebenen Konzept ist
      */
     public static boolean contains(Player spieler, String konzept) {
-        return spielerListe.get(spieler.getName()).equals(konzept);
+        return SpielerListe.contains(spieler.getName(),konzept);
     }
     
     /**
@@ -93,6 +94,6 @@ public class SpielerListe {
      * Gibt anhand des Spieler Objektes das Spiel zurück, indem sich der Spieler befindet
      */
     public static String getSpiel(Player spieler) {
-        return spielerListe.get(spieler.getName());
+        return SpielerListe.getSpiel(spieler.getName());
     }
 }
