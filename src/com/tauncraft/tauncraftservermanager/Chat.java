@@ -101,9 +101,9 @@ public class Chat {
      * @param spieler Der Spieler welcher hinzugefügt werden soll
      * @return true wenn der Spieler erfolgreich hinzugefügt werden konnte
      */
-    public boolean addPlayer(TaunPlayer tp) {
-        if (raenge.contains(tp.getRang()) || raenge.isEmpty()) {
-            listener.add(tp.getPlayer());
+    public boolean addPlayer(TaunPlayer spieler) {
+        if (raenge.contains(spieler.getRang()) || raenge.isEmpty()) {
+            listener.add(spieler.getPlayer());
             return true;
         }
         return false;
@@ -115,8 +115,8 @@ public class Chat {
      * @param spieler Der Spieler welcher hinzugefügt werden soll
      * @return true wenn der Spieler erfolgreich hinzugefügt werden konnte
      */
-    public boolean addPlayer(String p) {
-        TaunPlayer tp = TaunPlayer.get(p);
+    public boolean addPlayer(String spieler) {
+        TaunPlayer tp = TaunPlayer.get(spieler);
         if (raenge.contains(tp.getRang()) || raenge.isEmpty()) {
             listener.add(tp.getPlayer());
             return true;
@@ -130,8 +130,8 @@ public class Chat {
      * @param spieler Der Spieler welcher entfernt werden soll
      * @return true wenn der Spieler erfolgreich entfernt werden konnte
      */
-    public void removePlayer(Player p) {
-        listener.remove(p);
+    public void removePlayer(Player spieler) {
+        listener.remove(spieler);
     }
     
     /**
@@ -141,8 +141,8 @@ public class Chat {
      * @return true wenn der Spieler erfolgreich entfernt werden konnte
      * @see #removePlayer
      */
-    public void removePlayer(TaunPlayer p) {
-        listener.remove(p.getPlayer());
+    public void removePlayer(TaunPlayer spieler) {
+        listener.remove(spieler.getPlayer());
     }
     
     /**
@@ -152,8 +152,8 @@ public class Chat {
      * @return true wenn der Spieler erfolgreich entfernt werden konnte
      * @see #removePlayer
      */
-    public void removePlayer(String p) {
-        listener.remove(Bukkit.getPlayer(p));
+    public void removePlayer(String spieler) {
+        listener.remove(Bukkit.getPlayer(spieler));
     }
     
     /**

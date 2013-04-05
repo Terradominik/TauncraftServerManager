@@ -62,7 +62,7 @@ public class TaunPlayer {
      * Gibt as {@link TaunPlayer} Objekt zum
      * dazugehörigen Spieler zurück
      * 
-     * @param name der Name des Spielers
+     * @param spieler Der Spieler
      * @return Das zum Spieler gehörende TaunPlayer Objekt
      */
     public static TaunPlayer get(Player spieler) {
@@ -126,8 +126,8 @@ public class TaunPlayer {
      * der Spieler so eventuell nicht in der Datenbank
      * gespeicherte Taunpoints verliert.
      * 
-     * @see reload
-     * @see save
+     * @see #reload
+     * @see #save
      */
     public void load() {
         PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE id=? LIMIT 1;");
@@ -146,8 +146,8 @@ public class TaunPlayer {
      * Speichert die Taunpoints in die Datenbank
      * und ladet daraus danach die Updates.
      * 
-     * @see save
-     * @see reload
+     * @see #save
+     * @see #reload
      */
     public void reload() {
         this.save();
@@ -157,9 +157,9 @@ public class TaunPlayer {
     /**
      * Setzt den Namen des Spielers zum Standard Format zurück
      * Diese Methode wird automatisch von der {@link SpielerListe}
-     * beim {@link Spielerliste#remove verlassen} des Spieles aufgerufen.
+     * beim {@link SpielerListe#remove verlassen} des Spieles aufgerufen.
      * 
-     * @see setPlayerListName
+     * @see #setPlayerListName
      * @see SpielerListe
      */
     public void resetPlayerListName(){
@@ -170,9 +170,9 @@ public class TaunPlayer {
     /**
      * Setzt den Namen des Spielers zum Standard Format zurück
      * Diese Methode wird automatisch von der {@link SpielerListe}
-     * beim {@link Spielerliste#remove verlassen} des Spieles aufgerufen.
+     * beim {@link SpielerListe#remove verlassen} des Spieles aufgerufen.
      * 
-     * @see resetPlayerListName
+     * @see #resetPlayerListName
      * @see SpielerListe
      */
     public void setPlayerListName(String prefix, String suffix){
@@ -200,7 +200,7 @@ public class TaunPlayer {
      * Fügt den Spieler zum angegeben Spiel hinzu
      * @param spiel Das Spiel zu welchem der Spieler geadded werden soll
      * @return true wenn das Hinzufügen erfolgreich war
-     * @see SpielerSet#add
+     * @see SpielerListe#add
      */
     public boolean addToSpiel(String spiel) {
         return SpielerListe.add(name, spiel);

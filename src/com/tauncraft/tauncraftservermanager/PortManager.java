@@ -82,7 +82,6 @@ public class PortManager {
      * Löscht einen Port
      * 
      * @param name Der Name des Ports
-     * @param loc Die Location des Ports
      * @return true wenn der Port erfolgreich gelöscht werden konnte
      */
     public static boolean removePort(String name) {

@@ -98,8 +98,8 @@ public class SpielerListe {
      * @param spiel Das Spiel, welches überprüft werden soll
      * @see SpielerListe#contains
      */
-    public static boolean contains(Player spieler, String konzept) {
-        return SpielerListe.contains(spieler.getName(),konzept);
+    public static boolean contains(Player spieler, String spiel) {
+        return SpielerListe.contains(spieler.getName(),spiel);
     }
     
     ////////
