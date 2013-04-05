@@ -1,33 +1,33 @@
 package com.tauncraft.tauncraftservermanager.listener;
 
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
-import java.util.HashSet;
-import java.util.Set;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.Dispenser;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.InventoryHolder;
 
 /**
+ * Listener für das Interagieren mit einem Inventar duch einen Spieler
+ * 
  * @author Terradominik
- * @version 2012-04-05
+ * @version 0.2
  */
 public class InventoryListener implements Listener {
 
     public TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public InventoryListener(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 
     /**
-     * Macht unlimitierte Dropper
+     * Wird ausgeführt, sobald ein Inventar durch einen Spieler geöffnet wird
+     * @param event Das Event
      */
     @EventHandler(priority = EventPriority.NORMAL)
     public void onInventoryOpen(InventoryOpenEvent event) {

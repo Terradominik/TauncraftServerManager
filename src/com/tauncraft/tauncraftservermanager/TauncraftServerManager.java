@@ -2,7 +2,6 @@ package com.tauncraft.tauncraftservermanager;
 
 import com.tauncraft.tauncraftservermanager.commands.AdministrationCommands;
 import com.tauncraft.tauncraftservermanager.commands.ChatCommands;
-import com.tauncraft.tauncraftservermanager.commands.ConfigCommands;
 import com.tauncraft.tauncraftservermanager.commands.CreativeCommands;
 import com.tauncraft.tauncraftservermanager.commands.FunCommands;
 import com.tauncraft.tauncraftservermanager.commands.PlayerCommands;
@@ -25,41 +24,41 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * TauncraftServerManager - Hauptklasse
+ * 
+ * Der TauncraftServerManager ist ein Bukkit Plugin,
+ * welches eine Ground API für alle Tauncraft Plugins
+ * darstellt. Zusätzlich bietet ermöglicht es viele
+ * Commands, die unser Server benötigt.
  *
  * @author Terradominik | raffi287
- * @version 2012-02-22
+ * @version 0.2
  */
 public class TauncraftServerManager extends JavaPlugin {
 
     //Manager
     private DatabaseManager databaseManager;
-    
-    //Listener
-    private BlockListener blockListener;
-    private ChatListener chatListener;
-    private DispenseListener dispenseListener;
-    private InventoryListener inventoryListener;
-    private JoinListener joinListener;
-    private QuitListener quitListener;
+    private PortManager portManager;
+    private SpielerListe spielerListe;
     
     //Commands
     private final AdministrationCommands ac = new AdministrationCommands(this);
     private final ChatCommands chc = new ChatCommands(this);
-    private final ConfigCommands cfc = new ConfigCommands(this);
     private final CreativeCommands crc = new CreativeCommands(this);
     private final FunCommands fc = new FunCommands(this);
     private final PlayerCommands plc = new PlayerCommands(this);
     private final PunishCommands puc = new PunishCommands(this);
     private final TeleportCommands tpc = new TeleportCommands(this);
     
+    //Chat Formate
     private String broadcastFormat = ChatColor.DARK_AQUA + "";
     private String privateFormat = ChatColor.DARK_GRAY + "";
     
+    //Chats
     private static Chat defaultWriteChat;
     private static Chat[] defaultChats;
 
     /**
-     * Beim Enablen
+     * Beim Enablen des Plugins
      */
     @Override
     public void onEnable() {
@@ -68,6 +67,8 @@ public class TauncraftServerManager extends JavaPlugin {
         
         //Manager
         databaseManager = new DatabaseManager(this);
+        portManager = new PortManager(this);
+        spielerListe = new SpielerListe();
 
         //Command Registration
         
@@ -84,6 +85,7 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("warn").setExecutor(ac);
         this.getCommand("addport").setExecutor(ac);
         this.getCommand("removeport").setExecutor(ac);
+        this.getCommand("configset").setExecutor(ac);
         
         //Chat Commands
         this.getCommand("leitung").setExecutor(chc);
@@ -91,9 +93,6 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("clearmsg").setExecutor(chc);
         this.getCommand("tell").setExecutor(chc);
         this.getCommand("chat").setExecutor(chc);
-
-        //Config Commands
-        this.getCommand("configset").setExecutor(cfc);
         
         //Creative Commands
         this.getCommand("tc").setExecutor(crc);
@@ -118,57 +117,55 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("s").setExecutor(tpc);
         this.getCommand("port").setExecutor(tpc);
         this.getCommand("portlist").setExecutor(tpc);
-
-        blockListener = new BlockListener(this);
-        joinListener = new JoinListener(this);
-        quitListener = new QuitListener(this);
-        chatListener = new ChatListener();
         
         //Listener Registration
-        pm.registerEvents(this.blockListener, this);
-        pm.registerEvents(this.chatListener, this);
-        pm.registerEvents(this.dispenseListener, this);
-        pm.registerEvents(this.inventoryListener, this);
-        pm.registerEvents(this.joinListener, this);
-        pm.registerEvents(this.quitListener, this);
+        pm.registerEvents(new BlockListener(this), this);
+        pm.registerEvents(new ChatListener(this), this);
+        pm.registerEvents(new DispenseListener(this), this);
+        pm.registerEvents(new InventoryListener(this), this);
+        pm.registerEvents(new JoinListener(this), this);
+        pm.registerEvents(new QuitListener(this), this);
         
+        //Ladet die Chats
         this.loadChats();
     }
 
     /**
-     * Beim Disablen
+     * Beim Disablen des Plugins
      */
     @Override
     public void onDisable() {
+        //Schließt die Connection
+        DatabaseManager.closeConnection();
         //Speichern der Config
         this.saveConfig();
     }
 
     /**
-     * Broadcast Message
+     * Sendet eine Nachricht an alle Spieler
+     * 
+     * @param text Der Text, welcher gesendet werden soll
      */
     public void broadcast(String text) {
         this.getServer().broadcastMessage(broadcastFormat + text);
     }
     
     /**
-     * Private Message
+     * Sendet eine Nachricht an einen Spieler
+     * 
+     * @param sender Der CommandSender an den die Nachricht geschickt werden solll
+     * @param text Der Text, welcher gesendet werden soll
      */
-    public void send(CommandSender spieler, String text) {
-        spieler.sendMessage(privateFormat + text);
+    public void send(CommandSender sender, String text) {
+        sender.sendMessage(privateFormat + text);
     }
     
-    public static Chat[] getDefaultChats(Rang rang) {
-        return defaultChats;
-    }
-    
-    public static Chat getDefaultWriteChat(){
-        return defaultWriteChat;
-    }
-    
+    /**
+     * Ladet alle Chats aus der Config
+     */
     private void loadChats() {
          ConfigurationSection mainCs = this.getConfig().getConfigurationSection("chats");
-         Set<Chat> defaultChats = new HashSet();
+         Set<Chat> defaultChatSet = new HashSet();
          for (String subString : mainCs.getKeys(false)) {
              ConfigurationSection subCs = mainCs.getConfigurationSection(subString);
              String name = subString;
@@ -183,9 +180,18 @@ public class TauncraftServerManager extends JavaPlugin {
                  raenge.add(rang);
              }
              Chat c = new Chat(name,prefix,suffix,raenge);
-             if(subCs.getBoolean("default")) defaultChats.add(c);
+             if(subCs.getBoolean("default")) defaultChatSet.add(c);
              if(subCs.getBoolean("defaultWriteChat")) defaultWriteChat = c;
          }
-         TauncraftServerManager.defaultChats = defaultChats.toArray(new Chat[0]);
+         TauncraftServerManager.defaultChats = defaultChatSet.toArray(new Chat[0]);
+    }
+    
+    //Getter
+    public static Chat[] getDefaultChats() {
+        return defaultChats;
+    }
+    
+    public static Chat getDefaultWriteChat(){
+        return defaultWriteChat;
     }
 }

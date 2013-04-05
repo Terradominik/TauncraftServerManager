@@ -1,6 +1,6 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
-import com.tauncraft.tauncraftservermanager.Ports;
+import com.tauncraft.tauncraftservermanager.PortManager;
 import com.tauncraft.tauncraftservermanager.Restart;
 import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
@@ -13,27 +13,32 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * AdministrationCommands Klasse
- *
+ * Verwaltet alle wichtigen Commands, welche für Leitungs-Team Mitglieder gedacht sind
+ * 
  * @author Terradomninik | raffi287
- * @version 0.1
+ * @version 0.2
  */
 public class AdministrationCommands implements CommandExecutor {
 
     private TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * 
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public AdministrationCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 
     /**
-     * Beim eingeben eines Command
-     *
-     * @param sender sender des Commands
-     * @param cmd Command 
-     * @param label Name des Commands 
-     * @param args Parameter des Commands
-     * @return ob das Command erfolgreich war
+     * Wird beim ausführen eines Commands aufgerufen
+     * 
+     * @param sender Der Sender des Commands
+     * @param cmd Das Command 
+     * @param label Der Name des Commands 
+     * @param args Die Parameter des Commands
+     * @return Ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -53,6 +58,8 @@ public class AdministrationCommands implements CommandExecutor {
                     return restart(args);
                 case "warn":
                     return warn(sender, args);
+                case "configset":
+                    return configset(sender, args);
             }
             if (sender instanceof Player) {
                 Player playersender = (Player) sender;
@@ -249,7 +256,7 @@ public class AdministrationCommands implements CommandExecutor {
      */
     private boolean addport(Player sender, String[] args) {
         if (args.length == 0) return false;
-        if(Ports.addPort(args[0], sender.getLocation())) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich hinzugefügt");
+        if(PortManager.addPort(args[0], sender.getLocation())) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich hinzugefügt");
         else plugin.send(sender, "Es trat ein Fehler beim Hinzufügen von " + args[0] + " auf");
         return true;
     }
@@ -259,8 +266,22 @@ public class AdministrationCommands implements CommandExecutor {
      */
     private boolean removeport(Player sender, String[] args) {
         if (args.length == 0) return false;
-        if(Ports.removePort(args[0])) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich gelöscht");
+        if(PortManager.removePort(args[0])) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich gelöscht");
         else plugin.send(sender, "Es trat ein Fehler beim Löschen von " + args[0] + " auf");
+        return true;
+    }
+    
+    /**
+     * Setzt einen Wert in die Config
+     */
+    private boolean configset(CommandSender sender, String[] args) {
+        String path = args[0];
+        args[0] = "";
+        StringBuilder sb = new StringBuilder();
+        for (String s : args) sb.append(s).append(" ");
+        
+        plugin.getConfig().set(path, sb.toString());
+        plugin.saveConfig();
         return true;
     }
 }

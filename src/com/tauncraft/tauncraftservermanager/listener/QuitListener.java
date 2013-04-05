@@ -10,14 +10,28 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+/**
+ * Listener für das Verlassen eines Spielers vom Server
+ * 
+ * @author Terradominik
+ * @version 0.2
+ */
 public class QuitListener implements Listener {
 
     public TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public QuitListener(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * Wird ausgeführt, sobald ein Spieler den Server verlässt
+     * @param event Das Event
+     */
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player spieler = event.getPlayer();

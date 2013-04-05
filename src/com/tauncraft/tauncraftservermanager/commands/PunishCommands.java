@@ -9,27 +9,32 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Spider;
 
 /**
- * PunishCommands Klasse
+ * Verwaltet alle "Punish" Commands
  *
- * @author Terradomninik | raffi287
- * @version 0.1
+ * @author raffi287
+ * @version 0.2
  */
 public class PunishCommands implements CommandExecutor {
 
     private TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * 
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public PunishCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
 
     /**
-     * Beim eingeben eines Command
-     *
-     * @param sender sender des Commands
-     * @param cmd Command 
-     * @param label Name des Commands 
-     * @param args Parameter des Commands
-     * @return ob das Command erfolgreich war
+     * Wird beim ausführen eines Commands aufgerufen
+     * 
+     * @param sender Der Sender des Commands
+     * @param cmd Das Command 
+     * @param label Der Name des Commands 
+     * @param args Die Parameter des Commands
+     * @return Ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

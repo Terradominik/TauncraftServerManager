@@ -1,7 +1,7 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.DatabaseManager;
-import com.tauncraft.tauncraftservermanager.Ports;
+import com.tauncraft.tauncraftservermanager.PortManager;
 import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.sql.PreparedStatement;
@@ -16,27 +16,32 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * TeleportCommands Klasse
- *
- * @author Terradomninik | raffi287
- * @version 0.1
+ * Verwaltet alle Commands, welche mit dem Teleporten zu tun haben
+ * 
+ * @author Terradomninik
+ * @version 0.2
  */
 public class TeleportCommands implements CommandExecutor {
 
     private TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * 
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public TeleportCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
     
     /**
-     * Beim eingeben eines Command
-     *
-     * @param sender sender des Commands
-     * @param cmd Command 
-     * @param label Name des Commands 
-     * @param args Parameter des Commands
-     * @return ob das Command erfolgreich war
+     * Wird beim ausführen eines Commands aufgerufen
+     * 
+     * @param sender Der Sender des Commands
+     * @param cmd Das Command 
+     * @param label Der Name des Commands 
+     * @param args Die Parameter des Commands
+     * @return Ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -155,7 +160,7 @@ public class TeleportCommands implements CommandExecutor {
             return true;
         }
                 
-        Location loc = Ports.getPort(args[0]);
+        Location loc = PortManager.getPort(args[0]);
         if (loc == null) plugin.send(sender, "Es ist kein Port mit dem Namen " + args[0] + " registriert");
         else {
             sender.teleport(loc);

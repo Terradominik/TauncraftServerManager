@@ -4,13 +4,20 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.*;
 
 /**
- * @author Dominik
+ * Verwaltet den Datenbankzugriff des Servers
+ * 
+ * @author Terradominik
+ * @version 0.2
  */
 public class DatabaseManager {
 
     private static Connection con;
     private static TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * @param plugin 
+     */
     public DatabaseManager(TauncraftServerManager plugin) {
         DatabaseManager.plugin = plugin;
         if (con == null) {
@@ -28,6 +35,9 @@ public class DatabaseManager {
         }
     }
     
+    /**
+     * Schließt die Connection
+     */
     public static void closeConnection() {
         try {
             con.close();
@@ -35,6 +45,11 @@ public class DatabaseManager {
         }
     }
     
+    /**
+     * Gibt ein Statement zurück
+     * 
+     * @return Ein Statement
+     */
     public static Statement getStatement() {
         try {
             return con.createStatement();
@@ -44,6 +59,13 @@ public class DatabaseManager {
         return null;
     }
     
+    /**
+     * Erstellt ein PreparedStatement
+     * und gibt dieses zurück
+     * 
+     * @param sql Der SQL Code für dieses PreparedStatement
+     * @return Das PreparedStatement
+     */
     public static PreparedStatement prepareStatement(String sql) {
         try {
             return con.prepareStatement(sql);

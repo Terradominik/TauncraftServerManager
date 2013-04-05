@@ -13,15 +13,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 /**
- * FunCommands Klasse
+ * Verwaltet alle "Fun" Commands
  *
- * @author Terradomninik | raffi287
- * @version 0.1
+ * @author raffi287
+ * @version 0.2
  */
 public class FunCommands implements CommandExecutor {
 
     private TauncraftServerManager plugin;
 
+    /**
+     * Konstruktor
+     * 
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public FunCommands(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }

@@ -15,17 +15,32 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+/**
+ * Listener für das Betreten eines Spielers auf den Server
+ * 
+ * @author Terradominik | raffi287
+ * @version 0.2
+ */
 public class JoinListener implements Listener {
 
     public static TauncraftServerManager plugin;
     public static String motd;
     public static String welcomeMessage;
 
+    /**
+     * Konstruktor
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public JoinListener(TauncraftServerManager plugin) {
         JoinListener.plugin = plugin;
-        updateNachrichten();
+        motd = plugin.getConfig().getString("motd");
+        welcomeMessage = plugin.getConfig().getString("welcomemsg");
     }
 
+    /**
+     * Wird ausgeführt, sobald ein Spieler den Server betritt
+     * @param event Das Event
+     */
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player spieler = event.getPlayer();
@@ -41,12 +56,11 @@ public class JoinListener implements Listener {
         }
         plugin.send(spieler, motd);
     }
-    
-    public static void updateNachrichten() {
-        motd = plugin.getConfig().getString("motd");
-        welcomeMessage = plugin.getConfig().getString("welcomemsg");
-    }
 
+    /**
+     * Fügt einen neuen Spieler in die Datenbank ein
+     * @param spieler Der Spieler, welcher in die Datenbank eingefügt werden soll
+     */
     private void insertNewPlayer(Player spieler) {
         PreparedStatement stmnt = DatabaseManager.prepareStatement("INSERT INTO spieler (name,firstJoin,joinIP) VALUES (?,?,?);");
         try {
@@ -61,6 +75,11 @@ public class JoinListener implements Listener {
         this.registerPlayer(spieler);
     }
 
+    /**
+     * Registriert einen Spieler als TaunPlayer und ladet die Werte der Config
+     * @param spieler Der Spieler, welcher als TaunPlayer registriert werden soll
+     * @return Ob die Registrierung erfolgreich war
+     */
     private boolean registerPlayer(Player spieler) {
         PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT userID,name,taunPoints,rangID FROM spieler WHERE name=? LIMIT 1;");
         try {
@@ -77,6 +96,4 @@ public class JoinListener implements Listener {
             return false;
         }
     }
-    
-    
 }

@@ -14,23 +14,32 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * @author Dominik
+ * Verwaltet alle Commands, welche für alle Spieler gedacht sind
+ * 
+ * @author Terradomninik
+ * @version 0.2
  */
 public class PlayerCommands implements CommandExecutor {
+
     private TauncraftServerManager plugin;
     
+    /**
+     * Konstruktor
+     * 
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public PlayerCommands (TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
     
     /**
-     * Beim eingeben eines Command
+     * Wird beim ausführen eines Commands aufgerufen
      *
-     * @param sender sender des Commands
-     * @param cmd Command 
-     * @param label Name des Commands 
-     * @param args Parameter des Commands
-     * @return ob das Command erfolgreich war
+     * @param sender Der Sender des Commands
+     * @param cmd Das Command 
+     * @param label Der Name des Commands 
+     * @param args Die Parameter des Commands
+     * @return Ob das Command erfolgreich war
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

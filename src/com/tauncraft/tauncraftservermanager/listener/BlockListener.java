@@ -9,19 +9,27 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 /**
+ * Listener für das Platzieren und Zerstören von Blöcken durch einen Spieler
+ * 
  * @author Terradominik
- * @version 2012-02-22
+ * @version 0.2
  */
 public class BlockListener implements Listener {
 
-    public TauncraftServerManager plugin;
-
+    private TauncraftServerManager plugin;
+    
+    /**
+     * Konstruktor
+     * 
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public BlockListener(TauncraftServerManager plugin) {
         this.plugin = plugin;
     }
-
+    
     /**
-     * Überprüft ob der Spieler Blöcke zerstören darf
+     * Wird ausgeführt, sobald ein Block durch einen Spieler zerstört wird
+     * @param event Das Event
      */
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockBreak(BlockBreakEvent event) {
@@ -29,7 +37,8 @@ public class BlockListener implements Listener {
     }
 
     /**
-     * Überprüft ob der Spieler Blöcke platzieren darf
+     * Wird ausgeführt, sobald ein Block durch einen Spieler platziert wird
+     * @param event Das Event
      */
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockPlace(BlockPlaceEvent event) {
@@ -38,6 +47,7 @@ public class BlockListener implements Listener {
 
     /**
      * Überprüft ob der Spieler die Nötigen Permissions hat
+     * @param spieler Der Spieler dessen Rechte überprüft werden sollen
      */
     public boolean cancelCheck(Player spieler) {
         if (!(spieler.hasPermission("taunsm.world." + spieler.getWorld().getName().toLowerCase())

@@ -14,21 +14,28 @@ import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.inventory.InventoryHolder;
 
 /**
+ * Listener für das "Dispensen" eines Dispenser oder Droppers
+ * 
  * @author Terradominik
- * @version 2012-04-05
+ * @version 0.2
  */
 public class DispenseListener implements Listener {
 
     public TauncraftServerManager plugin;
     public static Set<World> forbiddenWorlds = new HashSet<>();
 
+    /**
+     * Konstruktor
+     * @param plugin Referenz auf den TauncraftServerManager, falls benötigt
+     */
     public DispenseListener(TauncraftServerManager plugin) {
         this.plugin = plugin;
         forbiddenWorlds.add(plugin.getServer().getWorld("HC-Welt"));
     }
 
     /**
-     * Macht unlimitierte Dropper
+     * Wird ausgeführt, sobald eine Item "dispensed" wird
+     * @param event Das Event
      */
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockDispense(BlockDispenseEvent event) {
