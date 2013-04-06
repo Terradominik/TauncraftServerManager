@@ -64,6 +64,8 @@ public class TeleportCommands implements CommandExecutor {
                         return port(playersender, args);
                     case "portlist":
                         return portlist(playersender, args);
+                    case "tploc":
+                        return tploc(playersender, args);
                 }
             } else {
                 switch (cmd.getName()) {
@@ -103,8 +105,6 @@ public class TeleportCommands implements CommandExecutor {
      * Teleportiert spieler1 zu spieler2
      */
     private boolean tpConsole(CommandSender sender, String[] args) {
-        if (args.length > 2) return false;
-        
         Player target1 = plugin.getServer().getPlayer(args[0]);
         Player target2 = plugin.getServer().getPlayer(args[1]);
         if (target1 != null && target2 != null) {
@@ -112,8 +112,10 @@ public class TeleportCommands implements CommandExecutor {
             plugin.send(sender, target1.getName() + " wurde zu " + target2.getName() + " geportet");
             plugin.send(target1, target2.getName() + " wurde von " + sender.getName() + " zu dir geportet");
             plugin.send(target2, sender.getName() + " hat dich zu " + target1.getName() + " geportet");
-        } else
-            plugin.send(sender, "Die Spieler konnten nicht gefunden werden");
+        } else {
+            if (sender instanceof Player) plugin.getCommand("tploc").execute(sender, "tptploc", args);
+            else plugin.send(sender, "Spieler konnten nicht gefunden werden");
+        }
         return true;
     }
 
@@ -205,6 +207,30 @@ public class TeleportCommands implements CommandExecutor {
             System.out.println("Fehler beim Anzeigen der Portliste: " + ex.getMessage());
         }
           
+        return true;
+    }
+
+    /**
+     * Portet zu den angegebenen Koordinaten
+     */
+    private boolean tploc(Player sender, String[] args) {
+        if (args.length < 2) return false;
+        int x,y,z;
+        try {
+            x = Integer.parseInt(args[0]);
+            if (args.length > 2) {
+                y = Integer.parseInt(args[1]);
+                z = Integer.parseInt(args[2]);
+            }
+            else {
+                z = Integer.parseInt(args[1]);
+                y = sender.getWorld().getHighestBlockYAt(x, z);
+            }
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        sender.teleport(new Location(sender.getWorld(),x,y,z));
+        plugin.send(sender, "Du wurdest zu " + x + "," + y + "," + z + " geportet");
         return true;
     }
 }

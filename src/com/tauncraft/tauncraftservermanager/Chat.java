@@ -130,8 +130,8 @@ public class Chat {
      * @param spieler Der Spieler welcher entfernt werden soll
      * @return true wenn der Spieler erfolgreich entfernt werden konnte
      */
-    public void removePlayer(Player spieler) {
-        listener.remove(spieler);
+    public boolean removePlayer(Player spieler) {
+        return listener.remove(spieler);
     }
     
     /**
@@ -141,8 +141,8 @@ public class Chat {
      * @return true wenn der Spieler erfolgreich entfernt werden konnte
      * @see #removePlayer
      */
-    public void removePlayer(TaunPlayer spieler) {
-        listener.remove(spieler.getPlayer());
+    public boolean removePlayer(TaunPlayer spieler) {
+        return listener.remove(spieler.getPlayer());
     }
     
     /**
@@ -152,8 +152,8 @@ public class Chat {
      * @return true wenn der Spieler erfolgreich entfernt werden konnte
      * @see #removePlayer
      */
-    public void removePlayer(String spieler) {
-        listener.remove(Bukkit.getPlayer(spieler));
+    public boolean removePlayer(String spieler) {
+        return listener.remove(Bukkit.getPlayer(spieler));
     }
     
     /**

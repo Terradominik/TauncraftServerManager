@@ -117,6 +117,7 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("s").setExecutor(tpc);
         this.getCommand("port").setExecutor(tpc);
         this.getCommand("portlist").setExecutor(tpc);
+        this.getCommand("tploc").setExecutor(tpc);
         
         //Listener Registration
         pm.registerEvents(new BlockListener(this), this);

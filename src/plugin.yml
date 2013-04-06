@@ -144,4 +144,8 @@ commands:
     description: Zeigt eine Liste aller verfügbaren Ports an
     usage: /<command> [<seitenzahl>]
     aliases: [portliste]
+  tploc:
+    description: Portet zu den angegebenen Koordinaten
+    usage: /<command> <x> [<y>] <z>
+    aliases: [tplocation,coords,coord,tpcoord,tptploc]
     
