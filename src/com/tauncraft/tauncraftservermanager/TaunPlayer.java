@@ -38,7 +38,7 @@ public class TaunPlayer {
         this.rang = rang;
         tp.put(name, this);
         writeChat = TauncraftServerManager.getDefaultWriteChat();
-        Bukkit.getPlayer(name).setPlayerListName(rang.getColor() + name);
+        this.resetPlayerListName();
         for (Chat c : TauncraftServerManager.getDefaultChats()) c.addPlayer(this);
     }
     
@@ -187,7 +187,8 @@ public class TaunPlayer {
      * @see SpielerListe
      */
     public void resetPlayerListName(){
-        String stringName = (rang.getColor() + name).substring(0,16);
+        String stringName = rang.getColor() + name;
+        if (stringName.length() > 16) stringName = stringName.substring(0,16);
         this.getPlayer().setPlayerListName(stringName);
     }
     
