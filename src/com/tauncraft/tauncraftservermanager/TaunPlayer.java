@@ -168,12 +168,27 @@ public class TaunPlayer {
     }
     
     /**
-     * Setzt den Namen des Spielers zum Standard Format zurück
-     * Diese Methode wird automatisch von der {@link SpielerListe}
-     * beim {@link SpielerListe#remove verlassen} des Spieles aufgerufen.
+     * Setzt den Namen des Spielers in 
+     * der Spieler Übersicht (TAB)
      * 
+     * @param prefix Det Text der vor dem Spieler hinzugefügt werden soll
+     * @see #setPlayerListName
      * @see #resetPlayerListName
-     * @see SpielerListe
+     */
+    public void setPlayerListName(String prefix){
+        String stringName = prefix + name;
+        if (stringName.length() > 16) stringName = stringName.substring(0, 14) + "..";
+        this.getPlayer().setPlayerListName(stringName);
+    }
+    
+    /**
+     * Setzt den Namen des Spielers in 
+     * der Spieler Übersicht (TAB)
+     * 
+     * @param prefix Det Text der vor dem Spieler hinzugefügt werden soll
+     * @param suffix Det Text der vor dem Spieler hinzugefügt werden soll
+     * @see #setPlayerListName
+     * @see #resetPlayerListName
      */
     public void setPlayerListName(String prefix, String suffix){
         String stringName = prefix + name + suffix;
