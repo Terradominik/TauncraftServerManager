@@ -47,6 +47,11 @@ public class CommandListener implements Listener {
                     }
                 }
             }
+        } else if (event.getMessage().startsWith("/save-all")) {
+            for (TaunPlayer tp : TaunPlayer.getList()) {
+                tp.save();
+                tp.saveRang();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package com.tauncraft.tauncraftservermanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
@@ -46,6 +47,16 @@ public class TaunPlayer {
     //Statische
     //Getter
     ////////    
+    
+    /**
+     * Gibt die Collection aller {@link TaunPlayer} 
+     * Objekte zum zurück
+     * 
+     * @return Die Collection aller TaunPlayer
+     */
+    public static Collection<TaunPlayer> getList() {
+        return tp.values();
+    }
     
     /**
      * Gibt as {@link TaunPlayer} Objekt zum
