@@ -79,6 +79,20 @@ public class TaunPlayer {
     }
     
     /**
+     * Fügt dem Spieler einen {@link Chat} hinzu
+     * und löscht alle anderen
+     * 
+     * @param chat Der Chat, welcher hinzugefügt werden soll
+     */
+    public void addChatOnly(Chat chat) {
+        for (Chat c : Chat.getChats()) {
+            c.removePlayer(name);
+        }
+        chat.addPlayer(name);
+    }
+    
+    
+    /**
      * Fügt dem Spieler Taunpoints hinzu
      * 
      * @param value Die Anzahl der Taunpoints welche hinzugefügt werden sollen
