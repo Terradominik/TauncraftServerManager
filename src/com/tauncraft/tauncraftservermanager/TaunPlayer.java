@@ -301,6 +301,7 @@ public class TaunPlayer {
      */
     public void resetChats() {
         writeChat = TauncraftServerManager.getDefaultWriteChat();
+        for (Chat c : Chat.getChats()) c.removePlayer(name);
         for (Chat c : TauncraftServerManager.getDefaultChats()) c.addPlayer(this);
     }
     

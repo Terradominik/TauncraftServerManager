@@ -1,8 +1,10 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.DatabaseManager;
+import com.tauncraft.tauncraftservermanager.Rang;
 import com.tauncraft.tauncraftservermanager.TaunPlayer;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,17 +71,41 @@ public class PlayerCommands implements CommandExecutor {
         if (args.length == 0) {
             TaunPlayer tp = TaunPlayer.get(playersender);
             playersender.sendMessage(ChatColor.GRAY + "Dein Profil");
+            playersender.sendMessage(ChatColor.GRAY + "----------");
             playersender.sendMessage(ChatColor.GRAY + "Rang: " + tp.getRang().toString());
             playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + tp.getTaunpoints());
         } else {
             Player player = plugin.getServer().getPlayer(args[0]);
             if (player == null) {
                 OfflinePlayer op = plugin.getServer().getOfflinePlayer(args[0]);
-                plugin.send(playersender, args[0] + " ist nicht online, offline Statistiken werden noch nicht unterstützt");
+                String sql = "SELECT taunPoints,rangID from spieler WHERE name=? LIMIT 1";
+                PreparedStatement ps = DatabaseManager.prepareStatement(sql);
+                String msgrang,msgtaunpoints;
+                try {
+                    ps.setString(1, op.getName());
+                    ResultSet rs = ps.executeQuery();
+                    if (!rs.last()) {
+                        plugin.send(player, op.getName() + " konnte nicht gefunden werden");
+                        return true;
+                    }
+                    msgtaunpoints = rs.getInt(1) + "";
+                    Rang rang = Rang.valueOf(rs.getString(2));
+                    msgrang = rang.getName();
+                    rs.close();
+                    ps.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error registerPlayer:\n" + ex.getMessage());
+                    return false;
+                }
+                playersender.sendMessage(ChatColor.GRAY + "Profil von " + op.getName());
+                playersender.sendMessage(ChatColor.GRAY + "----------");
+                playersender.sendMessage(ChatColor.GRAY + "Rang: " + msgrang);
+                playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + msgtaunpoints);
                 return true;
             }
             TaunPlayer tp = TaunPlayer.get(player);
             playersender.sendMessage(ChatColor.GRAY + "Profil von " + player.getName());
+            playersender.sendMessage(ChatColor.GRAY + "----------");
             playersender.sendMessage(ChatColor.GRAY + "Rang: " + tp.getRang().getName());
             playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + tp.getTaunpoints());
         }
@@ -90,10 +116,12 @@ public class PlayerCommands implements CommandExecutor {
      * Zeigt die Spieler mit den meisten Taunpoints
      */
     private boolean top(Player playersender, String[] args) {
-        int limit;
-        if (args.length == 0) limit = 7;
-        else {
-            limit = Integer.parseInt(args[0]);
+        int limit = 9;
+        if (args.length != 0) {
+            try {
+                limit = Integer.parseInt(args[0]);
+            } catch (NumberFormatException nfe) {
+            }
             if (limit > 30) limit = 30;
             else if(limit < 1) limit = 1;
         }
