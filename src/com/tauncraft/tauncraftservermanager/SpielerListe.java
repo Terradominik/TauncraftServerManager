@@ -48,6 +48,7 @@ public class SpielerListe {
         TaunPlayer tp = TaunPlayer.get(spieler);
         tp.resetPlayerListName();
         tp.resetChats();
+        tp.save();
         return spielerListe.remove(spieler) != null;
     }
 
