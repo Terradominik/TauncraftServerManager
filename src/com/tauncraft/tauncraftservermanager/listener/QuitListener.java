@@ -41,6 +41,7 @@ public class QuitListener implements Listener {
             c.removePlayer(spieler);
         }
         tp.save();
+        tp.saveRang();
         event.setQuitMessage(ChatColor.YELLOW + spieler.getName() + " hat den Server verlassen");
     }
 }

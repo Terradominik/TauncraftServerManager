@@ -308,10 +308,7 @@ public class AdministrationCommands implements CommandExecutor {
             plugin.send(sender, "Der eingegebene Rang existriert nicht. Folgende Ränge stehen zur Verfügung:");
             plugin.send(sender, sb.toString());
         }
-        TaunPlayer tp = TaunPlayer.get(spieler);
-        tp.setRang(targetrang);
         plugin.getCommand("pex").execute(sender, "pex", new String[]{"user",spieler.getName(),"group","set",targetrang.getPermName()});
-        tp.save();
         return true;
     }
 }

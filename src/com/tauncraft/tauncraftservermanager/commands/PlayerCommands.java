@@ -76,10 +76,11 @@ public class PlayerCommands implements CommandExecutor {
             if (player == null) {
                 OfflinePlayer op = plugin.getServer().getOfflinePlayer(args[0]);
                 plugin.send(playersender, args[0] + " ist nicht online, offline Statistiken werden noch nicht unterstützt");
+                return true;
             }
             TaunPlayer tp = TaunPlayer.get(player);
             playersender.sendMessage(ChatColor.GRAY + "Profil von " + player.getName());
-            playersender.sendMessage(ChatColor.GRAY + "Rang: " + tp.getRang().toString());
+            playersender.sendMessage(ChatColor.GRAY + "Rang: " + tp.getRang().getName());
             playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + tp.getTaunpoints());
         }
         return true;

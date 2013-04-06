@@ -33,8 +33,8 @@ public class JoinListener implements Listener {
      */
     public JoinListener(TauncraftServerManager plugin) {
         JoinListener.plugin = plugin;
-        motd = plugin.getConfig().getString("motd");
-        welcomeMessage = plugin.getConfig().getString("welcomemsg");
+        motd = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("motd"));
+        welcomeMessage = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("welcomemsg"));
     }
 
     /**
@@ -47,14 +47,14 @@ public class JoinListener implements Listener {
         spieler.getFirstPlayed();
         event.setJoinMessage(ChatColor.YELLOW + spieler.getName() + " hat den Server betreten");
         if (!spieler.hasPlayedBefore()) {
-            plugin.broadcast(welcomeMessage.replace("<name>", spieler.getName()));
+            plugin.getServer().broadcastMessage(welcomeMessage.replace("<name>", spieler.getName()));
             this.insertNewPlayer(spieler);
         } else {
             if(!this.registerPlayer(spieler)) {
                 this.insertNewPlayer(spieler);
             }
         }
-        plugin.send(spieler, motd);
+        spieler.sendMessage(motd);
     }
 
     /**
@@ -62,15 +62,24 @@ public class JoinListener implements Listener {
      * @param spieler Der Spieler, welcher in die Datenbank eingefügt werden soll
      */
     private void insertNewPlayer(Player spieler) {
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("INSERT INTO spieler (name,firstJoin,joinIP) VALUES (?,?,?);");
+        Rang targetrang = Rang.NEU;
+        if (spieler.hasPermission("taunsm.rang.admin")) targetrang = Rang.ADMIN;
+        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.MOD;
+        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.SPIELER;
+        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.BAU_TEAM;
+        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.TEST_BAU_TEAM;
+        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.SPIELER;
+        
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("INSERT INTO spieler (name,rangID,firstJoin,joinIP) VALUES (?,?,?,?);");
         try {
             stmnt.setString(1, spieler.getName());
-            stmnt.setTimestamp(2, new Timestamp(Calendar.getInstance().getTime().getTime()));
-            stmnt.setString(3, spieler.getAddress().getAddress().getHostAddress());
+            stmnt.setString(2, targetrang.toString());
+            stmnt.setTimestamp(3, new Timestamp(Calendar.getInstance().getTime().getTime()));
+            stmnt.setString(4, spieler.getAddress().getAddress().getHostAddress());
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
-            System.out.println("Error insetrNewPlayer:\n" + ex.getMessage());
+            System.out.println("Error insertNewPlayer:\n" + ex.getMessage());
         }
         this.registerPlayer(spieler);
     }

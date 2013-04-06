@@ -77,6 +77,31 @@ public class TaunPlayer {
      */
     public void setRang(Rang rang){
         this.rang = rang;
+        
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET rangID=? WHERE id=?;");
+        try {
+            stmnt.setString(1, rang.toString());
+            stmnt.setInt(2, id);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+        }
+    }
+    
+    /**
+     * Speichert den Rang des Spielers
+     * 
+     * @see Rang
+     */
+    public void saveRang(){
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET rangID=? WHERE id=?;");
+        try {
+            stmnt.setString(1, rang.toString());
+            stmnt.setInt(2, id);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+        }
     }
     
     /**
@@ -188,7 +213,9 @@ public class TaunPlayer {
      */
     public void resetPlayerListName(){
         String stringName = rang.getColor() + name;
-        if (stringName.length() > 16) stringName = stringName.substring(0,16);
+        if (stringName.length() > 16) {
+            stringName = stringName.substring(0,16);
+        }
         this.getPlayer().setPlayerListName(stringName);
     }
     
@@ -202,7 +229,9 @@ public class TaunPlayer {
      */
     public void setPlayerListName(String prefix){
         String stringName = prefix + name;
-        if (stringName.length() > 16) stringName = stringName.substring(0, 14) + "..";
+        if (stringName.length() > 16) {
+            stringName = stringName.substring(0, 14) + "..";
+        }
         this.getPlayer().setPlayerListName(stringName);
     }
     

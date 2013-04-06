@@ -31,7 +31,7 @@ public enum Rang {
      */
     private Rang(String name, String permname) {
         this.name = name;
-        this.name = permname;
+        this.permname = permname;
     }
     
     /**
@@ -59,8 +59,7 @@ public enum Rang {
      * Gibt den Namen des Ranges zurück
      * @return Der Name des Ranges
      */
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
     
@@ -70,5 +69,19 @@ public enum Rang {
      */
     public String getPermName() {
         return permname;
+    }
+    
+    /**
+     * Gibt den Rang nach derm PEX Namen zurück
+     * @param permname Der PEX Name
+     * @return Der Rang, der unter diesem Namen bekannt ist
+     */
+    public static Rang getRangByPEX(String pexname) {
+        for (Rang rang : Rang.values()) {
+            if (rang.getPermName().equalsIgnoreCase(pexname)) {
+                return rang;  
+            }
+        }
+        return Rang.NEU;
     }
 }
