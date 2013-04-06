@@ -89,7 +89,7 @@ public class TaunPlayer {
     public void setRang(Rang rang){
         this.rang = rang;
         
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET rangID=? WHERE id=?;");
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET rangID=? WHERE userID=?;");
         try {
             stmnt.setString(1, rang.toString());
             stmnt.setInt(2, id);
@@ -105,7 +105,7 @@ public class TaunPlayer {
      * @see Rang
      */
     public void saveRang(){
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET rangID=? WHERE id=?;");
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET rangID=? WHERE userID=?;");
         try {
             stmnt.setString(1, rang.toString());
             stmnt.setInt(2, id);
@@ -179,7 +179,7 @@ public class TaunPlayer {
      * @return Wenn das Speichern erfolgreich war
      */
     public boolean saveTaunpoints() {
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET taunpoints=taunpoints+? WHERE id=?;");
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET taunpoints=taunpoints+? WHERE userID=?;");
         try {
             stmnt.setInt(1, differTaunpoints);
             stmnt.setInt(2, id);
@@ -203,7 +203,7 @@ public class TaunPlayer {
      * @return Wenn das Laden erfolgreich war
      */
     public boolean load() {
-        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE id=? LIMIT 1;");
+        PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE userID=? LIMIT 1;");
         try {
             stmnt.setInt(1, id);
             ResultSet rs = stmnt.executeQuery();
