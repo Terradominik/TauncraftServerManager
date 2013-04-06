@@ -45,7 +45,9 @@ public class SpielerListe {
      * @return Ob der Spieler in der Liste enthalten war
      */
     public static boolean remove(String spieler) {
-        TaunPlayer.get(spieler).resetPlayerListName();
+        TaunPlayer tp = TaunPlayer.get(spieler);
+        tp.resetPlayerListName();
+        tp.resetChats();
         return spielerListe.remove(spieler) != null;
     }
 

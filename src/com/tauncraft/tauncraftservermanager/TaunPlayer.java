@@ -213,7 +213,39 @@ public class TaunPlayer {
     }
     
     /**
+     * Setzt die Listening Chats und den Write Chat wieder zum Default
+     * Diese Methode wird automatisch von der {@link SpielerListe}
+     * beim {@link SpielerListe#remove verlassen} des Spieles aufgerufen.
+     * 
+     * @see SpielerListe
+     * @see Chat
+     */
+    public void resetChats() {
+        writeChat = TauncraftServerManager.getDefaultWriteChat();
+        for (Chat c : TauncraftServerManager.getDefaultChats()) c.addPlayer(this);
+    }
+    
+    /**
+     * Setzt den Write Chat wieder zum Default
+     * 
+     * @see Chat
+     */
+    public void resetWriteChat() {
+        writeChat = TauncraftServerManager.getDefaultWriteChat();
+    }
+    
+    /**
+     * Setzt die Listening Chats wieder zum Default
+     * 
+     * @see Chat
+     */
+    public void resetListeningChats() {
+        for (Chat c : TauncraftServerManager.getDefaultChats()) c.addPlayer(this);
+    }
+    
+    /**
      * Fügt den Spieler zum angegeben Spiel hinzu
+     * 
      * @param spiel Das Spiel zu welchem der Spieler geadded werden soll
      * @return true wenn das Hinzufügen erfolgreich war
      * @see SpielerListe#add
