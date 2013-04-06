@@ -1,8 +1,10 @@
 package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.PortManager;
+import com.tauncraft.tauncraftservermanager.Rang;
 import com.tauncraft.tauncraftservermanager.Restart;
 import com.tauncraft.tauncraftservermanager.SpielerListe;
+import com.tauncraft.tauncraftservermanager.TaunPlayer;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.util.Date;
 import org.bukkit.ChatColor;
@@ -60,6 +62,8 @@ public class AdministrationCommands implements CommandExecutor {
                     return warn(sender, args);
                 case "configset":
                     return configset(sender, args);
+                case "group":
+                    return group(sender, args);
             }
             if (sender instanceof Player) {
                 Player playersender = (Player) sender;
@@ -282,6 +286,32 @@ public class AdministrationCommands implements CommandExecutor {
         
         plugin.getConfig().set(path, sb.toString());
         plugin.saveConfig();
+        return true;
+    }
+
+    /**
+     * Setzt die Gruppe eines Spielers
+     */
+    private boolean group(CommandSender sender, String[] args) {
+        if (args.length < 2) return false;
+        Player spieler = plugin.getServer().getPlayer(args[0]);
+        if (spieler == null) {
+            plugin.send(sender, "Spieler " + args[0] + " konnte nicht gefunden werden");
+            return true;
+        }
+        Rang targetrang = null;
+        try {
+            targetrang = Rang.valueOf(args[1]);
+        } catch (IllegalArgumentException iae) {
+            StringBuilder sb = new StringBuilder();
+            for (Rang rang : Rang.values()) sb.append(rang.toString()).append(", ");
+            plugin.send(sender, "Der eingegebene Rang existriert nicht. Folgende Ränge stehen zur Verfügung:");
+            plugin.send(sender, sb.toString());
+        }
+        TaunPlayer tp = TaunPlayer.get(spieler);
+        tp.setRang(targetrang);
+        plugin.getCommand("pex").execute(sender, "pex", new String[]{"user",spieler.getName(),"group","set",targetrang.getPermName()});
+        tp.save();
         return true;
     }
 }

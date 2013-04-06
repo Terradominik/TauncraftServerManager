@@ -70,6 +70,16 @@ public class TaunPlayer {
     }
     
     /**
+     * Setzt den Rang des Spielers
+     * 
+     * @param rang Der Rang des Spielers
+     * @see Rang
+     */
+    public void setRang(Rang rang){
+        this.rang = rang;
+    }
+    
+    /**
      * Fügt dem Spieler einen {@link Chat} hinzu
      * 
      * @param chat Der Chat, welcher hinzugefügt werden soll

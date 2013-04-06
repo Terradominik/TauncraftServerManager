@@ -53,6 +53,14 @@ commands:
     description: Löscht einen Port
     usage: /<command> <name>
     aliases: [deleteport,portdelete,portremove]
+  configset:
+    description: Setzt einen Wert in die Config
+    usage: /<command> <pfad> [<text>]...
+    aliases: [setconfig,config,setconf,confset]
+  group:
+    description: Setzt die Gruppe eines Spielers
+    usage: /<command> <name> <rang>
+    aliases: [groupset,setgroup,rang,setrang,rangset]
  
  # Chat Commands
   leitung:
@@ -73,12 +81,7 @@ commands:
     description: Ändert den write Chat
     usage: /<command> <chatname>
     aliases: [switchchat,changechat]
-    
-# Config Commands
-  configset:
-    description: Setzt einen Wert in die Config
-    usage: /<command> <pfad> [<text>]...
-    
+
 # Creative Commands
   tc:
     description: Toggelt den Gamemode zwischen Creative und Survival
