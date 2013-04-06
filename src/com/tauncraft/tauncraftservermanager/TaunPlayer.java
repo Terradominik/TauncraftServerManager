@@ -176,8 +176,9 @@ public class TaunPlayer {
      * @see SpielerListe
      */
     public void setPlayerListName(String prefix, String suffix){
-        String stringName = (prefix + name + suffix).substring(0,16);
-        this.getPlayer().setPlayerListName(prefix + name + suffix);
+        String stringName = prefix + name + suffix;
+        if (stringName.length() > 16) stringName = stringName.substring(0, 14) + "..";
+        this.getPlayer().setPlayerListName(stringName);
     }
     
     /**
