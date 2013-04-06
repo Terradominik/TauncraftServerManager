@@ -167,16 +167,28 @@ public class TaunPlayer {
     }
 
     /**
-     * Speichert die Taunpoints des Spielers in der Datenbank
+     * Führt reload aus
      */
     public void save() {
+        this.reload();
+    }
+    
+    /**
+     * Speichert die Taunpoints des Spielers in der Datenbank
+     * 
+     * @return Wenn das Speichern erfolgreich war
+     */
+    public boolean saveTaunpoints() {
         PreparedStatement stmnt = DatabaseManager.prepareStatement("UPDATE spieler SET taunpoints=taunpoints+? WHERE id=?;");
         try {
             stmnt.setInt(1, differTaunpoints);
             stmnt.setInt(2, id);
             stmnt.executeUpdate();
             stmnt.close();
+            differTaunpoints = 0;
+            return true;
         } catch (SQLException ex) {
+            return false;
         }
     }
     
@@ -188,8 +200,9 @@ public class TaunPlayer {
      * 
      * @see #reload
      * @see #save
+     * @return Wenn das Laden erfolgreich war
      */
-    public void load() {
+    public boolean load() {
         PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT taunPoints FROM spieler WHERE id=? LIMIT 1;");
         try {
             stmnt.setInt(1, id);
@@ -198,7 +211,9 @@ public class TaunPlayer {
             totalTaunpoints = rs.getInt(1);
             rs.close();
             stmnt.close();
+            return true;
         } catch (SQLException ex) {
+            return false;
         }
     }
     
@@ -210,8 +225,7 @@ public class TaunPlayer {
      * @see #reload
      */
     public void reload() {
-        this.save();
-        this.reload();
+        if(this.saveTaunpoints()) this.load();
     }
     
     /**
