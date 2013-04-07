@@ -36,12 +36,16 @@ public class QuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player spieler = event.getPlayer();
         SpielerListe.remove(spieler);
-        TaunPlayer tp = TaunPlayer.get(spieler);
         for (Chat c : Chat.getChats()) {
             c.removePlayer(spieler);
         }
-        tp.save();
-        tp.saveRang();
+        TaunPlayer tp = TaunPlayer.get(spieler);
+        if (tp != null) {
+            tp.save();
+            tp.saveRang();
+        }
+        TaunPlayer.getList().remove(tp);
+        tp = null;
         event.setQuitMessage(ChatColor.YELLOW + spieler.getName() + " hat den Server verlassen");
     }
 }

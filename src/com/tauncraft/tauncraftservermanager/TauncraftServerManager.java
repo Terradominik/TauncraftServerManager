@@ -9,6 +9,7 @@ import com.tauncraft.tauncraftservermanager.commands.PunishCommands;
 import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.ChatListener;
+import com.tauncraft.tauncraftservermanager.listener.CommandListener;
 import com.tauncraft.tauncraftservermanager.listener.DispenseListener;
 import com.tauncraft.tauncraftservermanager.listener.InventoryListener;
 import com.tauncraft.tauncraftservermanager.listener.JoinListener;
@@ -123,6 +124,7 @@ public class TauncraftServerManager extends JavaPlugin {
         //Listener Registration
         pm.registerEvents(new BlockListener(this), this);
         pm.registerEvents(new ChatListener(this), this);
+        pm.registerEvents(new CommandListener(this), this);
         pm.registerEvents(new DispenseListener(this), this);
         pm.registerEvents(new InventoryListener(this), this);
         pm.registerEvents(new JoinListener(this), this);

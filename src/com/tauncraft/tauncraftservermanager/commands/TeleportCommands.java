@@ -49,11 +49,12 @@ public class TeleportCommands implements CommandExecutor {
             plugin.send(sender, "Du kannst dieses Command nicht während einem Spiel benutzen");
             return true;
         }
+        boolean istSpieler = sender instanceof Player;
         if (sender.hasPermission("taunsm.teleport." + cmd.getName())
                 || sender.hasPermission("taunsm.teleport.*")
                 || sender.hasPermission("taunsm.*")
-                || sender.isOp()) {
-            if (sender instanceof Player) {
+                || sender.isOp() || !istSpieler) {
+            if (istSpieler) {
                 Player playersender = (Player) sender;
                 switch (cmd.getName()) {
                     case "tp":
@@ -146,19 +147,19 @@ public class TeleportCommands implements CommandExecutor {
                 || args[0].equalsIgnoreCase("create")
                 || args[0].equalsIgnoreCase("new")) {
             
-            plugin.getCommand("addport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 0, args.length-1));
+            plugin.getCommand("addport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 1, args.length));
             return true;
         }
         if(args[0].equalsIgnoreCase("delete")
                 || args[0].equalsIgnoreCase("remove")) {
             
-            plugin.getCommand("removeport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 0, args.length-1));
+            plugin.getCommand("removeport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 1, args.length));
             return true;
         }
         if (args[0].equalsIgnoreCase("list")
                 || args[0].equalsIgnoreCase("liste")) {
             
-            plugin.getCommand("portlist").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 0, args.length-1));
+            plugin.getCommand("portlist").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 1, args.length));
             return true;
         }
                 
@@ -182,7 +183,7 @@ public class TeleportCommands implements CommandExecutor {
                 plugin.send(sender, "Die Angegebene Zahl muss positiv sein");
                 return true;
             }
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException | NullPointerException e) {
             pageNr = 0;
         }
         String sql = "SELECT * FROM ports ORDER BY name LIMIT ?, ?";

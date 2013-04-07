@@ -3,6 +3,7 @@ package com.tauncraft.tauncraftservermanager.listener;
 import com.tauncraft.tauncraftservermanager.DatabaseManager;
 import com.tauncraft.tauncraftservermanager.Rang;
 import com.tauncraft.tauncraftservermanager.TaunPlayer;
+import com.tauncraft.tauncraftservermanager.TaunPointConvertEvent;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,7 +51,7 @@ public class JoinListener implements Listener {
             plugin.getServer().broadcastMessage(welcomeMessage.replace("<name>", spieler.getName()));
             this.insertNewPlayer(spieler);
         } else {
-            if(!this.registerPlayer(spieler)) {
+            if(this.registerPlayer(spieler) == null) {
                 this.insertNewPlayer(spieler);
             }
         }
@@ -65,11 +66,11 @@ public class JoinListener implements Listener {
         Rang targetrang = Rang.NEU;
         if (spieler.hasPermission("taunsm.rang.admin")) targetrang = Rang.ADMIN;
         else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.MOD;
-        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.SPIELER;
-        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.BAU_TEAM;
-        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.TEST_BAU_TEAM;
-        else if (spieler.hasPermission("taunsm.rang.mod")) targetrang = Rang.SPIELER;
-        
+        else if (spieler.hasPermission("taunsm.rang.special")) targetrang = Rang.SPECIAL;
+        else if (spieler.hasPermission("taunsm.rang.bau")) targetrang = Rang.BAU_TEAM;
+        else if (spieler.hasPermission("taunsm.rang.testbau")) targetrang = Rang.TEST_BAU_TEAM;
+        else if (spieler.hasPermission("taunsm.rang.spieler")) targetrang = Rang.SPIELER;
+        System.out.println(spieler.getName() + " ist " + targetrang.getName() + " und wird registriert...");
         PreparedStatement stmnt = DatabaseManager.prepareStatement("INSERT INTO spieler (name,rangID,firstJoin,joinIP) VALUES (?,?,?,?);");
         try {
             stmnt.setString(1, spieler.getName());
@@ -81,7 +82,8 @@ public class JoinListener implements Listener {
         } catch (SQLException ex) {
             System.out.println("Error insertNewPlayer:\n" + ex.getMessage());
         }
-        this.registerPlayer(spieler);
+        plugin.getServer().getPluginManager().callEvent(new TaunPointConvertEvent(this.registerPlayer(spieler)));
+        System.out.print("Registrierung abgeschlossen");
     }
 
     /**
@@ -89,20 +91,20 @@ public class JoinListener implements Listener {
      * @param spieler Der Spieler, welcher als TaunPlayer registriert werden soll
      * @return Ob die Registrierung erfolgreich war
      */
-    private boolean registerPlayer(Player spieler) {
+    private TaunPlayer registerPlayer(Player spieler) {
         PreparedStatement stmnt = DatabaseManager.prepareStatement("SELECT userID,name,taunPoints,rangID FROM spieler WHERE name=? LIMIT 1;");
         try {
             stmnt.setString(1, spieler.getName());
             ResultSet rs = stmnt.executeQuery();
-            if (!rs.last()) return false;
+            if (!rs.last()) return null;
             Rang rang = Rang.valueOf(rs.getString(4));
-            new TaunPlayer(rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
+            TaunPlayer tp = new TaunPlayer(rs.getInt(1),spieler.getName(),rs.getInt(3),rang);
             rs.close();
             stmnt.close();
-            return true;
+            return tp;
         } catch (SQLException ex) {
             System.out.println("Error registerPlayer:\n" + ex.getMessage());
-            return false;
+            return null;
         }
     }
 }

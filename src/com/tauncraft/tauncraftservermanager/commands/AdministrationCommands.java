@@ -4,7 +4,6 @@ import com.tauncraft.tauncraftservermanager.PortManager;
 import com.tauncraft.tauncraftservermanager.Rang;
 import com.tauncraft.tauncraftservermanager.Restart;
 import com.tauncraft.tauncraftservermanager.SpielerListe;
-import com.tauncraft.tauncraftservermanager.TaunPlayer;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
 import java.util.Date;
 import org.bukkit.ChatColor;
@@ -64,6 +63,8 @@ public class AdministrationCommands implements CommandExecutor {
                     return configset(sender, args);
                 case "group":
                     return group(sender, args);
+                case "removeport":
+                    return removeport(sender, args);
             }
             if (sender instanceof Player) {
                 Player playersender = (Player) sender;
@@ -268,7 +269,7 @@ public class AdministrationCommands implements CommandExecutor {
     /**
      * Löscht einen Port
      */
-    private boolean removeport(Player sender, String[] args) {
+    private boolean removeport(CommandSender sender, String[] args) {
         if (args.length == 0) return false;
         if(PortManager.removePort(args[0])) plugin.send(sender, "Port " + args[0] + " wurde erfolgreich gelöscht");
         else plugin.send(sender, "Es trat ein Fehler beim Löschen von " + args[0] + " auf");

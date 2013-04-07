@@ -68,7 +68,7 @@ public class PortManager {
             ps.setFloat(6, loc.getYaw());
             ps.setFloat(7, loc.getPitch());
             if (update) ps.setString(8, name);
-                
+            ps.executeQuery();
             ps.close();
         } catch (SQLException ex) {
             System.out.println("Fehler beim Speichern der Ports: " + name + " " + loc.toString());
