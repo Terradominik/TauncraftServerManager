@@ -38,7 +38,7 @@ public class PortManager {
      * @return Die Location des Ports
      */
     public static Location getPort(String name) {
-        return ports.get(name);
+        return ports.get(name.toLowerCase());
     }
     
     /**
@@ -50,28 +50,28 @@ public class PortManager {
      * @return true wenn der Port erfolgreich hinzugefügt werden konnte
      */
     public static boolean addPort(String name, Location loc) {
+        name = name.toLowerCase();
         String sql;
         boolean update = ports.containsKey(name);
         if (update) {
-            sql = "UPDATE ports SET name=?,world=?,x=?,y=?,z=?,yaw=?,pitch=? WHERE name=?";
+            sql = "UPDATE ports SET world=?,x=?,y=?,z=?,yaw=?,pitch=? WHERE name=?";
         } else {
-            sql = "INSERT INTO ports (name,world,x,y,z,yaw,pitch) VALUES (?,?,?,?,?,?,?);";
+            sql = "INSERT INTO ports (world,x,y,z,yaw,pitch,name) VALUES (?,?,?,?,?,?,?);";
         }
 
         PreparedStatement ps = DatabaseManager.prepareStatement(sql);
         try {
-            ps.setString(1, name);
-            ps.setString(2, loc.getWorld().toString());
-            ps.setInt(3, loc.getBlockX());
-            ps.setInt(4, loc.getBlockY());
-            ps.setInt(5, loc.getBlockZ());
-            ps.setFloat(6, loc.getYaw());
-            ps.setFloat(7, loc.getPitch());
-            if (update) ps.setString(8, name);
-            ps.executeQuery();
+            ps.setString(1, loc.getWorld().getName());
+            ps.setInt(2, loc.getBlockX());
+            ps.setInt(3, loc.getBlockY());
+            ps.setInt(4, loc.getBlockZ());
+            ps.setFloat(5, loc.getYaw());
+            ps.setFloat(6, loc.getPitch());
+            ps.setString(7, name);
+            ps.execute();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Fehler beim Speichern der Ports: " + name + " " + loc.toString());
+            System.out.println("Fehler beim Speichern der Ports: " + name + " || " + loc.toString() + " || " + ex.getMessage());
             return false;
         }
         ports.put(name, loc);
@@ -85,6 +85,7 @@ public class PortManager {
      * @return true wenn der Port erfolgreich gelöscht werden konnte
      */
     public static boolean removePort(String name) {
+        name = name.toLowerCase();
         String sql = "DELETE FROM ports WHERE name=?";
         PreparedStatement ps = DatabaseManager.prepareStatement(sql);
         try {

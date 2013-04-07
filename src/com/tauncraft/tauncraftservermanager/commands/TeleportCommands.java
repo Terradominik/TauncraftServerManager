@@ -147,19 +147,19 @@ public class TeleportCommands implements CommandExecutor {
                 || args[0].equalsIgnoreCase("create")
                 || args[0].equalsIgnoreCase("new")) {
             
-            plugin.getCommand("addport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 1, args.length));
+            plugin.getCommand("addport").execute(sender, "port " + args[0], Arrays.copyOfRange(args, 1, args.length));
             return true;
         }
         if(args[0].equalsIgnoreCase("delete")
                 || args[0].equalsIgnoreCase("remove")) {
             
-            plugin.getCommand("removeport").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 1, args.length));
+            plugin.getCommand("removeport").execute(sender, "port " + args[0], Arrays.copyOfRange(args, 1, args.length));
             return true;
         }
         if (args[0].equalsIgnoreCase("list")
                 || args[0].equalsIgnoreCase("liste")) {
             
-            plugin.getCommand("portlist").execute(sender, "port" + args[0], Arrays.copyOfRange(args, 1, args.length));
+            plugin.getCommand("portlist").execute(sender, "port " + args[0], Arrays.copyOfRange(args, 1, args.length));
             return true;
         }
                 
@@ -178,15 +178,15 @@ public class TeleportCommands implements CommandExecutor {
     private boolean portlist(Player sender, String[] args) {
         int pageNr;
         try {
-            pageNr = Integer.parseInt(args[0])-1;
+            pageNr = Integer.parseInt(args[0]);
             if (pageNr > 1) {
                 plugin.send(sender, "Die Angegebene Zahl muss positiv sein");
                 return true;
             }
-        } catch (NumberFormatException | NullPointerException e) {
-            pageNr = 0;
+        } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+            pageNr = 1;
         }
-        String sql = "SELECT * FROM ports ORDER BY name LIMIT ?, ?";
+        String sql = "SELECT name,x,y,z,world FROM ports ORDER BY name LIMIT ?, ?";
         PreparedStatement ps = DatabaseManager.prepareStatement(sql);
         try {
             ps.setInt(1,(pageNr-1)*10);
@@ -196,10 +196,12 @@ public class TeleportCommands implements CommandExecutor {
             
             plugin.send(sender, "Protliste Seite " + pageNr);
             while(rs.next()) {
-                plugin.send(sender, rs.getString(2) + ": "
-                        + "   " + rs.getString(3)
+                plugin.send(sender, rs.getRow() + " "
+                        + rs.getString(1) + ": "
+                        + "   " + rs.getString(2)
+                        + "," + rs.getString(3)
                         + "," + rs.getString(4)
-                        + "," + rs.getString(5));
+                        + " (" + rs.getString(5)+")");
             }
             
             rs.close();
