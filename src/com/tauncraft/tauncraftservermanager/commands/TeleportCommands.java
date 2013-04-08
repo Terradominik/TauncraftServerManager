@@ -76,6 +76,11 @@ public class TeleportCommands implements CommandExecutor {
             }
             plugin.send(sender, "Dieses Command wurde noch nicht implementiert");
         } 
+        else if (sender.hasPermission("taunsm.rang.testbau")
+                && args[0].equalsIgnoreCase("aufnahme") 
+                && sender instanceof Player) {
+            return port((Player) sender, new String[]{"aufnahme"});
+        }
         else plugin.send(sender, "Du hast nicht die nötigen Rechte");
         return true;
     }
