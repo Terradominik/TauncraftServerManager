@@ -184,7 +184,7 @@ public class TeleportCommands implements CommandExecutor {
         int pageNr;
         try {
             pageNr = Integer.parseInt(args[0]);
-            if (pageNr > 1) {
+            if (pageNr < 1) {
                 plugin.send(sender, "Die Angegebene Zahl muss positiv sein");
                 return true;
             }
@@ -199,7 +199,7 @@ public class TeleportCommands implements CommandExecutor {
             
             ResultSet rs = ps.executeQuery();
             
-            plugin.send(sender, "Protliste Seite " + pageNr);
+            plugin.send(sender, "Portliste Seite " + pageNr);
             while(rs.next()) {
                 plugin.send(sender, rs.getRow() + " "
                         + rs.getString(1) + ": "
