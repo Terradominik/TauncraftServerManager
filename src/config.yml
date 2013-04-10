@@ -1,11 +1,15 @@
 # Default Config!
 motd: "Das ist die Tagesnachricht"
 welcomemsg: "Das ist die Willkommensnachricht"
+
+#Datenbankanbindung
 datenbank:
   user: username
   password: passwort
   servername: servername
   databasename: datenbankname
+
+#Chats
 chats:
   Allgemein:
     prefix: "&3[Allgemein] "
@@ -17,3 +21,11 @@ chats:
     suffix: ":&4 "
     default: true
     raenge: [MOD,ADMIN,SPECIAL]
+
+#Automatische Nachrichten
+automessages:
+    - "Nachricht1"
+    - "Nachricht2"
+    - "Nachricht3"
+    - "And so on..."
+automessagesinterval: 20

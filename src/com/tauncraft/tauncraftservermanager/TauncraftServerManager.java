@@ -40,6 +40,7 @@ public class TauncraftServerManager extends JavaPlugin {
     private DatabaseManager databaseManager;
     private PortManager portManager;
     private SpielerListe spielerListe;
+    private AutoMessageManager autoMessageManager;
     
     //Commands
     private final AdministrationCommands ac = new AdministrationCommands(this);
@@ -70,6 +71,7 @@ public class TauncraftServerManager extends JavaPlugin {
         databaseManager = new DatabaseManager(this);
         portManager = new PortManager(this);
         spielerListe = new SpielerListe();
+        autoMessageManager = new AutoMessageManager(this);
 
         //Command Registration
         
