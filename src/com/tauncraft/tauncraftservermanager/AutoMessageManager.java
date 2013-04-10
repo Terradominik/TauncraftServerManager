@@ -36,6 +36,9 @@ public class AutoMessageManager {
         this.broadcastMessages();
     }
     
+    /**
+     * Sendet im Intervall "period" eine Broadcast Message
+     */
     private void broadcastMessages() {
         new BukkitRunnable() {
             int rand = new Random().nextInt(messages.size());
