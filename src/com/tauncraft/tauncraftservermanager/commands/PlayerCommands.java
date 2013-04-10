@@ -71,9 +71,7 @@ public class PlayerCommands implements CommandExecutor {
         if (args.length == 0) {
             TaunPlayer tp = TaunPlayer.get(playersender);
             playersender.sendMessage(ChatColor.GRAY + "Dein Profil");
-            playersender.sendMessage(ChatColor.GRAY + "----------");
-            playersender.sendMessage(ChatColor.GRAY + "Rang: " + tp.getRang().toString());
-            playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + tp.getTaunpoints());
+            playersender.sendMessage(this.profileMessage(new String[]{tp.getRang().toString(),tp.getTaunpoints()+""}));
         } else {
             Player player = plugin.getServer().getPlayer(args[0]);
             if (player == null) {
@@ -98,18 +96,25 @@ public class PlayerCommands implements CommandExecutor {
                     return false;
                 }
                 playersender.sendMessage(ChatColor.GRAY + "Profil von " + op.getName());
-                playersender.sendMessage(ChatColor.GRAY + "----------");
-                playersender.sendMessage(ChatColor.GRAY + "Rang: " + msgrang);
-                playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + msgtaunpoints);
+                playersender.sendMessage(this.profileMessage(new String[]{msgrang,msgtaunpoints}));
                 return true;
             }
             TaunPlayer tp = TaunPlayer.get(player);
             playersender.sendMessage(ChatColor.GRAY + "Profil von " + player.getName());
-            playersender.sendMessage(ChatColor.GRAY + "----------");
-            playersender.sendMessage(ChatColor.GRAY + "Rang: " + tp.getRang().getName());
-            playersender.sendMessage(ChatColor.GRAY + "Taunpoints: " + tp.getTaunpoints());
+            playersender.sendMessage(this.profileMessage(new String[]{tp.getRang().toString(),tp.getTaunpoints()+""}));
         }
         return true;
+    }
+    
+    /**
+     * Formatierte Profile Ausgabe
+     */
+    private String[] profileMessage(String[] args) {
+        return new String[]{
+            ChatColor.GRAY + "----------",
+            ChatColor.GRAY + "Rang: " + Rang.valueOf(args[0]).getColor() + args[0],
+            ChatColor.GRAY + "Taunpoints: " + args[1]
+        };
     }
 
     /**
