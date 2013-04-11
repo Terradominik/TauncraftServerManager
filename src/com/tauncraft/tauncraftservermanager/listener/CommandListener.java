@@ -3,7 +3,6 @@ package com.tauncraft.tauncraftservermanager.listener;
 import com.tauncraft.tauncraftservermanager.Rang;
 import com.tauncraft.tauncraftservermanager.TaunPlayer;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
