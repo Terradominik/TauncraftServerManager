@@ -105,6 +105,10 @@ commands:
     description: Erstellt einen Kopf des Spielers
     usage: /<command> [<spieler>]
     aliases: kopf
+  name:
+    description: Ändert den Namen eines Items
+    usage: /<command> <name>
+    aliases: itemname
     
 # Player Commands
   profile:

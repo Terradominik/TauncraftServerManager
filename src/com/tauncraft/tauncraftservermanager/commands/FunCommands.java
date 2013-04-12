@@ -2,6 +2,7 @@ package com.tauncraft.tauncraftservermanager.commands;
 
 import com.tauncraft.tauncraftservermanager.SpielerListe;
 import com.tauncraft.tauncraftservermanager.TauncraftServerManager;
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 /**
@@ -59,6 +61,8 @@ public class FunCommands implements CommandExecutor {
                         return effect(playersender, args);
                     case "head":
                         return head(playersender, args);
+                    case "name":
+                        return name(playersender, args);
                 }
             }
             plugin.send(sender, "Das Command wurde noch nicht implementiert");
@@ -119,11 +123,37 @@ public class FunCommands implements CommandExecutor {
         ItemStack i = new ItemStack(Material.SKULL_ITEM);
         i.setDurability((short) 3);
         SkullMeta sm = (SkullMeta) i.getItemMeta();
-        if (args.length == 0) sm.setOwner(sender.getName());
-        else sm.setOwner(args[0]);
+        if (args.length == 0){
+            sm.setOwner(sender.getName());
+            plugin.send(sender, "Du hast nun deinen Kopf");
+        }
+        else{
+            sm.setOwner(args[0]);
+            plugin.send(sender, "Du hast nun den Kopf von " + args[0]);
+        }
         i.setItemMeta(sm);
         sender.getInventory().addItem(i);
-        plugin.send(sender, "Du hast nun den Kopf von " + args[0]);
+        return true;
+    }
+    
+    /**
+     * Ändert den Namen eines Items 
+     */
+    private boolean name(Player sender, String[] args){
+        if(args.length == 0) plugin.send(sender, "Bitte gib einen Namen ein");
+        else {
+            String s = "";
+            s += args[0];
+            for (int i = 1; i < args.length; i++) {
+                s += " " + args[i];
+            }
+            ItemStack i = sender.getItemInHand();
+            ItemMeta im = i.getItemMeta();
+            im.setDisplayName(s.replace("&", "§"));
+            String name = im.getDisplayName();
+            i.setItemMeta(im);
+            plugin.send(sender, "Das Item hat nun den Namen: " + ChatColor.WHITE + name);
+        }
         return true;
     }
 }
