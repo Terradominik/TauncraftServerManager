@@ -90,6 +90,7 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("removeport").setExecutor(ac);
         this.getCommand("configset").setExecutor(ac);
         this.getCommand("group").setExecutor(ac);
+        this.getCommand("hidefrom").setExecutor(ac);
         
         //Chat Commands
         this.getCommand("leitung").setExecutor(chc);

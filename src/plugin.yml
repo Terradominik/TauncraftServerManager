@@ -61,6 +61,10 @@ commands:
     description: Setzt die Gruppe eines Spielers
     usage: /<command> <name> <rang>
     aliases: [groupset,setgroup,rang,setrang,rangset]
+  hidefrom:
+    description: Versteckt dich vor einem Spieler
+    usage: /<command> <spieler>
+    aliases: hide
  
  # Chat Commands
   leitung:
