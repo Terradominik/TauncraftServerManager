@@ -101,7 +101,7 @@ commands:
     description: Setzt den Kopf des Spielers zu einem beliebigen Block
     usage: /<command> [<id>[:<subid>]]
     aliases: blockkopf
-  effect:
+  effekt:
     description: Spielt einen Effekt in der Nähe des Spielers ab und macht ihn dadurch besonders
     usag: /<command> <id>
     aliases: effekt

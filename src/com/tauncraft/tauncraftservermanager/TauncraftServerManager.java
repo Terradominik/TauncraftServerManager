@@ -105,7 +105,7 @@ public class TauncraftServerManager extends JavaPlugin {
         
         //Fun Commands
         this.getCommand("blockhead").setExecutor(fc);
-        this.getCommand("effect").setExecutor(fc);
+        this.getCommand("effekt").setExecutor(fc);
         this.getCommand("head").setExecutor(fc);
         this.getCommand("name").setExecutor(fc);
         
