@@ -81,6 +81,8 @@ public class AdministrationCommands implements CommandExecutor {
                         return seen(playersender, args);
                     case "addport":
                         return addport(playersender, args);
+                    case "hidefrom":
+                        return hidefrom(playersender, args);
                 }
             }
             plugin.send(sender, "Das Command wurde noch nicht implementiert");
@@ -310,6 +312,29 @@ public class AdministrationCommands implements CommandExecutor {
             plugin.send(sender, sb.toString());
         }
         plugin.getCommand("pex").execute(sender, "pex", new String[]{"user",spieler.getName(),"group","set",targetrang.getPermName()});
+        return true;
+    }
+    
+    /**
+     * Versteckt dich vor einem Spieler
+     */
+    private boolean hidefrom(Player sender, String[] args){
+        if(args.length == 0){
+            plugin.send(sender, "Bitte gib einen Namen ein");
+            return true;
+        }
+        Player spieler = plugin.getServer().getPlayer(args[0]);
+        if (spieler != null){
+            if(spieler.canSee(sender) == true){
+                spieler.hidePlayer(sender);
+                plugin.send(sender, spieler.getName() + " sieht dich nun nicht mehr");
+            } else {
+                spieler.showPlayer(sender);
+                plugin.send(sender, spieler.getName() + " sieht dich nun wieder");
+            }
+        } else {
+            plugin.send(sender, "Es ist kein Spieler mit dem Namen " + args[0] + " online");
+        }
         return true;
     }
 }
