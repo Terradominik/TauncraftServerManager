@@ -111,16 +111,22 @@ public class TeleportCommands implements CommandExecutor {
      * Teleportiert spieler1 zu spieler2
      */
     private boolean tpConsole(CommandSender sender, String[] args) {
-        Player target1 = plugin.getServer().getPlayer(args[0]);
-        Player target2 = plugin.getServer().getPlayer(args[1]);
-        if (target1 != null && target2 != null) {
-            target1.teleport(target2);
-            plugin.send(sender, target1.getName() + " wurde zu " + target2.getName() + " geportet");
-            plugin.send(target1, target2.getName() + " wurde von " + sender.getName() + " zu dir geportet");
-            plugin.send(target2, sender.getName() + " hat dich zu " + target1.getName() + " geportet");
-        } else {
-            if (sender instanceof Player) plugin.getCommand("tploc").execute(sender, "tptploc", args);
-            else plugin.send(sender, "Spieler konnten nicht gefunden werden");
+        if(args.length == 0) return false;
+        if(args.length >= 1 && args.length < 4){
+            Player target1 = plugin.getServer().getPlayer(args[0]);
+            Player target2 = plugin.getServer().getPlayer(args[1]);
+            if (target1 != null && target2 != null) {
+                target1.teleport(target2);
+                plugin.send(sender, target1.getName() + " wurde zu " + target2.getName() + " geportet");
+                plugin.send(target1, target2.getName() + " wurde von " + sender.getName() + " zu dir geportet");
+                plugin.send(target2, sender.getName() + " hat dich zu " + target1.getName() + " geportet");
+            } else {
+                if (sender instanceof Player) plugin.getCommand("tploc").execute(sender, "tptploc", args);
+                else plugin.send(sender, "Spieler konnten nicht gefunden werden");
+            }
+        }
+        if(args.length == 4){
+            return tplocOther(sender, args);
         }
         return true;
     }
@@ -241,4 +247,19 @@ public class TeleportCommands implements CommandExecutor {
         plugin.send(sender, "Du wurdest zu " + x + "," + y + "," + z + " geportet");
         return true;
     }
+    
+    private boolean tplocOther(CommandSender sender, String[] args){
+        Player target = plugin.getServer().getPlayer(args[0]);
+        int x,y,z;
+        try {
+            x = Integer.parseInt(args[1]);
+            y = Integer.parseInt(args[2]);
+            z = Integer.parseInt(args[3]);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        target.teleport(new Location(target.getWorld(),x,y,z));
+        return true;
+    }
+
 }

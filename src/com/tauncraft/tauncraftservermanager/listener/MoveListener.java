@@ -36,7 +36,7 @@ public class MoveListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Block b = event.getPlayer().getLocation().add(0, -1, 0).getBlock();
         if (b.getType() == Material.ENDER_STONE && b.getData() == 15) {
-            event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP,10*20,5));
+            event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP,5*20,5));
         }
     }
 }
