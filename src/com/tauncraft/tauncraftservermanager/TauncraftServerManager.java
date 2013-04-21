@@ -10,9 +10,11 @@ import com.tauncraft.tauncraftservermanager.commands.TeleportCommands;
 import com.tauncraft.tauncraftservermanager.listener.BlockListener;
 import com.tauncraft.tauncraftservermanager.listener.ChatListener;
 import com.tauncraft.tauncraftservermanager.listener.CommandListener;
+import com.tauncraft.tauncraftservermanager.listener.DamageListener;
 import com.tauncraft.tauncraftservermanager.listener.DispenseListener;
 import com.tauncraft.tauncraftservermanager.listener.InventoryListener;
 import com.tauncraft.tauncraftservermanager.listener.JoinListener;
+import com.tauncraft.tauncraftservermanager.listener.MoveListener;
 import com.tauncraft.tauncraftservermanager.listener.QuitListener;
 import java.util.HashSet;
 import java.util.List;
@@ -90,6 +92,7 @@ public class TauncraftServerManager extends JavaPlugin {
         this.getCommand("removeport").setExecutor(ac);
         this.getCommand("configset").setExecutor(ac);
         this.getCommand("group").setExecutor(ac);
+        this.getCommand("hidefrom").setExecutor(ac);
         
         //Chat Commands
         this.getCommand("leitung").setExecutor(chc);
@@ -104,7 +107,7 @@ public class TauncraftServerManager extends JavaPlugin {
         
         //Fun Commands
         this.getCommand("blockhead").setExecutor(fc);
-        this.getCommand("effect").setExecutor(fc);
+        this.getCommand("effekt").setExecutor(fc);
         this.getCommand("head").setExecutor(fc);
         this.getCommand("name").setExecutor(fc);
         
@@ -132,6 +135,8 @@ public class TauncraftServerManager extends JavaPlugin {
         pm.registerEvents(new InventoryListener(this), this);
         pm.registerEvents(new JoinListener(this), this);
         pm.registerEvents(new QuitListener(this), this);
+        pm.registerEvents(new MoveListener(this), this);
+        pm.registerEvents(new DamageListener(this), this);
         
         //Ladet die Chats
         this.loadChats();

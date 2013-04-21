@@ -61,6 +61,10 @@ commands:
     description: Setzt die Gruppe eines Spielers
     usage: /<command> <name> <rang>
     aliases: [groupset,setgroup,rang,setrang,rangset]
+  hidefrom:
+    description: Versteckt dich vor einem Spieler
+    usage: /<command> <spieler>
+    aliases: hide
  
  # Chat Commands
   leitung:
@@ -97,7 +101,7 @@ commands:
     description: Setzt den Kopf des Spielers zu einem beliebigen Block
     usage: /<command> [<id>[:<subid>]]
     aliases: blockkopf
-  effect:
+  effekt:
     description: Spielt einen Effekt in der Nähe des Spielers ab und macht ihn dadurch besonders
     usag: /<command> <id>
     aliases: effekt

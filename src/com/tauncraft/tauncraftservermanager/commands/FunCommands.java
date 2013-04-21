@@ -57,8 +57,8 @@ public class FunCommands implements CommandExecutor {
                 switch (cmd.getName()) {
                     case "blockhead":
                         return blockhead(playersender, args);
-                    case "effect":
-                        return effect(playersender, args);
+                    case "effekt":
+                        return effekt(playersender, args);
                     case "head":
                         return head(playersender, args);
                     case "name":
@@ -93,7 +93,7 @@ public class FunCommands implements CommandExecutor {
     /**
      * Spielt einen Effekt in der Nähe des Spielers ab und macht ihn dadurch besonders
      */
-    private boolean effect(Player sender, String[] args) {
+    private boolean effekt(Player sender, String[] args) {
         if (args.length != 1) return false;
         
         switch (args[0]) {
