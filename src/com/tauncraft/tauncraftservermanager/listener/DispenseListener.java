@@ -42,7 +42,7 @@ public class DispenseListener implements Listener {
         Block b = event.getBlock();
         if ((b.getType() == Material.DISPENSER || b.getType() == Material.DROPPER) 
                 && !forbiddenWorlds.contains(b.getWorld())) {
-            Dispenser disp = (Dispenser) b.getState();
+            //Dispenser disp = (Dispenser) b.getState();
             InventoryHolder ih = (InventoryHolder) b.getState();
             ih.getInventory().addItem(event.getItem());
         }
